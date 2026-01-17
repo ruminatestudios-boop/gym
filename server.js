@@ -48,6 +48,62 @@ app.post('/api/chat', async (req, res) => {
     }
 });
 
+// Stripe Checkout Endpoint
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+app.post('/api/create-checkout-session', async (req, res) => {
+    const { priceType } = req.body;
+    const clientUrl = process.env.CLIENT_URL || 'http://localhost:3000';
+
+    // Define products based on type
+    let productData = {};
+    if (priceType === 'day-pass') {
+        productData = {
+            price_data: {
+                currency: 'usd',
+                product_data: {
+                    name: 'Day Pass Access',
+                    description: 'Single Gym Access & 1-Day Training Pass',
+                },
+                unit_amount: 2900, // $29.00
+            }
+        };
+    } else if (priceType === 'pro-pass') {
+        productData = {
+            price_data: {
+                currency: 'usd',
+                product_data: {
+                    name: 'Pro Access',
+                    description: 'Unlimited AI Finder, Booking Agent & Database Access',
+                },
+                unit_amount: 9700, // $97.00
+            }
+        };
+    } else {
+        return res.status(400).json({ error: 'Invalid price type' });
+    }
+
+    try {
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: [
+                {
+                    ...productData,
+                    quantity: 1,
+                },
+            ],
+            mode: 'payment',
+            success_url: `${clientUrl}/gym_landing.html?success=true`,
+            cancel_url: `${clientUrl}/gym_landing.html?canceled=true`,
+        });
+
+        res.json({ url: session.url });
+    } catch (e) {
+        console.error("Stripe Error:", e);
+        res.status(500).json({ error: e.message });
+    }
+});
+
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
     console.log('Environment variables loaded:', hasApiKeys() ? 'Yes' : 'No (Please configure .env)');
