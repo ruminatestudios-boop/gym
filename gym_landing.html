@@ -45,11 +45,16 @@
                     animation: {
                         'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glow-pulse': 'glowPulse 2s ease-in-out infinite',
                     },
                     keyframes: {
                         fadeInUp: {
                             '0%': { opacity: '0', transform: 'translateY(20px)' },
                             '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        glowPulse: {
+                            '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+                            '50%': { opacity: '0.8', transform: 'scale(1.05)' },
                         }
                     }
                 }
@@ -99,7 +104,7 @@
             </div>
 
             <div class="flex items-center gap-4">
-                <a href="#contact"
+                <a href="#chatbot"
                     class="hidden md:flex bg-white text-black px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-zinc-200 transition-colors">
                     Get Started
                 </a>
@@ -120,7 +125,7 @@
                 Works</a>
             <a href="#gyms" class="hover:text-blue-500 transition-colors" onclick="toggleMobileMenu()">Partner Gyms</a>
             <a href="#faq" class="hover:text-blue-500 transition-colors" onclick="toggleMobileMenu()">FAQ</a>
-            <a href="#contact" class="bg-blue-600 text-white px-8 py-3 rounded-full text-lg mt-4"
+            <a href="#chatbot" class="bg-blue-600 text-white px-8 py-3 rounded-full text-lg mt-4"
                 onclick="toggleMobileMenu()">Get Started</a>
         </div>
     </nav>
@@ -155,7 +160,7 @@
             <h1 class="text-5xl md:text-7xl font-serif italic font-medium leading-[1.1] mb-8 tracking-tight animate-fade-in-up"
                 style="animation-delay: 0.2s;">
                 Find Your Perfect <br>
-                <span class="text-gradient not-italic font-sans font-bold">Thailand Gym</span>
+                <span class="text-gradient not-italic font-sans font-bold">Muay Thai Gym</span>
             </h1>
 
             <p class="text-xl text-zinc-400 mb-10 max-w-2xl mx-auto leading-relaxed animate-fade-in-up"
@@ -166,22 +171,22 @@
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up"
                 style="animation-delay: 0.4s;">
-                <button
+                <a href="#chatbot"
                     class="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-semibold text-lg transition-all transform hover:scale-105 shadow-lg shadow-blue-900/20 flex items-center justify-center gap-2">
                     <i data-lucide="sparkles" class="w-5 h-5"></i>
                     Find My Gym Now
-                </button>
-                <button
+                </a>
+                <a href="#features"
                     class="w-full sm:w-auto px-8 py-4 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white rounded-full font-semibold text-lg transition-all flex items-center justify-center gap-2">
                     <i data-lucide="play-circle" class="w-5 h-5"></i>
                     Watch Demo
-                </button>
+                </a>
             </div>
         </div>
     </header>
 
     <!-- AI Chatbot Interface -->
-    <div class="relative max-w-4xl mx-auto px-4 mb-24 animate-fade-in-up" style="animation-delay: 0.6s;">
+    <div id="chatbot" class="relative max-w-4xl mx-auto px-4 mb-24 animate-fade-in-up" style="animation-delay: 0.6s;">
         <!-- Glassmorphism Card -->
         <div
             class="bg-zinc-900/80 backdrop-blur-xl rounded-3xl border border-zinc-800 shadow-2xl overflow-hidden flex flex-col h-[600px]">
@@ -317,46 +322,19 @@
 
                 <div class="mt-12 md:mt-0 relative">
                     <div class="absolute inset-0 bg-blue-500/10 blur-[80px] rounded-full"></div>
-                    <div class="relative bg-black border border-zinc-800 rounded-3xl p-8 shadow-2xl">
-                        <!-- Pseudo Code Representation -->
-                        <div class="flex items-center gap-2 mb-6 border-b border-zinc-800 pb-4">
-                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                        </div>
-                        <div class="space-y-4 font-mono text-sm">
-                            <div class="flex gap-4">
-                                <span class="text-zinc-500">01</span>
-                                <span class="text-purple-400">const</span> <span class="text-blue-400">userReq</span> =
-                                <span class="text-amber-300">{</span>
-                            </div>
-                            <div class="flex gap-4 pl-8">
-                                <span class="text-zinc-500">02</span>
-                                <span class="text-zinc-300">location:</span> <span
-                                    class="text-green-400">'Phuket'</span>,
-                            </div>
-                            <div class="flex gap-4 pl-8">
-                                <span class="text-zinc-500">03</span>
-                                <span class="text-zinc-300">budget:</span> <span class="text-green-400">'$$'</span>,
-                            </div>
-                            <div class="flex gap-4 pl-8">
-                                <span class="text-zinc-500">04</span>
-                                <span class="text-zinc-300">hasAC:</span> <span class="text-purple-400">true</span>
-                            </div>
-                            <div class="flex gap-4">
-                                <span class="text-zinc-500">05</span>
-                                <span class="text-amber-300">}</span>;
-                            </div>
-                            <div class="flex gap-4 mt-6">
-                                <span class="text-zinc-500">06</span>
-                                <span class="text-zinc-500">// Scanning 500+ records...</span>
-                            </div>
-                            <div class="flex gap-4">
-                                <span class="text-zinc-500">07</span>
-                                <span class="text-zinc-100 bg-blue-900/30 px-2 rounded">Match Found: Tiger Muay
-                                    Thai</span>
+                    <div class="relative bg-black border border-zinc-800 rounded-3xl overflow-hidden shadow-2xl group cursor-pointer"
+                        id="vsl-trigger">
+                        <div
+                            class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors z-10 flex items-center justify-center">
+                            <div
+                                class="w-16 h-16 rounded-full bg-blue-600/90 flex items-center justify-center text-white backdrop-blur-sm group-hover:scale-110 transition-transform shadow-lg shadow-blue-500/20">
+                                <i data-lucide="play" class="w-6 h-6 ml-1 fill-current"></i>
                             </div>
                         </div>
+                        <video autoplay muted loop playsinline
+                            class="w-full h-full object-cover aspect-video opacity-80 group-hover:opacity-100 transition-opacity"
+                            src="https://cdn.shopify.com/videos/c/o/v/48ec1e59d63740a1bd3b81486969da95.mp4">
+                        </video>
                     </div>
                 </div>
             </div>
@@ -822,7 +800,7 @@
                                 <p class="text-zinc-400">Everything you need to plan.</p>
                             </div>
                             <span
-                                class="bg-blue-600/20 text-blue-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
+                                class="bg-blue-600/20 text-blue-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide animate-glow-pulse">
                                 Best Value
                             </span>
                         </div>
@@ -834,9 +812,7 @@
 
                         <ul class="space-y-6 mb-10 flex-1">
                             <li class="flex items-start gap-3">
-                                <div class="bg-blue-500/10 p-1 rounded text-blue-400 shrink-0">
-                                    <i data-lucide="check" class="w-5 h-5"></i>
-                                </div>
+                                <i data-lucide="check-circle" class="w-6 h-6 text-blue-500 shrink-0"></i>
                                 <div>
                                     <strong class="block text-white">AI Gym Finder (Unlimited Use)</strong>
                                     <span class="text-sm text-zinc-400">Real-time queries against our verified Airtable
@@ -844,9 +820,7 @@
                                 </div>
                             </li>
                             <li class="flex items-start gap-3">
-                                <div class="bg-blue-500/10 p-1 rounded text-blue-400 shrink-0">
-                                    <i data-lucide="check" class="w-5 h-5"></i>
-                                </div>
+                                <i data-lucide="check-circle" class="w-6 h-6 text-blue-500 shrink-0"></i>
                                 <div>
                                     <strong class="block text-white">Personal Booking Agent</strong>
                                     <span class="text-sm text-zinc-400">Let our Thai partner book your gym - best rates
@@ -854,18 +828,14 @@
                                 </div>
                             </li>
                             <li class="flex items-start gap-3">
-                                <div class="bg-blue-500/10 p-1 rounded text-blue-400 shrink-0">
-                                    <i data-lucide="check" class="w-5 h-5"></i>
-                                </div>
+                                <i data-lucide="check-circle" class="w-6 h-6 text-blue-500 shrink-0"></i>
                                 <div>
                                     <strong class="block text-white">Live Airtable Database Access</strong>
                                     <span class="text-sm text-zinc-400">Read-only access to the raw table data.</span>
                                 </div>
                             </li>
                             <li class="flex items-start gap-3">
-                                <div class="bg-blue-500/10 p-1 rounded text-blue-400 shrink-0">
-                                    <i data-lucide="check" class="w-5 h-5"></i>
-                                </div>
+                                <i data-lucide="check-circle" class="w-6 h-6 text-blue-500 shrink-0"></i>
                                 <div>
                                     <strong class="block text-white">Lifetime Updates</strong>
                                     <span class="text-sm text-zinc-400">We update prices and gym conditions
@@ -939,11 +909,7 @@
         const chatHistory = document.getElementById('chat-history');
         const suggestionPills = document.querySelectorAll('#suggestion-pills button');
 
-        // CONFIGURATION: Enter your API Keys here
-        const OPENAI_API_KEY = ''; // e.g. "sk-..."
-        const AIRTABLE_API_KEY = ''; // e.g. "pat..."
-        const AIRTABLE_BASE_ID = ''; // e.g. "app..."
-        const AIRTABLE_TABLE_NAME = 'Gyms';
+        // CONFIGURATION: API Keys are now in .env handled by server.js
 
         // Handle suggestion clicks
         suggestionPills.forEach(pill => {
@@ -967,18 +933,35 @@
             const loadingId = addLoadingIndicator();
 
             try {
-                // 3. Process with AI (Mock or Real)
+                // 3. Process with Backend API
                 let responseText;
 
-                if (OPENAI_API_KEY && AIRTABLE_API_KEY) {
-                    // Real Integration Logic would go here
-                    // const criteria = await getSearchCriteriaFromOpenAI(message);
-                    // const results = await searchAirtable(criteria);
-                    // responseText = await generateResponse(message, results);
-                    responseText = "API Keys detected. Backend logic would execute here. (This is a client-side demo)";
-                } else {
-                    // Mock Response Logic for Demo
-                    await new Promise(r => setTimeout(r, 1500)); // Simulate delay
+                try {
+                    const res = await fetch('http://localhost:3000/api/chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ message })
+                    });
+
+                    if (!res.ok) throw new Error('Backend connection failed');
+
+                    const data = await res.json();
+
+                    if (data.useMock) {
+                        console.log('Backend signaled to use mock data:', data.message);
+                        // Mock Response Logic for Demo (Fallback)
+                        await new Promise(r => setTimeout(r, 1500));
+                        responseText = generateMockResponse(message);
+                    } else {
+                        responseText = data.response || "No response text received from backend.";
+                    }
+
+                } catch (err) {
+                    console.log('Backend not reachable, falling back to mock.', err);
+                    // Fallback to Mock if server isn't running
+                    await new Promise(r => setTimeout(r, 1500));
                     responseText = generateMockResponse(message);
                 }
 
@@ -1079,6 +1062,20 @@
                 }
             });
         });
+
+        // VSL Trigger Logic
+        const vslTrigger = document.getElementById('vsl-trigger');
+        if (vslTrigger) {
+            vslTrigger.addEventListener('click', () => {
+                const videoSrc = vslTrigger.querySelector('video').src;
+                if (videoSrc) {
+                    modalVideo.src = videoSrc;
+                    videoModal.classList.remove('hidden');
+                    videoModal.classList.add('flex');
+                    modalVideo.play();
+                }
+            });
+        }
 
         function closeModal() {
             videoModal.classList.add('hidden');

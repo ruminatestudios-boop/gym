@@ -1,0 +1,54 @@
+const express = require('express');
+const cors = require('cors');
+require('dotenv').config();
+
+const app = express();
+const port = 3000;
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// API Key Validation
+const hasApiKeys = () => {
+    return process.env.OPENAI_API_KEY && process.env.AIRTABLE_API_KEY && process.env.AIRTABLE_BASE_ID;
+};
+
+// Chat Endpoint
+app.post('/api/chat', async (req, res) => {
+    const { message } = req.body;
+
+    if (!message) {
+        return res.status(400).json({ error: 'Message is required' });
+    }
+
+    if (!hasApiKeys()) {
+        // If keys are missing, return a signal to the frontend to use mock data
+        return res.json({
+            useMock: true,
+            message: "Backend is running but API keys are not configured in .env. Using mock data."
+        });
+    }
+
+    try {
+        // Placeholder for real logic (since the user only asked to hide keys, I'll set up the structure)
+        // You would typically initialize OpenAI and Airtable here using process.env variables
+
+        // For now, we'll just simulate a successful connection response
+        // In a real app, this is where you'd call:
+        // const response = await openai.chat.completions.create({...})
+
+        res.json({
+            response: "Backend Connected: This is where the AI response would come from using your secure keys."
+        });
+
+    } catch (error) {
+        console.error('Error processing request:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
+    console.log('Environment variables loaded:', hasApiKeys() ? 'Yes' : 'No (Please configure .env)');
+});
