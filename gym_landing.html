@@ -19,6 +19,11 @@
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
         rel="stylesheet">
 
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
     <!-- Custom Config -->
     <script>
         tailwind.config = {
@@ -355,228 +360,205 @@
             </div>
         </div>
 
-        <!-- Marquee Container -->
-        <div class="relative w-full overflow-hidden group/marquee">
-            <!-- Fade masks for edges -->
-            <div
-                class="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none">
-            </div>
-            <div
-                class="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none">
-            </div>
-
-            <!-- Animated Track -->
-            <div class="flex gap-6 w-max animate-marquee hover:[animation-play-state:paused] px-6">
-                <!-- We duplicate content for seamless loop (4 cards x 2 sets = 8 items) -->
+        <!-- Swiper Container -->
+        <div class="swiper mySwiper w-full px-6">
+            <div class="swiper-wrapper">
 
                 <!-- Set 1 -->
-                <div
-                    class="w-[300px] md:w-[400px] bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 group hover:border-zinc-600 transition-all cursor-pointer gym-card">
-                    <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden">
-                        <!-- Image -->
-                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop"
-                            class="w-full h-full object-cover group-hover:opacity-0 transition-opacity duration-300 relative z-10"
-                            alt="Gold's Gym">
-                        <!-- Video (Initial opacity 0, plays on hover via JS) -->
-                        <video loop muted playsinline
-                            class="absolute inset-0 w-full h-full object-cover z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                            src="https://spark-labs.org/video/reel.mp4"></video>
+                <div class="swiper-slide !w-[300px] md:!w-[400px] h-auto gym-card group cursor-pointer">
+                    <div
+                        class="bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-zinc-600 transition-all h-full flex flex-col">
+                        <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden shrink-0">
+                            <!-- Image -->
+                            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop"
+                                class="w-full h-full object-cover group-hover:opacity-0 transition-opacity duration-300 relative z-10"
+                                alt="Gold's Gym">
+                            <!-- Video (Initial opacity 0, plays on hover via JS) -->
+                            <video loop muted playsinline
+                                class="absolute inset-0 w-full h-full object-cover z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                src="https://spark-labs.org/video/reel.mp4"></video>
 
-                        <div
-                            class="absolute top-4 right-4 bg-black/60 backdrop-blur px-3 py-1 rounded-full text-xs font-medium text-white z-20">
-                            Bangkok
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-xl font-bold">Gold's Gym Downtown</h3>
-                            <div class="flex items-center gap-1 text-yellow-500">
-                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                <span class="text-sm font-medium text-white">4.9</span>
+                            <div
+                                class="absolute top-4 right-4 bg-black/60 backdrop-blur px-3 py-1 rounded-full text-xs font-medium text-white z-20">
+                                Bangkok
                             </div>
                         </div>
-                        <p class="text-zinc-400 text-sm mb-4">Premium equipment, sauna, and personal training.</p>
-                        <div class="flex gap-2">
-                            <span class="px-2 py-1 bg-zinc-800 rounded text-xs text-zinc-300">Weightlifting</span>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Gold's Gym Downtown</h3>
+                                <div class="flex items-center gap-1 text-yellow-500">
+                                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                    <span class="text-sm font-medium text-white">4.9</span>
+                                </div>
+                            </div>
+                            <p class="text-zinc-400 text-sm mb-4 flex-1">Premium equipment, sauna, and personal
+                                training.</p>
+                            <div class="flex gap-2">
+                                <span class="px-2 py-1 bg-zinc-800 rounded text-xs text-zinc-300">Weightlifting</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div
-                    class="w-[300px] md:w-[400px] bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 group hover:border-zinc-600 transition-all cursor-pointer gym-card">
-                    <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=1469&auto=format&fit=crop"
-                            class="w-full h-full object-cover group-hover:opacity-0 transition-opacity duration-300 relative z-10"
-                            alt="Tiger Muay Thai">
-                        <video loop muted playsinline
-                            class="absolute inset-0 w-full h-full object-cover z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                            src="https://spark-labs.org/video/reel.mp4"></video>
-                        <div
-                            class="absolute top-4 right-4 bg-black/60 backdrop-blur px-3 py-1 rounded-full text-xs font-medium text-white z-20">
-                            Phuket
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-xl font-bold">Tiger Muay Thai</h3>
-                            <div class="flex items-center gap-1 text-yellow-500">
-                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                <span class="text-sm font-medium text-white">5.0</span>
+                <div class="swiper-slide !w-[300px] md:!w-[400px] h-auto gym-card group cursor-pointer">
+                    <div
+                        class="bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-zinc-600 transition-all h-full flex flex-col">
+                        <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden shrink-0">
+                            <img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=1469&auto=format&fit=crop"
+                                class="w-full h-full object-cover group-hover:opacity-0 transition-opacity duration-300 relative z-10"
+                                alt="Tiger Muay Thai">
+                            <video loop muted playsinline
+                                class="absolute inset-0 w-full h-full object-cover z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                src="https://spark-labs.org/video/reel.mp4"></video>
+                            <div
+                                class="absolute top-4 right-4 bg-black/60 backdrop-blur px-3 py-1 rounded-full text-xs font-medium text-white z-20">
+                                Phuket
                             </div>
                         </div>
-                        <p class="text-zinc-400 text-sm mb-4">World-class training camp for Muay Thai lovers.</p>
-                        <div class="flex gap-2">
-                            <span class="px-2 py-1 bg-zinc-800 rounded text-xs text-zinc-300">Muay Thai</span>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Tiger Muay Thai</h3>
+                                <div class="flex items-center gap-1 text-yellow-500">
+                                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                    <span class="text-sm font-medium text-white">5.0</span>
+                                </div>
+                            </div>
+                            <p class="text-zinc-400 text-sm mb-4 flex-1">World-class training camp for Muay Thai lovers.
+                            </p>
+                            <div class="flex gap-2">
+                                <span class="px-2 py-1 bg-zinc-800 rounded text-xs text-zinc-300">Muay Thai</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div
-                    class="w-[300px] md:w-[400px] bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 group hover:border-zinc-600 transition-all cursor-pointer gym-card">
-                    <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1470&auto=format&fit=crop"
-                            class="w-full h-full object-cover group-hover:opacity-0 transition-opacity duration-300 relative z-10"
-                            alt="CrossFit">
-                        <video loop muted playsinline
-                            class="absolute inset-0 w-full h-full object-cover z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                            src="https://spark-labs.org/video/reel.mp4"></video>
-                        <div
-                            class="absolute top-4 right-4 bg-black/60 backdrop-blur px-3 py-1 rounded-full text-xs font-medium text-white z-20">
-                            Chiang Mai
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-xl font-bold">CrossFit Chiang Mai</h3>
-                            <div class="flex items-center gap-1 text-yellow-500">
-                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                <span class="text-sm font-medium text-white">4.8</span>
+                <div class="swiper-slide !w-[300px] md:!w-[400px] h-auto gym-card group cursor-pointer">
+                    <div
+                        class="bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-zinc-600 transition-all h-full flex flex-col">
+                        <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden shrink-0">
+                            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1470&auto=format&fit=crop"
+                                class="w-full h-full object-cover group-hover:opacity-0 transition-opacity duration-300 relative z-10"
+                                alt="CrossFit">
+                            <video loop muted playsinline
+                                class="absolute inset-0 w-full h-full object-cover z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                src="https://spark-labs.org/video/reel.mp4"></video>
+                            <div
+                                class="absolute top-4 right-4 bg-black/60 backdrop-blur px-3 py-1 rounded-full text-xs font-medium text-white z-20">
+                                Chiang Mai
                             </div>
                         </div>
-                        <p class="text-zinc-400 text-sm mb-4">Community-driven box with drop-in classes.</p>
-                        <div class="flex gap-2">
-                            <span class="px-2 py-1 bg-zinc-800 rounded text-xs text-zinc-300">CrossFit</span>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">CrossFit Chiang Mai</h3>
+                                <div class="flex items-center gap-1 text-yellow-500">
+                                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                    <span class="text-sm font-medium text-white">4.8</span>
+                                </div>
+                            </div>
+                            <p class="text-zinc-400 text-sm mb-4 flex-1">Community-driven box with drop-in classes.</p>
+                            <div class="flex gap-2">
+                                <span class="px-2 py-1 bg-zinc-800 rounded text-xs text-zinc-300">CrossFit</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div
-                    class="w-[300px] md:w-[400px] bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 group hover:border-zinc-600 transition-all">
-                    <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?q=80&w=1375&auto=format&fit=crop"
-                            class="w-full h-full object-cover group-hover:opacity-0 transition-opacity duration-300 relative z-10"
-                            alt="Yoga">
-                        <video loop muted playsinline
-                            class="absolute inset-0 w-full h-full object-cover z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                            src="https://spark-labs.org/video/reel.mp4"></video>
-                        <div
-                            class="absolute top-4 right-4 bg-black/60 backdrop-blur px-3 py-1 rounded-full text-xs font-medium text-white z-20">
-                            Koh Samui
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-xl font-bold">Island Yoga</h3>
-                            <div class="flex items-center gap-1 text-yellow-500">
-                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                <span class="text-sm font-medium text-white">4.9</span>
+                <div class="swiper-slide !w-[300px] md:!w-[400px] h-auto gym-card group cursor-pointer">
+                    <div
+                        class="bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-zinc-600 transition-all h-full flex flex-col">
+                        <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden shrink-0">
+                            <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?q=80&w=1375&auto=format&fit=crop"
+                                class="w-full h-full object-cover group-hover:opacity-0 transition-opacity duration-300 relative z-10"
+                                alt="Yoga">
+                            <video loop muted playsinline
+                                class="absolute inset-0 w-full h-full object-cover z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                src="https://spark-labs.org/video/reel.mp4"></video>
+                            <div
+                                class="absolute top-4 right-4 bg-black/60 backdrop-blur px-3 py-1 rounded-full text-xs font-medium text-white z-20">
+                                Koh Samui
                             </div>
                         </div>
-                        <p class="text-zinc-400 text-sm mb-4">Breathtaking views and expert instructors.</p>
-                        <div class="flex gap-2">
-                            <span class="px-2 py-1 bg-zinc-800 rounded text-xs text-zinc-300">Yoga</span>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold">Island Yoga</h3>
+                                <div class="flex items-center gap-1 text-yellow-500">
+                                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                    <span class="text-sm font-medium text-white">4.9</span>
+                                </div>
+                            </div>
+                            <p class="text-zinc-400 text-sm mb-4 flex-1">Breathtaking views and expert instructors.</p>
+                            <div class="flex gap-2">
+                                <span class="px-2 py-1 bg-zinc-800 rounded text-xs text-zinc-300">Yoga</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Duplicate Set for Marquee -->
-
-                <div
-                    class="w-[300px] md:w-[400px] bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 group hover:border-zinc-600 transition-all">
-                    <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop"
-                            class="w-full h-full object-cover group-hover:opacity-0 transition-opacity duration-300 relative z-10"
-                            alt="Gold's Gym">
-                        <video loop muted playsinline
-                            class="absolute inset-0 w-full h-full object-cover z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                            src="https://spark-labs.org/video/reel.mp4"></video>
-                        <div
-                            class="absolute top-4 right-4 bg-black/60 backdrop-blur px-3 py-1 rounded-full text-xs font-medium text-white z-20">
-                            Bangkok
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-xl font-bold">Gold's Gym Downtown</h3>
-                            <div class="flex items-center gap-1 text-yellow-500">
-                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                <span class="text-sm font-medium text-white">4.9</span>
-                            </div>
-                        </div>
-                        <p class="text-zinc-400 text-sm mb-4">Premium equipment, sauna, and personal training.</p>
-                        <div class="flex gap-2">
-                            <span class="px-2 py-1 bg-zinc-800 rounded text-xs text-zinc-300">Weightlifting</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div
-                    class="w-[300px] md:w-[400px] bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 group hover:border-zinc-600 transition-all">
-                    <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=1469&auto=format&fit=crop"
-                            class="w-full h-full object-cover group-hover:opacity-0 transition-opacity duration-300 relative z-10"
-                            alt="Tiger Muay Thai">
-                        <video loop muted playsinline
-                            class="absolute inset-0 w-full h-full object-cover z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                            src="https://spark-labs.org/video/reel.mp4"></video>
-                        <div
-                            class="absolute top-4 right-4 bg-black/60 backdrop-blur px-3 py-1 rounded-full text-xs font-medium text-white z-20">
-                            Phuket
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-xl font-bold">Tiger Muay Thai</h3>
-                            <div class="flex items-center gap-1 text-yellow-500">
-                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                <span class="text-sm font-medium text-white">5.0</span>
-                            </div>
-                        </div>
-                        <p class="text-zinc-400 text-sm mb-4">World-class training camp for Muay Thai lovers.</p>
-                        <div class="flex gap-2">
-                            <span class="px-2 py-1 bg-zinc-800 rounded text-xs text-zinc-300">Muay Thai</span>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
-        <style>
-            @keyframes marquee {
-                from {
-                    transform: translateX(0);
-                }
-
-                to {
-                    transform: translateX(-50%);
-                }
-            }
-
-            .animate-marquee {
-                animation: marquee 30s linear infinite;
-            }
-        </style>
-
         <script>
-            // Simple JS to play/pause videos on hover
-            document.querySelectorAll('.group video').forEach(vid => {
-                vid.parentElement.parentElement.addEventListener('mouseenter', () => {
-                    vid.play().catch(e => console.log('Autoplay prevented', e));
-                });
-                vid.parentElement.parentElement.addEventListener('mouseleave', () => {
-                    vid.pause();
-                    vid.currentTime = 0;
-                });
+            // Initialize Swiper
+            const swiper = new Swiper('.mySwiper', {
+                slidesPerView: 'auto',
+                spaceBetween: 24,
+                loop: true,
+                speed: 6000,
+                autoplay: {
+                    delay: 0,
+                    disableOnInteraction: false,
+                    pauseOnMouseEnter: true
+                },
+                freeMode: true,
+                grabCursor: true,
+                allowTouchMove: true
+            });
+
+            // Video Hover & Click Logic (Event Delegation for Swiper Duplicates)
+            const swiperWrapper = document.querySelector('.swiper-wrapper');
+
+            // 1. Play/Pause on Hover
+            // We use capture or just check target on mouseover/out
+            swiperWrapper.addEventListener('mouseover', (e) => {
+                const card = e.target.closest('.gym-card');
+                if (card) {
+                    const vid = card.querySelector('video');
+                    if (vid) vid.play().catch(err => console.log('Autoplay blocked', err));
+                }
+            }, true);
+
+            swiperWrapper.addEventListener('mouseout', (e) => {
+                const card = e.target.closest('.gym-card');
+                if (card) {
+                    const vid = card.querySelector('video');
+                    if (vid) {
+                        vid.pause();
+                        vid.currentTime = 0;
+                    }
+                }
+            }, true);
+
+            // 2. Click to Open Modal (Fixes "modal effect" for duplicates)
+            // Existing modal logic relies on .gym-card click listeners. 
+            // Swiper creates clones that won't have those listeners if we added them before init.
+            // We'll rely on delegation here, but we need to integrate with the existing modal defined below.
+            // The existing modal script is at the bottom of the body. We should just let this event bubble?
+            // Actually, I'll add a specific delegate here to trigger the modal, matching the logic below.
+
+            swiperWrapper.addEventListener('click', (e) => {
+                const card = e.target.closest('.gym-card');
+                if (card) {
+                    const videoSrc = card.querySelector('video').src;
+                    const modalVideo = document.getElementById('modal-video');
+                    const videoModal = document.getElementById('video-modal');
+
+                    if (videoSrc && modalVideo && videoModal) {
+                        modalVideo.src = videoSrc;
+                        videoModal.classList.remove('hidden');
+                        videoModal.classList.add('flex');
+                        modalVideo.play();
+                    }
+                }
             });
         </script>
     </section>
@@ -981,7 +963,7 @@
             div.className = `flex gap-4 animate-fade-in ${sender === 'user' ? 'flex-row-reverse' : ''}`;
 
             const iconHtml = sender === 'ai'
-                ? `<div class="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center text-white shrink-0 mt-1"><i data-lucide="bot" class="w-4 h-4"></i></div>`
+                ? `<div class="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-400 to-blue-600 flex items-center justify-center text-white shrink-0 mt-1"><i data-lucide="bot" class="w-4 h-4"></i></div>`
                 : `<div class="w-8 h-8 rounded-full bg-zinc-700 flex items-center justify-center text-white shrink-0 mt-1"><i data-lucide="user" class="w-4 h-4"></i></div>`;
 
             const bubbleClass = sender === 'ai'
