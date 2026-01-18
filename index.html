@@ -165,14 +165,12 @@
             <h1 class="text-5xl md:text-7xl font-serif italic font-medium leading-[1.1] mb-8 tracking-tight animate-fade-in-up"
                 style="animation-delay: 0.2s;">
                 Find Your Perfect <br>
-                <span class="text-gradient not-italic font-sans font-bold">Muay Thai Gym in Minutes</span>
+                <span class="text-gradient not-italic font-sans font-bold">Muay Thai Gym</span>
             </h1>
 
             <p class="text-xl text-zinc-400 mb-10 max-w-2xl mx-auto leading-relaxed animate-fade-in-up"
                 style="animation-delay: 0.3s;">
-                Tell us what you want—beginner classes, pro training, or just a great workout. Our AI searches the most
-                complete, up-to-date gym database to instantly match you with verified Muay Thai gyms that fit your
-                needs.
+                Describe your ideal training experience. Our AI delivers personalized gym matches in under a minute.
             </p>
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up"
@@ -280,10 +278,10 @@
     <!-- Features Section -->
     <section id="features" class="py-24 bg-zinc-900/30 border-y border-zinc-800/50">
         <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-serif italic mb-12">Hand-Verified Gyms <span
+                    class="not-italic font-sans font-bold text-white">Always Up-to-Date</span></h2>
             <div class="md:grid md:grid-cols-2 gap-16 items-center">
                 <div>
-                    <h2 class="text-4xl md:text-5xl font-serif italic mb-6">Hand-Verified Gyms <span
-                            class="not-italic font-sans font-bold text-white">Always Up-to-Date</span></h2>
                     <p class="text-lg text-zinc-400 mb-8 leading-relaxed">
                         We built Thailand's most trusted Muay Thai gym database. Every gym is personally verified,
                         constantly updated, and checked for accuracy—so you never waste time on wrong information.
@@ -327,7 +325,7 @@
                     </ul>
                 </div>
 
-                <div class="mt-12 md:mt-0 relative">
+                <div class="mt-12 md:mt-0 relative self-center">
                     <div class="absolute inset-0 bg-blue-500/10 blur-[80px] rounded-full"></div>
                     <div class="relative bg-black border border-zinc-800 rounded-3xl overflow-hidden shadow-2xl group cursor-pointer"
                         id="vsl-trigger">
@@ -373,7 +371,7 @@
                         class="bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-zinc-600 transition-all h-full flex flex-col">
                         <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden shrink-0">
                             <!-- Image -->
-                            <img src="https://cdn.shopify.com/s/files/1/0564/3957/0639/files/Frame_1000004930.jpg?v=1768651942"
+                            <img src="https://cdn.shopify.com/s/files/1/0564/3957/0639/files/Frame_1000004929_ed3172d4-2474-4c70-a87e-16e9bb91f90a.jpg?v=1768677712"
                                 class="w-full h-full object-cover group-hover:opacity-0 transition-opacity duration-300 relative z-10"
                                 alt="Gold's Gym">
                             <!-- Video (Initial opacity 0, plays on hover via JS) -->
@@ -407,7 +405,7 @@
                     <div
                         class="bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-zinc-600 transition-all h-full flex flex-col">
                         <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden shrink-0">
-                            <img src="https://cdn.shopify.com/s/files/1/0564/3957/0639/files/Frame_1000004929.jpg?v=1768651942"
+                            <img src="https://cdn.shopify.com/s/files/1/0564/3957/0639/files/Frame_1000004936.jpg?v=1768677712"
                                 class="w-full h-full object-cover group-hover:opacity-0 transition-opacity duration-300 relative z-10"
                                 alt="Pinsinchai Muay Thai Gym">
                             <video loop muted playsinline
@@ -470,7 +468,7 @@
                     <div
                         class="bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-zinc-600 transition-all h-full flex flex-col">
                         <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden shrink-0">
-                            <img src="https://cdn.shopify.com/s/files/1/0564/3957/0639/files/Frame_1000004934.jpg?v=1768651943"
+                            <img src="https://cdn.shopify.com/s/files/1/0564/3957/0639/files/Frame_1000004937.jpg?v=1768677712"
                                 class="w-full h-full object-cover group-hover:opacity-0 transition-opacity duration-300 relative z-10"
                                 alt="Yoga">
                             <video loop muted playsinline
@@ -771,7 +769,7 @@
                         </ul>
 
                         <button id="btn-day-pass"
-                            class="w-full py-4 rounded-full border border-zinc-700 hover:bg-zinc-800 text-white font-semibold transition-colors">
+                            class="w-full py-4 rounded-full border border-zinc-700 hover:bg-zinc-800 text-white font-bold text-lg transition-colors">
                             Get Day Pass
                         </button>
                     </div>
@@ -850,11 +848,11 @@
                 <span class="text-lg font-bold tracking-tight text-white">GymFinder.ai</span>
             </div>
             <div class="text-zinc-500 text-sm">
-                &copy; 2025 GymFinder. All rights reserved.
+                &copy; 2026 GymFinder by Fightlore. All rights reserved.
             </div>
             <div class="flex gap-6 text-zinc-400">
-                <a href="#" class="hover:text-white transition-colors">Privacy</a>
-                <a href="#" class="hover:text-white transition-colors">Terms</a>
+                <a href="#" id="link-privacy" class="hover:text-white transition-colors">Privacy</a>
+                <a href="#" id="link-terms" class="hover:text-white transition-colors">Terms</a>
             </div>
         </div>
     </footer>
@@ -870,113 +868,129 @@
             class="w-full max-w-5xl aspect-video relative rounded-2xl overflow-hidden shadow-2xl border border-zinc-800">
             <video id="modal-video" class="w-full h-full object-cover" controls autoplay playsinline></video>
         </div>
+    </div>
+
+    <!-- Text Modal (Privacy & Terms) -->
+    <div id="text-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/95 backdrop-blur-sm p-4">
+        <button id="close-text-modal-btn"
+            class="absolute top-6 right-6 text-white hover:text-gray-300 transition-colors z-50">
+            <i data-lucide="x" class="w-10 h-10"></i>
+        </button>
+        <div
+            class="bg-zinc-950 w-full max-w-3xl max-h-[80vh] rounded-2xl border border-zinc-800 p-8 md:p-12 overflow-y-auto relative shadow-2xl">
+            <h2 id="text-modal-title" class="text-3xl font-serif italic mb-6 text-white"></h2>
+            <div id="text-modal-content" class="prose prose-invert prose-zinc max-w-none text-zinc-400 space-y-4">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
 
 
 
-        <!-- Scripts -->
-        <script>
-            lucide.createIcons();
+    <!-- Scripts -->
+    <script>
+        lucide.createIcons();
 
-            // Mobile Menu Logic
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const closeMenuBtn = document.getElementById('close-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
+        // Mobile Menu Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
 
-            function toggleMobileMenu() {
-                mobileMenu.classList.toggle('hidden');
-                mobileMenu.classList.toggle('flex');
-                document.body.classList.toggle('overflow-hidden');
-            }
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+            document.body.classList.toggle('overflow-hidden');
+        }
 
-            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-            closeMenuBtn.addEventListener('click', toggleMobileMenu);
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        closeMenuBtn.addEventListener('click', toggleMobileMenu);
 
-            // --- Chatbot Logic ---
-            const chatForm = document.getElementById('chat-form');
-            const chatInput = document.getElementById('chat-input');
-            const chatHistory = document.getElementById('chat-history');
-            const suggestionPills = document.querySelectorAll('#suggestion-pills button');
+        // --- Chatbot Logic ---
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const chatHistory = document.getElementById('chat-history');
+        const suggestionPills = document.querySelectorAll('#suggestion-pills button');
 
-            // CONFIGURATION: API Keys are now in .env handled by server.js
+        // CONFIGURATION: API Keys are now in .env handled by server.js
 
-            // Handle suggestion clicks
-            suggestionPills.forEach(pill => {
-                pill.addEventListener('click', () => {
-                    const text = pill.innerText.trim();
-                    chatInput.value = text;
-                    chatForm.dispatchEvent(new Event('submit'));
-                });
+        // Handle suggestion clicks
+        suggestionPills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                const text = pill.innerText.trim();
+                chatInput.value = text;
+                chatForm.dispatchEvent(new Event('submit'));
             });
+        });
 
-            chatForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const message = chatInput.value.trim();
-                if (!message) return;
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const message = chatInput.value.trim();
+            if (!message) return;
 
-                // 1. Add User Message
-                addMessage(message, 'user');
-                chatInput.value = '';
+            // 1. Add User Message
+            addMessage(message, 'user');
+            chatInput.value = '';
 
-                // 2. Show Loading
-                const loadingId = addLoadingIndicator();
+            // 2. Show Loading
+            const loadingId = addLoadingIndicator();
+
+            try {
+                // 3. Process with Backend API
+                let responseText;
 
                 try {
-                    // 3. Process with Backend API
-                    let responseText;
+                    const res = await fetch('http://localhost:3000/api/chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ message })
+                    });
 
-                    try {
-                        const res = await fetch('http://localhost:3000/api/chat', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({ message })
-                        });
+                    if (!res.ok) throw new Error('Backend connection failed');
 
-                        if (!res.ok) throw new Error('Backend connection failed');
+                    const data = await res.json();
 
-                        const data = await res.json();
-
-                        if (data.useMock) {
-                            console.log('Backend signaled to use mock data:', data.message);
-                            // Mock Response Logic for Demo (Fallback)
-                            await new Promise(r => setTimeout(r, 1500));
-                            responseText = generateMockResponse(message);
-                        } else {
-                            responseText = data.response || "No response text received from backend.";
-                        }
-
-                    } catch (err) {
-                        console.log('Backend not reachable, falling back to mock.', err);
-                        // Fallback to Mock if server isn't running
+                    if (data.useMock) {
+                        console.log('Backend signaled to use mock data:', data.message);
+                        // Mock Response Logic for Demo (Fallback)
                         await new Promise(r => setTimeout(r, 1500));
                         responseText = generateMockResponse(message);
+                    } else {
+                        responseText = data.response || "No response text received from backend.";
                     }
 
-                    // 4. Remove Loading & Add AI Message
-                    removeMessage(loadingId);
-                    addMessage(responseText, 'ai');
-
-                } catch (error) {
-                    console.error(error);
-                    removeMessage(loadingId);
-                    addMessage("Sorry, I encountered an error connecting to the gym database.", 'ai');
+                } catch (err) {
+                    console.log('Backend not reachable, falling back to mock.', err);
+                    // Fallback to Mock if server isn't running
+                    await new Promise(r => setTimeout(r, 1500));
+                    responseText = generateMockResponse(message);
                 }
-            });
 
-            function addMessage(text, sender) {
-                const div = document.createElement('div');
-                div.className = `flex gap-4 animate-fade-in ${sender === 'user' ? 'flex-row-reverse' : ''}`;
+                // 4. Remove Loading & Add AI Message
+                removeMessage(loadingId);
+                addMessage(responseText, 'ai');
 
-                const iconHtml = sender === 'ai'
-                    ? `<div class="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-400 to-blue-600 flex items-center justify-center text-white shrink-0 mt-1"><i data-lucide="bot" class="w-4 h-4"></i></div>`
-                    : `<div class="w-8 h-8 rounded-full bg-zinc-700 flex items-center justify-center text-white shrink-0 mt-1"><i data-lucide="user" class="w-4 h-4"></i></div>`;
+            } catch (error) {
+                console.error(error);
+                removeMessage(loadingId);
+                addMessage("Sorry, I encountered an error connecting to the gym database.", 'ai');
+            }
+        });
 
-                const bubbleClass = sender === 'ai'
-                    ? 'text-zinc-300'
-                    : 'bg-blue-600 text-white px-4 py-2 rounded-2xl rounded-tr-sm';
+        function addMessage(text, sender) {
+            const div = document.createElement('div');
+            div.className = `flex gap-4 animate-fade-in ${sender === 'user' ? 'flex-row-reverse' : ''}`;
 
-                div.innerHTML = `
+            const iconHtml = sender === 'ai'
+                ? `<div class="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-400 to-blue-600 flex items-center justify-center text-white shrink-0 mt-1"><i data-lucide="bot" class="w-4 h-4"></i></div>`
+                : `<div class="w-8 h-8 rounded-full bg-zinc-700 flex items-center justify-center text-white shrink-0 mt-1"><i data-lucide="user" class="w-4 h-4"></i></div>`;
+
+            const bubbleClass = sender === 'ai'
+                ? 'text-zinc-300'
+                : 'bg-blue-600 text-white px-4 py-2 rounded-2xl rounded-tr-sm';
+
+            div.innerHTML = `
                 ${iconHtml}
                 <div class="space-y-2 max-w-[85%]">
                     <div class="${bubbleClass} text-sm leading-relaxed">
@@ -985,18 +999,18 @@
                 </div>
             `;
 
-                chatHistory.appendChild(div);
-                // Re-initialize icons for the new message
-                lucide.createIcons();
-                chatHistory.scrollTop = chatHistory.scrollHeight;
-            }
+            chatHistory.appendChild(div);
+            // Re-initialize icons for the new message
+            lucide.createIcons();
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
 
-            function addLoadingIndicator() {
-                const id = 'loading-' + Date.now();
-                const div = document.createElement('div');
-                div.id = id;
-                div.className = 'flex gap-4 animate-fade-in';
-                div.innerHTML = `
+        function addLoadingIndicator() {
+            const id = 'loading-' + Date.now();
+            const div = document.createElement('div');
+            div.id = id;
+            div.className = 'flex gap-4 animate-fade-in';
+            div.innerHTML = `
                 <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center text-white shrink-0 mt-1">
                     <i data-lucide="bot" class="w-4 h-4"></i>
                 </div>
@@ -1008,125 +1022,194 @@
                     </div>
                 </div>
             `;
-                chatHistory.appendChild(div);
-                lucide.createIcons();
-                chatHistory.scrollTop = chatHistory.scrollHeight;
-                return id;
+            chatHistory.appendChild(div);
+            lucide.createIcons();
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+            return id;
+        }
+
+        function removeMessage(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
+        function generateMockResponse(input) {
+            const lower = input.toLowerCase();
+            if (lower.includes('muay thai') || lower.includes('boxing')) {
+                return `I found top-rated Muay Thai gyms for you:\n\n1. **Tiger Muay Thai (Phuket)** - World famous, usually 500thb drop-in.\n2. **Diamond Muay Thai (Koh Phangan)** - Great for beginners.\n\nWould you like me to check class schedules?`;
             }
-
-            function removeMessage(id) {
-                const el = document.getElementById(id);
-                if (el) el.remove();
+            if (lower.includes('yoga')) {
+                return `For yoga, **Island Yoga & Wellness** in Koh Samui is highly recommended. They have a sunrise session at 7am daily using the Hatha style. Drop-in is roughly 400thb.`;
             }
-
-            function generateMockResponse(input) {
-                const lower = input.toLowerCase();
-                if (lower.includes('muay thai') || lower.includes('boxing')) {
-                    return `I found top-rated Muay Thai gyms for you:\n\n1. **Tiger Muay Thai (Phuket)** - World famous, usually 500thb drop-in.\n2. **Diamond Muay Thai (Koh Phangan)** - Great for beginners.\n\nWould you like me to check class schedules?`;
-                }
-                if (lower.includes('yoga')) {
-                    return `For yoga, **Island Yoga & Wellness** in Koh Samui is highly recommended. They have a sunrise session at 7am daily using the Hatha style. Drop-in is roughly 400thb.`;
-                }
-                if (lower.includes('crossfit')) {
-                    return `**CrossFit Chiang Mai** is the place to be. It's an official affiliate with a huge community. They offer open gym access from 8am-8pm.`;
-                }
-                return `I can help you find equipment, classes, or diverse gym types. Try asking about "Muay Thai in Phuket" or "Crossfit near Bangkok".`;
+            if (lower.includes('crossfit')) {
+                return `**CrossFit Chiang Mai** is the place to be. It's an official affiliate with a huge community. They offer open gym access from 8am-8pm.`;
             }
+            return `I can help you find equipment, classes, or diverse gym types. Try asking about "Muay Thai in Phuket" or "Crossfit near Bangkok".`;
+        }
 
-            // --- Video Modal Logic ---
-            const videoModal = document.getElementById('video-modal');
-            const modalVideo = document.getElementById('modal-video');
-            const closeModalBtn = document.getElementById('close-modal-btn');
-            const gymCards = document.querySelectorAll('.gym-card');
+        // --- Video Modal Logic ---
+        const videoModal = document.getElementById('video-modal');
+        const modalVideo = document.getElementById('modal-video');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const gymCards = document.querySelectorAll('.gym-card');
 
-            gymCards.forEach(card => {
-                card.addEventListener('click', () => {
-                    const videoSrc = card.querySelector('video').src;
-                    if (videoSrc) {
-                        modalVideo.src = videoSrc;
-                        videoModal.classList.remove('hidden');
-                        videoModal.classList.add('flex');
-                        modalVideo.play();
-                    }
-                });
-            });
-
-            // VSL Trigger Logic
-            const vslTrigger = document.getElementById('vsl-trigger');
-            if (vslTrigger) {
-                vslTrigger.addEventListener('click', () => {
-                    const videoSrc = vslTrigger.querySelector('video').src;
-                    if (videoSrc) {
-                        modalVideo.src = videoSrc;
-                        videoModal.classList.remove('hidden');
-                        videoModal.classList.add('flex');
-                        modalVideo.play();
-                    }
-                });
-            }
-
-            function closeModal() {
-                videoModal.classList.add('hidden');
-                videoModal.classList.remove('flex');
-                modalVideo.pause();
-                modalVideo.src = ''; // Clear source to stop buffering
-            }
-
-            closeModalBtn.addEventListener('click', closeModal);
-
-            // Close on background click
-            videoModal.addEventListener('click', (e) => {
-                if (e.target === videoModal) {
-                    closeModal();
+        gymCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const videoSrc = card.querySelector('video').src;
+                if (videoSrc) {
+                    modalVideo.src = videoSrc;
+                    videoModal.classList.remove('hidden');
+                    videoModal.classList.add('flex');
+                    modalVideo.play();
                 }
             });
+        });
 
-            // --- Stripe Payment Client-Side Logic ---
-            async function handleCheckout(priceType) {
-                try {
-                    const button = document.getElementById(priceType === 'day-pass' ? 'btn-day-pass' : 'btn-pro-pass');
-                    const originalText = button.innerText;
-                    button.innerText = 'Processing...';
-                    button.disabled = true;
+        // VSL Trigger Logic
+        const vslTrigger = document.getElementById('vsl-trigger');
+        if (vslTrigger) {
+            vslTrigger.addEventListener('click', () => {
+                const videoSrc = vslTrigger.querySelector('video').src;
+                if (videoSrc) {
+                    modalVideo.src = videoSrc;
+                    videoModal.classList.remove('hidden');
+                    videoModal.classList.add('flex');
+                    modalVideo.play();
+                }
+            });
+        }
 
-                    const response = await fetch('http://localhost:3000/api/create-checkout-session', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ priceType }),
-                    });
+        function closeModal() {
+            videoModal.classList.add('hidden');
+            videoModal.classList.remove('flex');
+            modalVideo.pause();
+            modalVideo.src = ''; // Clear source to stop buffering
+        }
 
-                    const data = await response.json();
+        closeModalBtn.addEventListener('click', closeModal);
 
-                    if (data.url) {
-                        window.location.href = data.url;
-                    } else {
-                        console.error('Payment Error:', data.error);
-                        alert('Could not initiate payment. Please try again.');
-                        button.innerText = originalText;
-                        button.disabled = false;
-                    }
-                } catch (error) {
-                    console.error('Network Error:', error);
-                    alert('Network error. Check console.');
-                    const button = document.getElementById(priceType === 'day-pass' ? 'btn-day-pass' : 'btn-pro-pass');
-                    button.innerText = (priceType === 'day-pass') ? 'Get Day Pass' : 'Buy Now →';
+        // Close on background click
+        videoModal.addEventListener('click', (e) => {
+            if (e.target === videoModal) {
+                closeModal();
+            }
+        });
+
+        // --- Stripe Payment Client-Side Logic ---
+        async function handleCheckout(priceType) {
+            try {
+                const button = document.getElementById(priceType === 'day-pass' ? 'btn-day-pass' : 'btn-pro-pass');
+                const originalText = button.innerText;
+                button.innerText = 'Processing...';
+                button.disabled = true;
+
+                const response = await fetch('http://localhost:3000/api/create-checkout-session', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ priceType }),
+                });
+
+                const data = await response.json();
+
+                if (data.url) {
+                    window.location.href = data.url;
+                } else {
+                    console.error('Payment Error:', data.error);
+                    alert('Could not initiate payment. Please try again.');
+                    button.innerText = originalText;
                     button.disabled = false;
                 }
+            } catch (error) {
+                console.error('Network Error:', error);
+                alert('Network error. Check console.');
+                const button = document.getElementById(priceType === 'day-pass' ? 'btn-day-pass' : 'btn-pro-pass');
+                button.innerText = (priceType === 'day-pass') ? 'Get Day Pass' : 'Buy Now →';
+                button.disabled = false;
             }
+        }
 
-            const btnDayPass = document.getElementById('btn-day-pass');
-            const btnProPass = document.getElementById('btn-pro-pass');
+        const btnDayPass = document.getElementById('btn-day-pass');
+        const btnProPass = document.getElementById('btn-pro-pass');
 
-            if (btnDayPass) {
-                btnDayPass.addEventListener('click', () => handleCheckout('day-pass'));
-            }
+        if (btnDayPass) {
+            btnDayPass.addEventListener('click', () => handleCheckout('day-pass'));
+        }
 
-            if (btnProPass) {
-                btnProPass.addEventListener('click', () => handleCheckout('pro-pass'));
-            }
-        </script>
+        if (btnProPass) {
+            btnProPass.addEventListener('click', () => handleCheckout('pro-pass'));
+        }
+        // --- Text Modal Logic (Privacy & Terms) ---
+        const textModal = document.getElementById('text-modal');
+        const textModalTitle = document.getElementById('text-modal-title');
+        const textModalContent = document.getElementById('text-modal-content');
+        const closeTextModalBtn = document.getElementById('close-text-modal-btn');
+        const linkPrivacy = document.getElementById('link-privacy');
+        const linkTerms = document.getElementById('link-terms');
+
+        const dummyPrivacy = `
+            <p><strong>Last Updated: January 2026</strong></p>
+            <p>Welcome to GymFinder.ai. We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy outlines how we collect, use, and safeguard your data when you use our website and services.</p>
+            <h3>1. Information We Collect</h3>
+            <p>We collect information you provide directly to us, such as when you search for gyms, create an account, or contact support. This may include your name, email address, location preferences, and fitness goals.</p>
+            <h3>2. How We Use Your Information</h3>
+            <p>We use your information to personalize your gym recommendations, process payments for our services, and improve the overall functionality of our platform.</p>
+            <h3>3. Data Security</h3>
+            <p>We implement industry-standard security measures to protect your data from unauthorized access, disclosure, or misuse. However, no method of transmission over the internet is 100% secure.</p>
+        `;
+
+        const dummyTerms = `
+            <p><strong>Effective Date: January 2026</strong></p>
+            <p>Please read these Terms of Service carefully before using GymFinder.ai. By accessing or using our services, you agree to be bound by these terms.</p>
+            <h3>1. Acceptance of Terms</h3>
+            <p>By using our website, you agree to comply with and be bound by these Terms of Service. If you do not agree, you may not use our services.</p>
+            <h3>2. Use of Service</h3>
+            <p>You agree to use our platform for lawful purposes only. You must not use our services to transmit any harmful code or interfere with the operation of the site.</p>
+            <h3>3. Limitation of Liability</h3>
+            <p>GymFinder.ai is not liable for any direct, indirect, incidental, or consequential damages arising from your use of our services or the gyms recommended by our platform.</p>
+        `;
+
+        function openTextModal(title, content) {
+            textModalTitle.innerText = title;
+            textModalContent.innerHTML = content;
+            textModal.classList.remove('hidden');
+            textModal.classList.add('flex');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeTextModal() {
+            textModal.classList.add('hidden');
+            textModal.classList.remove('flex');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        if (linkPrivacy) {
+            linkPrivacy.addEventListener('click', (e) => {
+                e.preventDefault();
+                openTextModal('Privacy Policy', dummyPrivacy);
+            });
+        }
+
+        if (linkTerms) {
+            linkTerms.addEventListener('click', (e) => {
+                e.preventDefault();
+                openTextModal('Terms of Service', dummyTerms);
+            });
+        }
+
+        if (closeTextModalBtn) {
+            closeTextModalBtn.addEventListener('click', closeTextModal);
+        }
+
+        if (textModal) {
+            textModal.addEventListener('click', (e) => {
+                if (e.target === textModal) {
+                    closeTextModal();
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>
