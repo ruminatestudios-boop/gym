@@ -57,26 +57,26 @@ app.post('/api/create-checkout-session', async (req, res) => {
 
     // Define products based on type
     let productData = {};
-    if (priceType === 'day-pass') {
+    if (priceType === 'fighter-passport') {
         productData = {
             price_data: {
                 currency: 'usd',
                 product_data: {
-                    name: 'Day Pass Access',
-                    description: 'Single Gym Access & 1-Day Training Pass',
+                    name: "Fighter's Passport",
+                    description: 'Unlimited AI Finder, Black Book Access & Scam Filter',
                 },
-                unit_amount: 2900, // $29.00
+                unit_amount: 4700, // $47.00
             }
         };
-    } else if (priceType === 'pro-pass') {
+    } else if (priceType === 'vip-concierge') {
         productData = {
             price_data: {
                 currency: 'usd',
                 product_data: {
-                    name: 'Pro Access',
-                    description: 'Unlimited AI Finder, Booking Agent & Database Access',
+                    name: 'VIP Concierge',
+                    description: "Fighter's Passport + Personal Booking Service",
                 },
-                unit_amount: 9700, // $97.00
+                unit_amount: 14700, // $147.00
             }
         };
     } else {
@@ -93,8 +93,8 @@ app.post('/api/create-checkout-session', async (req, res) => {
                 },
             ],
             mode: 'payment',
-            success_url: `${clientUrl}/gym_landing.html?success=true`,
-            cancel_url: `${clientUrl}/gym_landing.html?canceled=true`,
+            success_url: `${clientUrl}/index.html?success=true`,
+            cancel_url: `${clientUrl}/index.html?canceled=true`,
         });
 
         res.json({ url: session.url });

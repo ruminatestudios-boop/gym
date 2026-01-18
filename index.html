@@ -740,98 +740,155 @@
                     Everything clearly priced so you can plan your Thailand training trip with confidence.</p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <!-- Card 1: Starter -->
-                <div class="card-glow p-[2px]"> <!-- Wrapper for border -->
-                    <div class="bg-zinc-950 h-full rounded-[1.4rem] p-8 md:p-10 flex flex-col relative z-10">
+            <div class="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                <!-- Tier 1: Fightlore Scout (Free) -->
+                <div class="card-glow p-[2px]">
+                    <div class="bg-zinc-950 h-full rounded-[1.4rem] p-8 flex flex-col relative z-10">
                         <div class="mb-8">
-                            <h3 class="text-2xl font-bold text-white mb-2">Day Pass Access</h3>
-                            <p class="text-zinc-400">Perfect for short visits.</p>
+                            <h3 class="text-2xl font-bold text-white mb-2">Fightlore Scout</h3>
+                            <p class="text-zinc-400">Explore the basics.</p>
                         </div>
                         <div class="mb-8">
-                            <span class="text-5xl font-bold text-white">$29</span>
-                            <span class="text-zinc-500 font-medium">/pass</span>
+                            <span class="text-5xl font-bold text-white">Free</span>
                         </div>
 
                         <ul class="space-y-4 mb-8 flex-1">
                             <li class="flex items-start gap-3">
-                                <i data-lucide="check-circle" class="w-6 h-6 text-blue-500 shrink-0"></i>
-                                <span class="text-zinc-300">Single Gym Access</span>
+                                <i data-lucide="check" class="w-5 h-5 text-blue-500 shrink-0 mt-0.5"></i>
+                                <span class="text-zinc-300">3 Free AI interactions</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <i data-lucide="check-circle" class="w-6 h-6 text-blue-500 shrink-0"></i>
-                                <span class="text-zinc-300">1-Day Training Pass</span>
+                                <i data-lucide="check" class="w-5 h-5 text-blue-500 shrink-0 mt-0.5"></i>
+                                <span class="text-zinc-300">Search gyms by city</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <i data-lucide="check-circle" class="w-6 h-6 text-blue-500 shrink-0"></i>
-                                <span class="text-zinc-300">Basic Lockers Included</span>
+                                <i data-lucide="check" class="w-5 h-5 text-blue-500 shrink-0 mt-0.5"></i>
+                                <span class="text-zinc-300">Watch YouTube video tours</span>
+                            </li>
+                            <!-- The Catch -->
+                            <li class="pt-4 border-t border-zinc-800/50">
+                                <p class="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-3">The Catch
+                                    (Locked):</p>
+                                <ul class="space-y-3 opacity-50">
+                                    <li class="flex items-start gap-3">
+                                        <i data-lucide="lock" class="w-4 h-4 text-zinc-500 shrink-0 mt-0.5"></i>
+                                        <span class="text-zinc-400 text-sm">Verified Price List</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i data-lucide="lock" class="w-4 h-4 text-zinc-500 shrink-0 mt-0.5"></i>
+                                        <span class="text-zinc-400 text-sm">Coach Rosters</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i data-lucide="lock" class="w-4 h-4 text-zinc-500 shrink-0 mt-0.5"></i>
+                                        <span class="text-zinc-400 text-sm">Crowd Vibe Ratings</span>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
 
-                        <button id="btn-day-pass"
+                        <button id="btn-scout-free"
                             class="w-full py-4 rounded-full border border-zinc-700 hover:bg-zinc-800 text-white font-bold text-lg transition-colors">
-                            Get Day Pass
+                            Start Free
                         </button>
                     </div>
                 </div>
 
-
-                <!-- Card 2: Pro (From Screenshot) -->
-                <div class="card-glow p-[2px]"> <!-- Wrapper for border -->
-                    <div class="bg-zinc-950 h-full rounded-[1.4rem] p-8 md:p-10 flex flex-col relative z-10">
-                        <div class="mb-8 flex justify-between items-start">
-                            <div>
-                                <h3 class="text-2xl font-bold text-white mb-2">What You Get</h3>
-                                <p class="text-zinc-400">Everything you need to plan.</p>
+                <!-- Tier 2: Fighter's Passport ($47) -->
+                <div class="card-glow p-[2px]">
+                    <div class="bg-zinc-950 h-full rounded-[1.4rem] p-8 flex flex-col relative z-10 overflow-hidden">
+                        <!-- Diagonal Ribbon -->
+                        <div class="absolute top-0 right-0 w-32 h-32 overflow-hidden">
+                            <div
+                                class="absolute top-[20px] right-[-34px] w-[140px] bg-blue-600 text-white text-[10px] font-bold py-1 text-center rotate-45 transform shadow-lg shadow-blue-900/40 border-y border-blue-400/30 uppercase tracking-wider">
+                                Most Popular
                             </div>
-                            <span
-                                class="bg-blue-600/20 text-blue-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide animate-glow-pulse">
-                                Best Value
-                            </span>
+                        </div>
+
+                        <div class="mb-8 relative">
+                            <h3 class="text-2xl font-bold text-white mb-2">Fighter's Passport</h3>
+                            <p class="text-zinc-400">Avoid the tourist traps.</p>
                         </div>
                         <div class="mb-8">
-                            <span class="text-5xl font-bold text-white">$97</span>
-                            <span class="text-zinc-500 font-medium uppercase text-sm tracking-widest ml-2">One-Time
-                                Payment</span>
+                            <span class="text-5xl font-bold text-white">$47</span>
+                            <span class="text-zinc-500 font-medium text-sm">One-Time</span>
                         </div>
 
-                        <ul class="space-y-6 mb-10 flex-1">
+                        <ul class="space-y-5 mb-8 flex-1">
                             <li class="flex items-start gap-3">
-                                <i data-lucide="check-circle" class="w-6 h-6 text-blue-500 shrink-0"></i>
+                                <i data-lucide="check-circle-2" class="w-5 h-5 text-blue-400 shrink-0 mt-0.5"></i>
                                 <div>
-                                    <strong class="block text-white">AI Gym Finder (Unlimited Use)</strong>
-                                    <span class="text-sm text-zinc-400">Real-time queries against our verified Airtable
-                                        dataset.</span>
+                                    <strong class="block text-white">Unlimited AI Access</strong>
+                                    <span class="text-sm text-zinc-400">Ask anything ("Where to train at 6AM?")</span>
                                 </div>
                             </li>
                             <li class="flex items-start gap-3">
-                                <i data-lucide="check-circle" class="w-6 h-6 text-blue-500 shrink-0"></i>
+                                <i data-lucide="check-circle-2" class="w-5 h-5 text-blue-400 shrink-0 mt-0.5"></i>
+                                <div>
+                                    <strong class="block text-white">The "Black Book"</strong>
+                                    <span class="text-sm text-zinc-400">Full access to Pricing, AC & Gear
+                                        details.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i data-lucide="check-circle-2" class="w-5 h-5 text-blue-400 shrink-0 mt-0.5"></i>
+                                <div>
+                                    <strong class="block text-white">The "Scam Filter"</strong>
+                                    <span class="text-sm text-zinc-400">Guide on what NOT to pay (tuk-tuks,
+                                        gear).</span>
+                                </div>
+                            </li>
+                            <li class="pt-4 border-t border-zinc-800/50">
+                                <p class="text-xs text-zinc-500 italic">"Cheaper than one night in a hotel. Saves you
+                                    from one bad gym choice."</p>
+                            </li>
+                        </ul>
+
+                        <button id="btn-fighter-passport"
+                            class="w-full py-4 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-blue-900/20">
+                            Get Passport
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tier 3: VIP Concierge ($147) -->
+                <div class="card-glow p-[2px]">
+                    <div class="bg-zinc-950 h-full rounded-[1.4rem] p-8 flex flex-col relative z-10">
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-bold text-emerald-400 mb-2">VIP Concierge</h3>
+                            <p class="text-zinc-400">For serious travelers.</p>
+                        </div>
+                        <div class="mb-8">
+                            <span class="text-5xl font-bold text-white">$147</span>
+                            <span class="text-zinc-500 font-medium text-sm">Upsell</span>
+                        </div>
+
+                        <ul class="space-y-5 mb-8 flex-1">
+                            <li class="flex items-start gap-3">
+                                <i data-lucide="crown" class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5"></i>
+                                <div>
+                                    <strong class="block text-white">Everything in "Passport"</strong>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i data-lucide="user-check" class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5"></i>
                                 <div>
                                     <strong class="block text-white">Personal Booking Agent</strong>
-                                    <span class="text-sm text-zinc-400">Let our Thai partner book your gym - best rates
-                                        secured.</span>
+                                    <span class="text-sm text-zinc-400">We verify availability & book for you.</span>
                                 </div>
                             </li>
-                            <li class="flex items-start gap-3">
-                                <i data-lucide="check-circle" class="w-6 h-6 text-blue-500 shrink-0"></i>
+                            <li class="pt-4 border-t border-zinc-800/50 space-y-3">
                                 <div>
-                                    <strong class="block text-white">Live Airtable Database Access</strong>
-                                    <span class="text-sm text-zinc-400">Read-only access to the raw table data.</span>
-                                </div>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <i data-lucide="check-circle" class="w-6 h-6 text-blue-500 shrink-0"></i>
-                                <div>
-                                    <strong class="block text-white">Lifetime Updates</strong>
-                                    <span class="text-sm text-zinc-400">We update prices and gym conditions
-                                        monthly.</span>
+                                    <p class="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-1">Why $147?
+                                    </p>
+                                    <p class="text-xs text-zinc-400 leading-relaxed">Manual messaging takes time. We
+                                        handle the admin so you don't have to.</p>
                                 </div>
                             </li>
                         </ul>
 
-                        <button id="btn-pro-pass"
-                            class="w-full py-4 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-blue-900/20">
-                            Buy Now &rarr;
+                        <button id="btn-vip-concierge"
+                            class="w-full py-4 rounded-full border border-emerald-900/50 bg-emerald-900/20 hover:bg-emerald-900/40 text-emerald-400 font-bold text-lg transition-colors">
+                            Join VIP
                         </button>
                     </div>
                 </div>
@@ -1096,9 +1153,15 @@
         });
 
         // --- Stripe Payment Client-Side Logic ---
+        // --- Stripe Payment Client-Side Logic ---
         async function handleCheckout(priceType) {
             try {
-                const button = document.getElementById(priceType === 'day-pass' ? 'btn-day-pass' : 'btn-pro-pass');
+                let btnId;
+                if (priceType === 'fighter-passport') btnId = 'btn-fighter-passport';
+                else if (priceType === 'vip-concierge') btnId = 'btn-vip-concierge';
+                else return;
+
+                const button = document.getElementById(btnId);
                 const originalText = button.innerText;
                 button.innerText = 'Processing...';
                 button.disabled = true;
@@ -1124,21 +1187,34 @@
             } catch (error) {
                 console.error('Network Error:', error);
                 alert('Network error. Check console.');
-                const button = document.getElementById(priceType === 'day-pass' ? 'btn-day-pass' : 'btn-pro-pass');
-                button.innerText = (priceType === 'day-pass') ? 'Get Day Pass' : 'Buy Now →';
-                button.disabled = false;
+                // Restore button text strictly based on type
+                if (priceType === 'fighter-passport') {
+                    document.getElementById('btn-fighter-passport').innerText = 'Get Passport';
+                    document.getElementById('btn-fighter-passport').disabled = false;
+                } else if (priceType === 'vip-concierge') {
+                    document.getElementById('btn-vip-concierge').innerText = 'Join VIP';
+                    document.getElementById('btn-vip-concierge').disabled = false;
+                }
             }
         }
 
-        const btnDayPass = document.getElementById('btn-day-pass');
-        const btnProPass = document.getElementById('btn-pro-pass');
+        const btnScoutFree = document.getElementById('btn-scout-free');
+        const btnFighterPassport = document.getElementById('btn-fighter-passport');
+        const btnVipConcierge = document.getElementById('btn-vip-concierge');
 
-        if (btnDayPass) {
-            btnDayPass.addEventListener('click', () => handleCheckout('day-pass'));
+        if (btnScoutFree) {
+            btnScoutFree.addEventListener('click', () => {
+                const chatSection = document.getElementById('chatbot');
+                if (chatSection) chatSection.scrollIntoView({ behavior: 'smooth' });
+            });
         }
 
-        if (btnProPass) {
-            btnProPass.addEventListener('click', () => handleCheckout('pro-pass'));
+        if (btnFighterPassport) {
+            btnFighterPassport.addEventListener('click', () => handleCheckout('fighter-passport'));
+        }
+
+        if (btnVipConcierge) {
+            btnVipConcierge.addEventListener('click', () => handleCheckout('vip-concierge'));
         }
         // --- Text Modal Logic (Privacy & Terms) ---
         const textModal = document.getElementById('text-modal');
