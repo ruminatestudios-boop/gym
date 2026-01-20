@@ -1,5 +1,7 @@
 const express = require('express');
 const cors = require('cors');
+const OpenAI = require('openai');
+const Airtable = require('airtable');
 require('dotenv').config();
 
 const app = express();
@@ -9,7 +11,54 @@ const port = 3000;
 app.use(cors());
 app.use(express.json());
 
-// API Key Validation
+// Initialize Clients
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+});
+
+const airtableBase = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(process.env.AIRTABLE_BASE_ID);
+const tableName = process.env.AIRTABLE_TABLE_NAME || 'Gyms';
+
+// Gym Data Cache
+let cachedGyms = null;
+let lastFetchTime = 0;
+const CACHE_DURATION = 1000 * 60 * 60; // 1 hour
+
+// Helper: Fetch Gyms from Airtable
+async function fetchGymData() {
+    const now = Date.now();
+    if (cachedGyms && (now - lastFetchTime < CACHE_DURATION)) {
+        return cachedGyms;
+    }
+
+    try {
+        const records = await airtableBase(tableName).select({
+            maxRecords: 50,
+            view: "Grid view" // Adjust if needed
+        }).all();
+
+        const gyms = records.map(record => {
+            // Adjust these field names to match your actual Airtable columns
+            return {
+                name: record.get('Name') || record.get('Gym Name'),
+                location: record.get('Location') || record.get('City'),
+                style: record.get('Style') || record.get('Focus'),
+                description: record.get('Description') || record.get('Notes'),
+                price: record.get('Price') || record.get('Drop-in'),
+            };
+        });
+
+        cachedGyms = JSON.stringify(gyms);
+        lastFetchTime = now;
+        console.log(`Fetched ${gyms.length} gyms from Airtable.`);
+        return cachedGyms;
+    } catch (error) {
+        console.error("Error fetching from Airtable:", error);
+        return null;
+    }
+}
+
+// API Key Validation (Optional check)
 const hasApiKeys = () => {
     return process.env.OPENAI_API_KEY && process.env.AIRTABLE_API_KEY && process.env.AIRTABLE_BASE_ID;
 };
@@ -23,7 +72,6 @@ app.post('/api/chat', async (req, res) => {
     }
 
     if (!hasApiKeys()) {
-        // If keys are missing, return a signal to the frontend to use mock data
         return res.json({
             useMock: true,
             message: "Backend is running but API keys are not configured in .env. Using mock data."
@@ -31,19 +79,34 @@ app.post('/api/chat', async (req, res) => {
     }
 
     try {
-        // Placeholder for real logic (since the user only asked to hide keys, I'll set up the structure)
-        // You would typically initialize OpenAI and Airtable here using process.env variables
+        // 1. Get Context
+        const gymContext = await fetchGymData();
+        const systemPrompt = `
+You are an expert Muay Thai scout in Thailand. 
+You have verified data on the following gyms: 
+${gymContext || "No gym data available currently."}
 
-        // For now, we'll just simulate a successful connection response
-        // In a real app, this is where you'd call:
-        // const response = await openai.chat.completions.create({...})
+Answer the user's question by recommending the best match from this list. 
+Be concise, honest, and helpful. 
+If the user asks about something not in the list, you can provide general Thailand training advice but mention you only have verified data on the listed gyms.
+`;
 
-        res.json({
-            response: "Backend Connected: This is where the AI response would come from using your secure keys."
+        // 2. Call OpenAI
+        const completion = await openai.chat.completions.create({
+            model: "gpt-4o",
+            messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: message },
+            ],
+            max_tokens: 300,
         });
 
+        const reply = completion.choices[0].message.content;
+
+        res.json({ response: reply });
+
     } catch (error) {
-        console.error('Error processing request:', error);
+        console.error('Error processing chat request:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
