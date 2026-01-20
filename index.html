@@ -381,7 +381,7 @@
         <div class="absolute top-0 right-0 w-1/2 h-full bg-blue-900/10 blur-[100px] pointer-events-none"></div>
 
         <div class="max-w-7xl mx-auto px-6 mb-12">
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-8">
                 <div>
                     <span class="text-blue-500 font-semibold tracking-wide uppercase text-sm">FIND YOUR MATCH</span>
                     <h2 class="text-4xl md:text-5xl font-serif italic mt-2">Explore Verified <span
@@ -829,22 +829,39 @@
                     </div>
                 </div>
 
+                <!-- Unlock More Card -->
+                <div class="swiper-slide !w-[300px] md:!w-[400px] h-auto gym-card group cursor-pointer"
+                    onclick="document.getElementById('beta-modal').classList.remove('hidden'); document.getElementById('beta-modal').classList.add('flex');">
+                    <div
+                        class="bg-zinc-950 rounded-2xl overflow-hidden border border-zinc-800 hover:border-blue-500/50 transition-all h-full flex flex-col items-center justify-center text-center p-8 relative group-hover:bg-zinc-900/50">
+
+                        <!-- Glow Effect -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        </div>
+
+                        <div
+                            class="w-16 h-16 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300 relative z-10">
+                            <i data-lucide="lock"
+                                class="w-8 h-8 text-zinc-500 group-hover:text-blue-400 transition-colors"></i>
+                        </div>
+
+                        <h3 class="text-2xl font-bold text-white mb-3 relative z-10">Want to see more?</h3>
+                        <p class="text-zinc-400 text-sm mb-8 leading-relaxed max-w-[250px] relative z-10">
+                            Join the Founder's Beta to unlock 100+ verified gyms across Thailand.
+                        </p>
+
+                        <button
+                            class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-6 rounded-full text-sm transition-all shadow-lg shadow-blue-600/20 group-hover:shadow-blue-600/40 transform group-hover:-translate-y-1 relative z-10">
+                            Unlock Full Access
+                        </button>
+                    </div>
+                </div>
+
             </div>
         </div>
 
-        <!-- Unlock UI -->
-        <div class="relative z-20 mt-12 max-w-2xl mx-auto text-center px-6">
-            <div
-                class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-zinc-900/80 border border-zinc-800 mb-6 backdrop-blur-sm">
-                <i data-lucide="lock" class="w-7 h-7 text-zinc-400"></i>
-            </div>
-            <h3 class="text-3xl md:text-4xl font-bold text-white mb-8">Want to see more?</h3>
-            <button id="unlock-btn"
-                class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 px-8 rounded-full text-lg w-full md:w-auto transition-all shadow-lg shadow-blue-600/20 hover:scale-105 active:scale-95 mb-4">
-                Unlock 100+ More Verified Gyms
-            </button>
-            <p class="text-zinc-500 text-sm">Join to access our full verified database</p>
-        </div>
+
 
         <script>
             // Initialize Swiper
@@ -943,11 +960,16 @@
                         videoModal.classList.remove('hidden');
                         videoModal.classList.add('flex');
                         modalVideo.play();
+
+                        // Update Crowd Tracker
+                        if (window.refreshLiveTracker) window.refreshLiveTracker();
                     }
                 }
             });
         </script>
     </section>
+
+
 
     <!-- FAQ Section -->
     <section id="faq" class="py-24 bg-zinc-900 border-t border-zinc-800">
@@ -1318,22 +1340,35 @@
                     <!-- VIEW 1: Summary (Default) -->
                     <div class="w-full h-full flex flex-col p-5 overflow-y-auto">
                         <!-- Header -->
-                        <div class="mb-3 mt-1">
-                            <div class="flex items-center gap-2 mb-2">
-                                <h2 id="modal-title"
-                                    class="text-2xl md:text-3xl font-serif italic text-white leading-tight">Gym Name
-                                </h2>
-                                <div
-                                    class="flex items-center gap-1 text-yellow-500 text-sm font-bold bg-yellow-500/10 px-2 py-0.5 rounded-full border border-yellow-500/20">
-                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
-                                    <span id="modal-rating">5.0</span>
+                        <div class="mb-3 mt-1 flex items-start justify-between">
+                            <div>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <h2 id="modal-title"
+                                        class="text-2xl md:text-3xl font-serif italic text-white leading-tight">Gym Name
+                                    </h2>
+                                    <div
+                                        class="flex items-center gap-1 text-yellow-500 text-sm font-bold bg-yellow-500/10 px-2 py-0.5 rounded-full border border-yellow-500/20">
+                                        <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                                        <span id="modal-rating">5.0</span>
+                                    </div>
                                 </div>
+                                <span id="modal-location"
+                                    class="text-zinc-500 text-sm font-medium uppercase tracking-wider flex items-center gap-1">
+                                    <i data-lucide="map-pin" class="w-3 h-3"></i>
+                                    <span>Location</span>
+                                </span>
                             </div>
-                            <span id="modal-location"
-                                class="text-zinc-500 text-sm font-medium uppercase tracking-wider flex items-center gap-1">
-                                <i data-lucide="map-pin" class="w-3 h-3"></i>
-                                <span>Location</span>
-                            </span>
+                            <div id="live-tracker"
+                                class="flex items-center gap-2 bg-zinc-900/80 border border-zinc-800 rounded-full px-3 py-1.5 shadow-inner">
+                                <span id="live-dot" class="relative flex h-2 w-2">
+                                    <span
+                                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                                </span>
+                                <span id="live-text"
+                                    class="text-[10px] font-bold uppercase tracking-wider text-emerald-400">Live: Low
+                                    Traffic</span>
+                            </div>
                         </div>
 
                         <!-- Intro Text -->
@@ -1475,6 +1510,48 @@
 
             mobileMenuBtn.addEventListener('click', toggleMobileMenu);
             closeMenuBtn.addEventListener('click', toggleMobileMenu);
+
+            // Live Crowd Tracker Logic
+            function updateLiveTracker() {
+                const statuses = [
+                    { text: "Live: Low Traffic", color: "text-emerald-400", dot: "bg-emerald-500", ping: "bg-emerald-400" },
+                    { text: "Live: Moderate", color: "text-yellow-400", dot: "bg-yellow-500", ping: "bg-yellow-400" },
+                    { text: "Live: Busy", color: "text-red-400", dot: "bg-red-500", ping: "bg-red-400" }
+                ];
+
+                // Randomly pick a status for demo purposes
+                // In a real app, this would fetch from an API
+                const status = statuses[Math.floor(Math.random() * statuses.length)];
+
+                const tracker = document.getElementById('live-tracker');
+                const textEl = document.getElementById('live-text');
+                const dotEl = tracker.querySelector('span.relative.inline-flex');
+                const pingEl = tracker.querySelector('span.animate-ping');
+
+                if (tracker && textEl && dotEl && pingEl) {
+                    textEl.textContent = status.text;
+
+                    // Reset classes
+                    textEl.className = `text-[10px] font-bold uppercase tracking-wider ${status.color}`;
+                    dotEl.className = `relative inline-flex rounded-full h-2 w-2 ${status.dot}`;
+                    pingEl.className = `animate-ping absolute inline-flex h-full w-full rounded-full ${status.ping} opacity-75`;
+                }
+            }
+
+            // Hook into the click event for gym cards to trigger the update
+            // We can do this by observing when the modal opens or just exposing it
+            // Since we are using event delegation for the swiper above, we can call it there.
+            // But to be safe and simple, let's just run it every few seconds to simulate "live" updates if the modal is open
+            setInterval(() => {
+                const videoModal = document.getElementById('video-modal');
+                if (videoModal && !videoModal.classList.contains('hidden')) {
+                    // 10% chance to change status while open to feel "alive"
+                    if (Math.random() > 0.9) updateLiveTracker();
+                }
+            }, 3000);
+
+            // Also expose it globally so the click handler can call it for an initial state
+            window.refreshLiveTracker = updateLiveTracker;
 
             // --- Chatbot Logic ---
             // --- Chatbot Logic (Fightlore Scout Persona) ---
@@ -1716,40 +1793,8 @@
             }
 
             // --- Video Modal Logic ---
-            const videoModal = document.getElementById('video-modal');
-            const modalVideo = document.getElementById('modal-video');
-            const closeModalBtn = document.getElementById('close-modal-btn');
-            const gymCards = document.querySelectorAll('.gym-card');
-
-            gymCards.forEach(card => {
-                card.addEventListener('click', () => {
-                    const videoSrc = card.querySelector('video').src;
-                    if (videoSrc) {
-                        modalVideo.src = videoSrc;
-                        videoModal.classList.remove('hidden');
-                        videoModal.classList.add('flex');
-                        modalVideo.play();
-                    }
-                });
-            });
-
-            // VSL Trigger Logic - REMOVED (Handled in Redesigned Modal Logic block below)
-
-            function closeModal() {
-                videoModal.classList.add('hidden');
-                videoModal.classList.remove('flex');
-                modalVideo.pause();
-                modalVideo.src = ''; // Clear source to stop buffering
-            }
-
-            closeModalBtn.addEventListener('click', closeModal);
-
-            // Close on background click
-            videoModal.addEventListener('click', (e) => {
-                if (e.target === videoModal) {
-                    closeModal();
-                }
-            });
+            // REMOVED: Conflicted with Swiper delegation and Redesigned Modal Logic below.
+            // All modal interactions are now handled by the Swiper wrapper delegation and the unified logic block.
 
             // --- Stripe Payment Client-Side Logic ---
             // --- Stripe Payment Client-Side Logic ---
@@ -1963,15 +2008,18 @@
                 if (btnConciergeBook) {
                     btnConciergeBook.addEventListener('click', () => {
                         const gymName = document.getElementById('modal-title').innerText;
+                        // Do NOT close the video modal immediately if we want to layer, 
+                        // but usually we want to switch context. Let's close video modal for cleaner UI.
                         closeVideoModal();
 
-                        const chatSection = document.getElementById('chatbot');
-                        if (chatSection) chatSection.scrollIntoView({ behavior: 'smooth' });
+                        // Populate Booking Modal
+                        const bookingModal = document.getElementById('booking-modal');
+                        const bookingGymInput = document.getElementById('booking-gym-name');
 
-                        const chatInput = document.getElementById('chat-input');
-                        if (chatInput) {
-                            chatInput.value = `I'm interested in booking ${gymName}. Can you help?`;
-                            chatInput.focus();
+                        if (bookingGymInput) bookingGymInput.value = gymName;
+
+                        if (bookingModal) {
+                            bookingModal.style.display = 'flex';
                         }
                     });
                 }
@@ -2209,6 +2257,73 @@
                     class="w-full py-4 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-lg transition-all shadow-lg shadow-blue-900/40 hover:scale-[1.02]">
                     Secure Early Bird Access
                 </button>
+            </div>
+        </div>
+        <!-- Booking Modal -->
+        <!-- Booking Modal -->
+        <div id="booking-modal" style="display: none;"
+            class="fixed inset-0 z-[70] items-center justify-center bg-black/95 backdrop-blur-md p-4 animate-fade-in">
+            <div class="bg-zinc-900 border border-zinc-700/50 w-full max-w-lg rounded-3xl p-8 relative shadow-2xl">
+                <button id="close-booking-modal"
+                    onclick="document.getElementById('booking-modal').style.display='none';"
+                    class="absolute top-4 right-4 text-zinc-500 hover:text-white transition-colors">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+
+                <div class="text-center mb-6">
+                    <div
+                        class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-emerald-600/20 text-emerald-500 mb-4">
+                        <i data-lucide="calendar-check" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Book Your Session</h3>
+                    <p class="text-zinc-400">Secure your spot with our verified partner.</p>
+                </div>
+
+                <form id="booking-form" class="space-y-4">
+                    <div>
+                        <label class="block text-zinc-400 text-xs font-bold uppercase tracking-wider mb-2">Gym
+                            Name</label>
+                        <input type="text" id="booking-gym-name" readonly
+                            class="w-full bg-zinc-950 text-zinc-300 border border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 cursor-not-allowed">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label
+                                class="block text-zinc-400 text-xs font-bold uppercase tracking-wider mb-2">Date</label>
+                            <input type="date" required
+                                class="w-full bg-zinc-950 text-white border border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 appearance-none">
+                        </div>
+                        <div>
+                            <label
+                                class="block text-zinc-400 text-xs font-bold uppercase tracking-wider mb-2">Time</label>
+                            <input type="time" required
+                                class="w-full bg-zinc-950 text-white border border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 appearance-none">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-zinc-400 text-xs font-bold uppercase tracking-wider mb-2">Training
+                            Type</label>
+                        <select required
+                            class="w-full bg-zinc-950 text-white border border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 appearance-none">
+                            <option value="Drop-in">Drop-in Session</option>
+                            <option value="Private">Private 1-on-1</option>
+                            <option value="Weekly">Weekly Pass</option>
+                            <option value="Monthly">Monthly Package</option>
+                        </select>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full py-4 mt-4 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-lg transition-all shadow-lg shadow-emerald-900/40 hover:scale-[1.02] flex items-center justify-center gap-2">
+                        <span>Proceed to Payment</span>
+                        <span class="bg-black/20 px-2 py-0.5 rounded text-sm">$15.00</span>
+                    </button>
+
+                    <p class="text-center text-xs text-zinc-500 mt-2">
+                        <i data-lucide="lock" class="w-3 h-3 inline mr-1"></i> Secure SSL Payment
+                    </p>
+                </form>
             </div>
         </div>
 </body>
