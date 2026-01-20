@@ -116,7 +116,7 @@
                                 d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
                         </svg>
                     </div>
-                    <span class="text-xl font-bold tracking-tight">GymFinder<span
+                    <span class="text-xl font-bold tracking-tight">Fightlore +<span
                             class="text-blue-500 text-sm font-serif italic ml-1">by Fightlore</span></span>
                 </a>
 
@@ -305,50 +305,41 @@
                 <div>
                     <p class="text-lg text-zinc-400 mb-8 leading-relaxed">
                         We built Thailand's most trusted Muay Thai gym database. Every gym is personally verified,
-                        constantly updated, and checked for accuracy—so you never waste time on wrong information.
+                        constantly updated, and checked for accuracy.
                     </p>
 
-                    <ul class="space-y-6">
+                    <ul class="space-y-8">
+                        <!-- Step 1 -->
                         <li class="flex items-start gap-4">
                             <div
-                                class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 shrink-0">
-                                <i data-lucide="search" class="w-6 h-6"></i>
+                                class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 shrink-0 mt-1">
+                                <i data-lucide="ticket" class="w-6 h-6"></i>
                             </div>
                             <div>
                                 <span class="text-blue-500 font-bold text-xs tracking-wider uppercase mb-1 block">Step
                                     1</span>
-                                <h3 class="text-xl font-bold text-white mb-2">Find Your Match</h3>
-                                <p class="text-zinc-400">Use our AI Scout to find a gym that fits your style. Whether
-                                    you want a sauna in Bangkok or a view in Koh Samui, we have the verified details you
-                                    can't find on Google.</p>
+                                <h3 class="text-xl font-bold text-white mb-2">Get the Member's Pass</h3>
+                                <p class="text-zinc-400 text-base leading-relaxed">
+                                    Unlock the full verified database, unlimited AI Scout access, and see real "Black
+                                    Book" pricing for every gym.
+                                </p>
                             </div>
                         </li>
+
+                        <!-- Step 2 -->
                         <li class="flex items-start gap-4">
                             <div
-                                class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 shrink-0">
-                                <i data-lucide="key" class="w-6 h-6"></i>
+                                class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 shrink-0 mt-1">
+                                <i data-lucide="calendar-check" class="w-6 h-6"></i>
                             </div>
                             <div>
                                 <span class="text-blue-500 font-bold text-xs tracking-wider uppercase mb-1 block">Step
                                     2</span>
-                                <h3 class="text-xl font-bold text-white mb-2">Get the Secret Key</h3>
-                                <p class="text-zinc-400">Unlock the Founder’s All-Access to see real local prices,
-                                    honest equipment ratings, and "scout notes" from our team on the ground. No more
-                                    tourist traps or outdated info.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <div
-                                class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 shrink-0">
-                                <i data-lucide="message-circle" class="w-6 h-6"></i>
-                            </div>
-                            <div>
-                                <span class="text-blue-500 font-bold text-xs tracking-wider uppercase mb-1 block">Step
-                                    3</span>
-                                <h3 class="text-xl font-bold text-white mb-2">Let Us Handle the Talk</h3>
-                                <p class="text-zinc-400">Once you pick a gym, add a VIP Booking. A real person on our
-                                    team will call the gym owner in Native Thai to check availability and book your spot
-                                    so you can just show up and train.</p>
+                                <h3 class="text-xl font-bold text-white mb-2">Add Concierge Booking</h3>
+                                <p class="text-zinc-400 text-base leading-relaxed">
+                                    Need help with language barriers? Add a concierge booking and we'll handle the call,
+                                    deposit, and confirmation in Thai.
+                                </p>
                             </div>
                         </li>
                     </ul>
@@ -1173,7 +1164,7 @@
                         </div>
 
                         <div class="mb-8 relative">
-                            <h3 class="text-2xl font-bold text-white mb-2">The Founder’s All-Access</h3>
+                            <h3 class="text-2xl font-bold text-white mb-2">Step 1: The 3-Month Pass</h3>
                             <p class="text-emerald-400 font-bold">The "Secret Key" to Thailand</p>
                         </div>
                         <div class="mb-8">
@@ -1212,10 +1203,15 @@
                             </li>
                         </ul>
 
-                        <button id="btn-fighter-passport"
-                            class="w-full py-4 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-blue-900/20">
+                        <a href="https://buy.stripe.com/test_28E00k5E8c0B7gc8G23ks00" id="btn-fighter-passport"
+                            class="block text-center w-full py-4 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-blue-900/20">
                             Get All-Access
-                        </button>
+                        </a>
+                        <p
+                            class="text-xs text-zinc-500 mt-4 text-center leading-relaxed opacity-0 pointer-events-none select-none">
+                            After payment, you'll receive a short form to tell us your dates and gym choice. We’ll have
+                            your booking confirmed within 24 hours.
+                        </p>
                     </div>
                 </div>
 
@@ -1223,7 +1219,7 @@
                 <div class="card-glow p-[2px]">
                     <div class="bg-zinc-950 h-full rounded-[1.4rem] p-8 flex flex-col relative z-10">
                         <div class="mb-8">
-                            <h3 class="text-2xl font-bold text-emerald-400 mb-2">The VIP Booking Scout</h3>
+                            <h3 class="text-2xl font-bold text-emerald-400 mb-2">Step 2: Concierge Add-On</h3>
                             <p class="text-zinc-400">A Real Person in Your Corner</p>
                         </div>
                         <div class="mb-8">
@@ -1262,10 +1258,14 @@
                             </li>
                         </ul>
 
-                        <button id="btn-vip-concierge"
-                            class="w-full py-4 rounded-full border border-emerald-900/50 bg-emerald-900/20 hover:bg-emerald-900/40 text-emerald-400 font-bold text-lg transition-colors">
+                        <a href="https://buy.stripe.com/test_5kQ6oI5E84y9aso9K63ks01" id="btn-vip-concierge"
+                            class="block text-center w-full py-4 rounded-full border border-emerald-900/50 bg-emerald-900/20 hover:bg-emerald-900/40 text-emerald-400 font-bold text-lg transition-colors">
                             Join VIP
-                        </button>
+                        </a>
+                        <p class="text-xs text-zinc-500 mt-4 text-center leading-relaxed">
+                            After payment, you'll receive a short form to tell us your dates and gym choice. We’ll have
+                            your booking confirmed within 24 hours.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -1283,11 +1283,11 @@
                             d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
                     </svg>
                 </div>
-                <span class="text-xl font-bold tracking-tight text-white">GymFinder<span
-                        class="text-blue-500 text-sm font-serif italic ml-1">by Fightlore</span></span>
+                <span class="text-xl font-bold tracking-tight text-white">Fightlore<span
+                        class="text-blue-500 text-sm font-serif italic ml-1">+</span></span>
             </div>
             <div class="text-zinc-500 text-sm">
-                &copy; 2026 GymFinder by Fightlore. All rights reserved.
+                &copy; 2026 Fightlore + by Fightlore. All rights reserved.
             </div>
             <div class="flex gap-6 text-zinc-400">
                 <a href="#" id="link-privacy" class="hover:text-white transition-colors">Privacy</a>
@@ -1853,13 +1853,13 @@
                 });
             }
 
-            if (btnFighterPassport) {
-                btnFighterPassport.addEventListener('click', () => handleCheckout('fighter-passport'));
-            }
+            // if (btnFighterPassport) {
+            //     btnFighterPassport.addEventListener('click', () => handleCheckout('fighter-passport'));
+            // }
 
-            if (btnVipConcierge) {
-                btnVipConcierge.addEventListener('click', () => handleCheckout('vip-concierge'));
-            }
+            // if (btnVipConcierge) {
+            //     btnVipConcierge.addEventListener('click', () => handleCheckout('vip-concierge'));
+            // }
             // --- Text Modal Logic (Privacy & Terms) ---
             const textModal = document.getElementById('text-modal');
             const textModalTitle = document.getElementById('text-modal-title');
