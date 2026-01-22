@@ -107,9 +107,8 @@
         <!-- Beta Launch Banner -->
         <a href="#pricing" id="beta-banner"
             class="bg-blue-600 text-white text-[10px] md:text-xs font-bold uppercase tracking-wider py-2.5 px-4 text-center hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 relative shadow-md">
-            <span class="truncate max-w-[80%] md:max-w-none">🥊 Phase 1 Live: Join the Founder's Beta today for $19/mo.
-                Get full access to the 'Black Book'</span>
-            <span class="whitespace-nowrap underline decoration-white/50 ml-1">[Join Beta]</span>
+            <span class="truncate max-w-[80%] md:max-w-none">🥊 Founder's Beta: Unlock the Black Book for $19/mo</span>
+            <span class="whitespace-nowrap underline decoration-white/50 ml-1">[Join]</span>
         </a>
         <nav class="w-full glass-nav transition-all duration-300">
             <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
@@ -220,16 +219,18 @@
         <div
             class="bg-zinc-900/80 backdrop-blur-xl rounded-3xl border border-zinc-800 shadow-2xl overflow-hidden flex flex-col h-[600px]">
             <!-- Header -->
-            <div class="p-6 border-b border-zinc-800/50 flex flex-col items-center justify-center bg-black/20 gap-3">
+            <div
+                class="px-5 py-4 border-b border-zinc-800/50 flex flex-row items-center justify-center bg-black/20 gap-4">
                 <div
-                    class="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
+                    class="w-10 h-10 rounded-full bg-[linear-gradient(110deg,#3b82f6,45%,#93c5fd,55%,#3b82f6)] bg-[length:200%_100%] animate-shimmer flex items-center justify-center text-white shadow-lg shadow-blue-500/20 shrink-0">
                     <i data-lucide="sparkles" class="w-5 h-5"></i>
                 </div>
-                <div class="text-center">
-                    <h3 class="font-serif italic text-3xl text-white mb-1">Fightlore AI</h3>
-                    <div class="flex items-center justify-center gap-1.5">
+                <div class="text-left">
+                    <h3 class="font-serif italic text-2xl text-white leading-none mb-0.5">Fightlore AI</h3>
+                    <div class="flex items-center gap-1.5">
                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                        <p class="text-xs text-zinc-400 font-medium tracking-wide">Personal Fight Concierge</p>
+                        <p class="text-[10px] text-zinc-400 font-medium tracking-wide uppercase">Personal Fight
+                            Concierge</p>
                     </div>
                 </div>
             </div>
@@ -364,6 +365,61 @@
                             class="w-full h-full object-cover aspect-video opacity-80 group-hover:opacity-100 transition-opacity"
                             src="https://cdn.shopify.com/videos/c/o/v/48ec1e59d63740a1bd3b81486969da95.mp4">
                         </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Demos Section -->
+    <section id="demos" class="py-24 bg-black relative border-t border-zinc-800/50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Card 1: AI Scout -->
+                <div
+                    class="bg-zinc-900/50 border border-zinc-800 rounded-3xl p-8 flex flex-col items-start gap-8 group hover:border-zinc-700 transition-colors">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-2 text-blue-400">
+                            <i data-lucide="sparkles" class="w-5 h-5"></i>
+                            <span class="text-sm font-semibold tracking-wide uppercase">AI Scout</span>
+                        </div>
+                        <h3 class="text-3xl font-serif italic text-white">Find your gym in <span
+                                class="not-italic font-sans font-bold text-blue-500">Seconds</span></h3>
+                        <p class="text-zinc-400 leading-relaxed text-lg">
+                            Stop scrolling through outdated maps. Our AI analyzes 50+ data points to match you with the
+                            perfect gym for your budget and style.
+                        </p>
+                    </div>
+                    <!-- Video Container -->
+                    <div class="w-full aspect-[4/3] rounded-2xl overflow-hidden relative shadow-2xl bg-zinc-950">
+                        <video autoplay muted loop playsinline
+                            class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                            src="https://cdn.shopify.com/videos/c/o/v/87ebce8eb39446949a227dc8580860fd.mp4"></video>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Concierge -->
+                <div
+                    class="bg-zinc-900/50 border border-zinc-800 rounded-3xl p-8 flex flex-col items-start gap-8 group hover:border-zinc-700 transition-colors">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-2 text-emerald-400">
+                            <i data-lucide="user-check" class="w-5 h-5"></i>
+                            <span class="text-sm font-semibold tracking-wide uppercase">VIP Concierge</span>
+                        </div>
+                        <h3 class="text-3xl font-serif italic text-white">We handle the <span
+                                class="not-italic font-sans font-bold text-emerald-500">Conversation</span></h3>
+                        <p class="text-zinc-400 leading-relaxed text-lg">
+                            Language barriers shouldn't stop you. We contact the gym directly in Thai to secure your
+                            spot and confirm your arrival.
+                        </p>
+                    </div>
+                    <!-- Video Container -->
+                    <div class="w-full aspect-[4/3] rounded-2xl overflow-hidden relative shadow-2xl bg-zinc-950">
+                        <video autoplay muted loop playsinline
+                            class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                            src="https://cdn.shopify.com/videos/c/o/v/acecec08b9d74f8c87da744035dcb576.mov"></video>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                     </div>
                 </div>
             </div>
