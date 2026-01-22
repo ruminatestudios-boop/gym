@@ -47,53 +47,57 @@
                             700: '#1E1E1E'
                         }
                     },
-                    animation: {
-                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'glow-pulse': 'glowPulse 2s ease-in-out infinite',
-                        'shimmer': 'shimmer 3s linear infinite',
-                        'typewriter': 'typewriter 2s steps(20) forwards',
-                        'cursor-blink': 'cursorBlink 1s step-end infinite',
-                        'progress-load': 'progressLoad 2s ease-out forwards',
-                        'slide-up-fade': 'slideUpFade 0.5s ease-out forwards',
-                        'slide-up-wait': 'slideUpWait 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    'fade-in': 'fadeIn 0.5s ease-out forwards',
+                    'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    'glow-pulse': 'glowPulse 2s ease-in-out infinite',
+                    'shimmer': 'shimmer 3s linear infinite',
+                    'typewriter': 'typewriter 2s steps(20) forwards',
+                    'cursor-blink': 'cursorBlink 1s step-end infinite',
+                    'progress-load': 'progressLoad 2s ease-out forwards',
+                    'slide-up-fade': 'slideUpFade 0.5s ease-out forwards',
+                    'slide-up-wait': 'slideUpWait 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                },
+                keyframes: {
+                    fadeIn: {
+                        '0%': { opacity: '0' },
+                        '100%': { opacity: '1' },
                     },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        glowPulse: {
-                            '0%, 100%': { opacity: '1', transform: 'scale(1)' },
-                            '50%': { opacity: '0.8', transform: 'scale(1.05)' },
-                        },
-                        shimmer: {
-                            from: { backgroundPosition: '0 0' },
-                            to: { backgroundPosition: '-200% 0' },
-                        },
-                        typewriter: {
-                            from: { width: '0' },
-                            to: { width: '100%' }
-                        },
-                        cursorBlink: {
-                            '0%, 100%': { opacity: '1' },
-                            '50%': { opacity: '0' }
-                        },
-                        progressLoad: {
-                            '0%': { width: '0%' },
-                            '100%': { width: '100%' }
-                        },
-                        slideUpFade: {
-                            '0%': { opacity: '0', transform: 'translateY(10px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' }
-                        },
-                        slideUpWait: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' }
-                        }
+                    fadeInUp: {
+                        '0%': { opacity: '0', transform: 'translateY(20px)' },
+                        '100%': { opacity: '1', transform: 'translateY(0)' },
+                    },
+                    glowPulse: {
+                        '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+                        '50%': { opacity: '0.8', transform: 'scale(1.05)' },
+                    },
+                    shimmer: {
+                        from: { backgroundPosition: '0 0' },
+                        to: { backgroundPosition: '-200% 0' },
+                    },
+                    typewriter: {
+                        from: { width: '0' },
+                        to: { width: '100%' }
+                    },
+                    cursorBlink: {
+                        '0%, 100%': { opacity: '1' },
+                        '50%': { opacity: '0' }
+                    },
+                    progressLoad: {
+                        '0%': { width: '0%' },
+                        '100%': { width: '100%' }
+                    },
+                    slideUpFade: {
+                        '0%': { opacity: '0', transform: 'translateY(10px)' },
+                        '100%': { opacity: '1', transform: 'translateY(0)' }
+                    },
+                    slideUpWait: {
+                        '0%': { opacity: '0', transform: 'translateY(20px)' },
+                        '100%': { opacity: '1', transform: 'translateY(0)' }
                     }
                 }
             }
+        }
         }
     </script>
 
@@ -149,10 +153,10 @@
                 </div>
 
                 <div class="flex items-center gap-4">
-                    <a href="#chatbot"
+                    <button onclick="openFoundingModal()"
                         class="hidden md:flex bg-white text-black px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-zinc-200 transition-colors">
                         Join Waitlist
-                    </a>
+                    </button>
                     <!-- Mobile Menu Button -->
                     <button id="mobile-menu-btn" class="md:hidden text-white p-2">
                         <i data-lucide="menu" class="w-6 h-6"></i>
@@ -171,8 +175,8 @@
                 <a href="#gyms" class="hover:text-blue-500 transition-colors" onclick="toggleMobileMenu()">Partner
                     Gyms</a>
                 <a href="#faq" class="hover:text-blue-500 transition-colors" onclick="toggleMobileMenu()">FAQ</a>
-                <a href="#chatbot" class="bg-blue-600 text-white px-8 py-3 rounded-full text-lg mt-4"
-                    onclick="toggleMobileMenu()">Join Waitlist</a>
+                <button class="bg-blue-600 text-white px-8 py-3 rounded-full text-lg mt-4"
+                    onclick="toggleMobileMenu(); openFoundingModal()">Join Waitlist</button>
             </div>
         </nav>
     </div>
@@ -1241,7 +1245,7 @@
     <!-- Pricing Section (2-Step Funnel) -->
     <section id="pricing" class="py-24 bg-black border-t border-zinc-800 relative overflow-hidden">
         <div class="max-w-5xl mx-auto px-6">
-            <h2 class="text-3xl md:text-5xl font-serif italic mb-4 text-center">How It Works — <span
+            <h2 class="text-3xl md:text-5xl font-serif italic mb-4 text-center">Simple Pricing — <span
                     class="not-italic font-sans font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-white">Fast
                     & Easy</span></h2>
             <p class="text-zinc-400 text-center mb-16 text-lg max-w-2xl mx-auto">Try 3 free AI searches. Then unlock
@@ -1325,8 +1329,7 @@
                             </li>
                         </ul>
                         <div class="mt-auto w-full pt-6">
-                            <button
-                                onclick="document.getElementById('waitlist-form').scrollIntoView({behavior: 'smooth'})"
+                            <button onclick="openFoundingModal()"
                                 class="w-full text-center py-3 rounded-xl bg-white text-black text-sm font-bold hover:bg-zinc-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.1)]">
                                 Join Waitlist ($9.50)
                             </button>
@@ -1605,101 +1608,101 @@
                 </div>
             </div>
         </div>
-
-        <!-- Text Modal (Privacy & Terms) -->
-        <div id="text-modal"
-            class="fixed inset-0 z-50 hidden items-center justify-center bg-black/95 backdrop-blur-sm p-4">
-            <button id="close-text-modal-btn"
-                class="absolute top-6 right-6 text-white hover:text-gray-300 transition-colors z-50">
-                <i data-lucide="x" class="w-10 h-10"></i>
-            </button>
-            <div
-                class="bg-zinc-950 w-full max-w-3xl max-h-[80vh] rounded-2xl border border-zinc-800 p-8 md:p-12 overflow-y-auto relative shadow-2xl">
-                <h2 id="text-modal-title" class="text-3xl font-serif italic mb-6 text-white"></h2>
-                <div id="text-modal-content" class="prose prose-invert prose-zinc max-w-none text-zinc-400 space-y-4">
-                    <!-- Content injected via JS -->
-                </div>
+    </div>
+    <!-- End Video Modal Wrapper -->
+    <div id="text-modal"
+        class="fixed inset-0 z-[120] hidden items-center justify-center bg-black/95 backdrop-blur-sm p-4">
+        <button id="close-text-modal-btn"
+            class="absolute top-6 right-6 text-white hover:text-gray-300 transition-colors z-50">
+            <i data-lucide="x" class="w-10 h-10"></i>
+        </button>
+        <div
+            class="bg-zinc-950 w-full max-w-3xl max-h-[80vh] rounded-2xl border border-zinc-800 p-8 md:p-12 overflow-y-auto relative shadow-2xl">
+            <h2 id="text-modal-title" class="text-3xl font-serif italic mb-6 text-white"></h2>
+            <div id="text-modal-content" class="prose prose-invert prose-zinc max-w-none text-zinc-400 space-y-4">
+                <!-- Content injected via JS -->
             </div>
         </div>
+    </div>
 
-        <!-- Toast Notification -->
-        <div id="toast-notification"
-            class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] hidden items-center gap-3 bg-zinc-900 text-white px-4 py-3 rounded-xl border border-zinc-800 shadow-2xl transition-all duration-300 transform translate-y-10 opacity-0">
-            <i data-lucide="check-circle" class="w-5 h-5 text-emerald-500"></i>
-            <span id="toast-message" class="text-sm font-medium">Notification</span>
-        </div>
+    <!-- Toast Notification -->
+    <div id="toast-notification"
+        class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] hidden items-center gap-3 bg-zinc-900 text-white px-4 py-3 rounded-xl border border-zinc-800 shadow-2xl transition-all duration-300 transform translate-y-10 opacity-0">
+        <i data-lucide="check-circle" class="w-5 h-5 text-emerald-500"></i>
+        <span id="toast-message" class="text-sm font-medium">Notification</span>
+    </div>
 
 
 
-        <!-- Scripts -->
-        <script>
-            lucide.createIcons();
+    <!-- Scripts -->
+    <script>
+        lucide.createIcons();
 
-            // Mobile Menu Logic
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const closeMenuBtn = document.getElementById('close-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
+        // Mobile Menu Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
 
-            function toggleMobileMenu() {
-                mobileMenu.classList.toggle('hidden');
-                mobileMenu.classList.toggle('flex');
-                document.body.classList.toggle('overflow-hidden');
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+            document.body.classList.toggle('overflow-hidden');
+        }
+
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        closeMenuBtn.addEventListener('click', toggleMobileMenu);
+
+        // Live Crowd Tracker Logic
+        function updateLiveTracker() {
+            const statuses = [
+                { text: "Live: Low Traffic", color: "text-emerald-400", dot: "bg-emerald-500", ping: "bg-emerald-400" },
+                { text: "Live: Moderate", color: "text-yellow-400", dot: "bg-yellow-500", ping: "bg-yellow-400" },
+                { text: "Live: Busy", color: "text-red-400", dot: "bg-red-500", ping: "bg-red-400" }
+            ];
+
+            // Randomly pick a status for demo purposes
+            // In a real app, this would fetch from an API
+            const status = statuses[Math.floor(Math.random() * statuses.length)];
+
+            const tracker = document.getElementById('live-tracker');
+            const textEl = document.getElementById('live-text');
+            const dotEl = tracker.querySelector('span.relative.inline-flex');
+            const pingEl = tracker.querySelector('span.animate-ping');
+
+            if (tracker && textEl && dotEl && pingEl) {
+                textEl.textContent = status.text;
+
+                // Reset classes
+                textEl.className = `text-[10px] font-bold uppercase tracking-wider ${status.color}`;
+                dotEl.className = `relative inline-flex rounded-full h-2 w-2 ${status.dot}`;
+                pingEl.className = `animate-ping absolute inline-flex h-full w-full rounded-full ${status.ping} opacity-75`;
             }
+        }
 
-            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-            closeMenuBtn.addEventListener('click', toggleMobileMenu);
-
-            // Live Crowd Tracker Logic
-            function updateLiveTracker() {
-                const statuses = [
-                    { text: "Live: Low Traffic", color: "text-emerald-400", dot: "bg-emerald-500", ping: "bg-emerald-400" },
-                    { text: "Live: Moderate", color: "text-yellow-400", dot: "bg-yellow-500", ping: "bg-yellow-400" },
-                    { text: "Live: Busy", color: "text-red-400", dot: "bg-red-500", ping: "bg-red-400" }
-                ];
-
-                // Randomly pick a status for demo purposes
-                // In a real app, this would fetch from an API
-                const status = statuses[Math.floor(Math.random() * statuses.length)];
-
-                const tracker = document.getElementById('live-tracker');
-                const textEl = document.getElementById('live-text');
-                const dotEl = tracker.querySelector('span.relative.inline-flex');
-                const pingEl = tracker.querySelector('span.animate-ping');
-
-                if (tracker && textEl && dotEl && pingEl) {
-                    textEl.textContent = status.text;
-
-                    // Reset classes
-                    textEl.className = `text-[10px] font-bold uppercase tracking-wider ${status.color}`;
-                    dotEl.className = `relative inline-flex rounded-full h-2 w-2 ${status.dot}`;
-                    pingEl.className = `animate-ping absolute inline-flex h-full w-full rounded-full ${status.ping} opacity-75`;
-                }
+        // Hook into the click event for gym cards to trigger the update
+        // We can do this by observing when the modal opens or just exposing it
+        // Since we are using event delegation for the swiper above, we can call it there.
+        // But to be safe and simple, let's just run it every few seconds to simulate "live" updates if the modal is open
+        setInterval(() => {
+            const videoModal = document.getElementById('video-modal');
+            if (videoModal && !videoModal.classList.contains('hidden')) {
+                // 10% chance to change status while open to feel "alive"
+                if (Math.random() > 0.9) updateLiveTracker();
             }
+        }, 3000);
 
-            // Hook into the click event for gym cards to trigger the update
-            // We can do this by observing when the modal opens or just exposing it
-            // Since we are using event delegation for the swiper above, we can call it there.
-            // But to be safe and simple, let's just run it every few seconds to simulate "live" updates if the modal is open
-            setInterval(() => {
-                const videoModal = document.getElementById('video-modal');
-                if (videoModal && !videoModal.classList.contains('hidden')) {
-                    // 10% chance to change status while open to feel "alive"
-                    if (Math.random() > 0.9) updateLiveTracker();
-                }
-            }, 3000);
+        // Also expose it globally so the click handler can call it for an initial state
+        window.refreshLiveTracker = updateLiveTracker;
 
-            // Also expose it globally so the click handler can call it for an initial state
-            window.refreshLiveTracker = updateLiveTracker;
+        // --- Chatbot Logic ---
+        // --- Chatbot Logic (Fightlore Scout Persona) ---
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const chatHistory = document.getElementById('chat-history');
+        const suggestionPills = document.getElementById('suggestion-pills');
 
-            // --- Chatbot Logic ---
-            // --- Chatbot Logic (Fightlore Scout Persona) ---
-            const chatForm = document.getElementById('chat-form');
-            const chatInput = document.getElementById('chat-input');
-            const chatHistory = document.getElementById('chat-history');
-            const suggestionPills = document.getElementById('suggestion-pills');
-
-            // System Prompt (For reference/future API use)
-            const SYSTEM_PROMPT = `
+        // System Prompt (For reference/future API use)
+        const SYSTEM_PROMPT = `
         Role: You are the Fightlore Scout, a Thailand Muay Thai expert currently on the ground visiting gyms. Your goal is to help users find the perfect training spot using the Fightlore Verified Database.
         Tone: Expert, helpful, and direct. Use Thai greetings like "Sawadee Krap" and "Kop Khun Krap" naturally.
         Core Knowledge (The 5 Verified Gyms): You ONLY have deep-dive data for these 5 gyms. Do not invent details for others.
@@ -1715,180 +1718,180 @@
         - The "Phase 2" Call to Action: Always end interactions with unverified requests by saying: "I am adding 5 new gyms every week. Click the 'Unlock 100+ More' button below to join the waitlist and vote for which city I should scout next!"
         `;
 
-            // Simulated Database (Black Book)
-            const gymDatabase = {
-                kiatsongkrit: {
-                    name: "Kiatsongkrit Gym",
-                    location: "Bangkok",
-                    vibe: "Premium & Modern",
-                    crowd: "Serious & VIPs",
-                    price: "$50 Drop-in",
-                    features: ["sauna", "ac", "personal training", "clean"],
-                    note: "Top-tier facilities with AC and Sauna. Perfect if you want comfort with your violence."
-                },
-                pinsinchai: {
-                    name: "Pinsinchai Muay Thai",
-                    location: "Bangkok",
-                    vibe: "Authentic & Hard",
-                    crowd: "Fighters",
-                    price: "400 THB Drop-in",
-                    features: ["authentic", "traditional", "clinch"],
-                    note: "Old school vibes. This is where you go to learn real fight IQ."
-                },
-                kiatphontip: {
-                    name: "Kiatphontip Gym",
-                    location: "Chiang Mai",
-                    vibe: "Community & Technical",
-                    crowd: "Mixed & Friendly",
-                    price: "300 THB Drop-in",
-                    features: ["crossfit", "community", "technical"],
-                    note: "Great mix of Muay Thai and strength work. Super welcoming community."
-                },
-                pksaenchai: {
-                    name: "PK. Saenchai Gym",
-                    location: "Koh Samui",
-                    vibe: "Views & Elite",
-                    crowd: "Tourists & Pros",
-                    price: "500 THB Drop-in",
-                    features: ["views", "scenery", "island", "famous"],
-                    note: "Training with a view. World famous name, island life."
-                }
-            };
+        // Simulated Database (Black Book)
+        const gymDatabase = {
+            kiatsongkrit: {
+                name: "Kiatsongkrit Gym",
+                location: "Bangkok",
+                vibe: "Premium & Modern",
+                crowd: "Serious & VIPs",
+                price: "$50 Drop-in",
+                features: ["sauna", "ac", "personal training", "clean"],
+                note: "Top-tier facilities with AC and Sauna. Perfect if you want comfort with your violence."
+            },
+            pinsinchai: {
+                name: "Pinsinchai Muay Thai",
+                location: "Bangkok",
+                vibe: "Authentic & Hard",
+                crowd: "Fighters",
+                price: "400 THB Drop-in",
+                features: ["authentic", "traditional", "clinch"],
+                note: "Old school vibes. This is where you go to learn real fight IQ."
+            },
+            kiatphontip: {
+                name: "Kiatphontip Gym",
+                location: "Chiang Mai",
+                vibe: "Community & Technical",
+                crowd: "Mixed & Friendly",
+                price: "300 THB Drop-in",
+                features: ["crossfit", "community", "technical"],
+                note: "Great mix of Muay Thai and strength work. Super welcoming community."
+            },
+            pksaenchai: {
+                name: "PK. Saenchai Gym",
+                location: "Koh Samui",
+                vibe: "Views & Elite",
+                crowd: "Tourists & Pros",
+                price: "500 THB Drop-in",
+                features: ["views", "scenery", "island", "famous"],
+                note: "Training with a view. World famous name, island life."
+            }
+        };
 
-            // State Machine
-            let chatState = {
-                step: 0,
-                userIntent: '',
-                location: ''
-            };
+        // State Machine
+        let chatState = {
+            step: 0,
+            userIntent: '',
+            location: ''
+        };
 
-            // Auto-Greeting
-            setTimeout(() => {
-                if (chatHistory.children.length <= 1) {
-                    chatHistory.innerHTML = '';
-                    addMessage("Sawadee krap! 🙏 I'm your Muay Thai Gym Scout. I've personally verified 144+ gyms across Thailand. Tell me what you're looking for and I'll find your perfect fit in seconds", 'ai');
-                }
-            }, 500);
+        // Auto-Greeting
+        setTimeout(() => {
+            if (chatHistory.children.length <= 1) {
+                chatHistory.innerHTML = '';
+                addMessage("Sawadee krap! 🙏 I'm your Muay Thai Gym Scout. I've personally verified 144+ gyms across Thailand. Tell me what you're looking for and I'll find your perfect fit in seconds", 'ai');
+            }
+        }, 500);
 
-            // Handle suggestion clicks
-            const pills = document.querySelectorAll('#suggestion-pills button');
-            pills.forEach(pill => {
-                pill.addEventListener('click', () => {
-                    const text = pill.innerText.trim();
-                    chatInput.value = text; // Just put exact text
-                    chatForm.dispatchEvent(new Event('submit'));
-                });
+        // Handle suggestion clicks
+        const pills = document.querySelectorAll('#suggestion-pills button');
+        pills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                const text = pill.innerText.trim();
+                chatInput.value = text; // Just put exact text
+                chatForm.dispatchEvent(new Event('submit'));
             });
+        });
 
-            chatForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-                // CHECK LIMIT BEFORE SENDING
-                if (checkChatLimit()) return;
+            // CHECK LIMIT BEFORE SENDING
+            if (checkChatLimit()) return;
 
-                const message = chatInput.value.trim();
-                if (!message) return;
+            const message = chatInput.value.trim();
+            if (!message) return;
 
-                addMessage(message, 'user');
-                chatInput.value = '';
+            addMessage(message, 'user');
+            chatInput.value = '';
 
-                // Increment Count
-                messageCount++;
-                console.log("Message Count:", messageCount);
+            // Increment Count
+            messageCount++;
+            console.log("Message Count:", messageCount);
 
-                if (suggestionPills) suggestionPills.style.display = 'none';
+            if (suggestionPills) suggestionPills.style.display = 'none';
 
-                // Check limit again immediately to update UI if needed (e.g. at 3)
-                if (checkChatLimit()) return;
+            // Check limit again immediately to update UI if needed (e.g. at 3)
+            if (checkChatLimit()) return;
 
-                const loadingId = addLoadingIndicator();
-                await new Promise(r => setTimeout(r, 1000 + Math.random() * 500)); // Natural delay
+            const loadingId = addLoadingIndicator();
+            await new Promise(r => setTimeout(r, 1000 + Math.random() * 500)); // Natural delay
 
-                const response = processChatLogic(message);
-                removeMessage(loadingId);
-                addMessage(response, 'ai');
-                chatHistory.scrollTop = chatHistory.scrollHeight;
-            });
+            const response = processChatLogic(message);
+            removeMessage(loadingId);
+            addMessage(response, 'ai');
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        });
 
-            function processChatLogic(input) {
-                const lowerInput = input.toLowerCase();
+        function processChatLogic(input) {
+            const lowerInput = input.toLowerCase();
 
-                // 1. Check for specific Feature Requests (The Feature Match)
-                if (lowerInput.includes('sauna') || lowerInput.includes('ac')) {
-                    const gym = gymDatabase.kiatsongkrit;
-                    return `For <b>Sauna & AC</b> in Bangkok, <b>${gym.name}</b> is the spot. <br><br>${gym.note}<br><br>Would you like me to book a session there for you?`;
-                }
-                if (lowerInput.includes('crossfit')) {
-                    const gym = gymDatabase.kiatphontip;
-                    return `If you want <b>CrossFit</b> mixed with Muay Thai, you need to head to Chiang Mai and check out <b>${gym.name}</b>. <br><br>${gym.note}<br><br>Shall I get you the schedule?`;
-                }
-                if (lowerInput.includes('view') || lowerInput.includes('scenery') || lowerInput.includes('island')) {
-                    const gym = gymDatabase.pksaenchai;
-                    return `For training with a view, <b>${gym.name}</b> in Koh Samui is unbeatable. <br><br>${gym.note}<br><br>Want to secure a slot?`;
-                }
-                if (lowerInput.includes('authentic') || (lowerInput.includes('bangkok') && lowerInput.includes('traditional'))) {
-                    const gym = gymDatabase.pinsinchai;
-                    return `For raw, authentic training in Bangkok, <b>${gym.name}</b> is legendary. <br><br>${gym.note}<br><br>Ready to step into the ring there?`;
-                }
+            // 1. Check for specific Feature Requests (The Feature Match)
+            if (lowerInput.includes('sauna') || lowerInput.includes('ac')) {
+                const gym = gymDatabase.kiatsongkrit;
+                return `For <b>Sauna & AC</b> in Bangkok, <b>${gym.name}</b> is the spot. <br><br>${gym.note}<br><br>Would you like me to book a session there for you?`;
+            }
+            if (lowerInput.includes('crossfit')) {
+                const gym = gymDatabase.kiatphontip;
+                return `If you want <b>CrossFit</b> mixed with Muay Thai, you need to head to Chiang Mai and check out <b>${gym.name}</b>. <br><br>${gym.note}<br><br>Shall I get you the schedule?`;
+            }
+            if (lowerInput.includes('view') || lowerInput.includes('scenery') || lowerInput.includes('island')) {
+                const gym = gymDatabase.pksaenchai;
+                return `For training with a view, <b>${gym.name}</b> in Koh Samui is unbeatable. <br><br>${gym.note}<br><br>Want to secure a slot?`;
+            }
+            if (lowerInput.includes('authentic') || (lowerInput.includes('bangkok') && lowerInput.includes('traditional'))) {
+                const gym = gymDatabase.pinsinchai;
+                return `For raw, authentic training in Bangkok, <b>${gym.name}</b> is legendary. <br><br>${gym.note}<br><br>Ready to step into the ring there?`;
+            }
 
-                // 2. Check for Location/City filtering
-                // If they ask for a city we HAVE
-                if (lowerInput.includes('bangkok')) {
-                    return "Bangkok has two verified spots: <b>Kiatsongkrit</b> (Premium/AC) and <b>Pinsinchai</b> (Authentic/Raw). Which vibe do you prefer?";
-                }
-                if (lowerInput.includes('chiang mai') || lowerInput.includes('chiangmai')) {
-                    return "Chiang Mai? <b>Kiatphontip</b> is the verified pick there. Great community and technique.";
-                }
-                if (lowerInput.includes('samui') || lowerInput.includes('koh samui')) {
-                    return "Koh Samui is home to <b>PK. Saenchai</b>. Incredible views and verified quality.";
-                }
+            // 2. Check for Location/City filtering
+            // If they ask for a city we HAVE
+            if (lowerInput.includes('bangkok')) {
+                return "Bangkok has two verified spots: <b>Kiatsongkrit</b> (Premium/AC) and <b>Pinsinchai</b> (Authentic/Raw). Which vibe do you prefer?";
+            }
+            if (lowerInput.includes('chiang mai') || lowerInput.includes('chiangmai')) {
+                return "Chiang Mai? <b>Kiatphontip</b> is the verified pick there. Great community and technique.";
+            }
+            if (lowerInput.includes('samui') || lowerInput.includes('koh samui')) {
+                return "Koh Samui is home to <b>PK. Saenchai</b>. Incredible views and verified quality.";
+            }
 
-                // 3. Unverified Locations (Strict Verification Rule + Pivot + CTA)
-                if (lowerInput.includes('pattaya') || lowerInput.includes('phuket') || lowerInput.includes('krabi') || lowerInput.includes('pai')) {
-                    const unverifiedLoc = lowerInput.includes('pattaya') ? 'Pattaya' :
-                        lowerInput.includes('phuket') ? 'Phuket' :
-                            lowerInput.includes('krabi') ? 'Krabi' : 'that area';
+            // 3. Unverified Locations (Strict Verification Rule + Pivot + CTA)
+            if (lowerInput.includes('pattaya') || lowerInput.includes('phuket') || lowerInput.includes('krabi') || lowerInput.includes('pai')) {
+                const unverifiedLoc = lowerInput.includes('pattaya') ? 'Pattaya' :
+                    lowerInput.includes('phuket') ? 'Phuket' :
+                        lowerInput.includes('krabi') ? 'Krabi' : 'that area';
 
-                    // Pivot suggestion based on general vibe?
-                    let pivot = "If you want world-class training, I'd suggest starting in Bangkok at Pinsinchai.";
-                    if (lowerInput.includes('phuket') || lowerInput.includes('krabi')) {
-                        pivot = "If you want that island holiday vibe, check out PK. Saenchai in Samui instead.";
-                    }
-
-                    return `Sawadee Krap! I'm currently scouting Thailand and haven't personally vetted ${unverifiedLoc} yet. <br><br>I refuse to give you unverified data—I only recommend spots I have hand-verified to ensure the pricing and quality are real.<br><br>${pivot}<br><br>I am adding 5 new gyms every week. Click the 'Unlock 100+ More' button below to join the waitlist and vote for which city I should scout next!`;
+                // Pivot suggestion based on general vibe?
+                let pivot = "If you want world-class training, I'd suggest starting in Bangkok at Pinsinchai.";
+                if (lowerInput.includes('phuket') || lowerInput.includes('krabi')) {
+                    pivot = "If you want that island holiday vibe, check out PK. Saenchai in Samui instead.";
                 }
 
-                // 4. Default / Booking Intent
-                if (lowerInput.includes('book') || lowerInput.includes('yes') || lowerInput.includes('price')) {
-                    // Simulate closing
-                    setTimeout(() => {
-                        document.getElementById('text-modal').classList.remove('hidden');
-                        document.getElementById('text-modal').classList.add('flex');
-                        document.getElementById('text-modal-title').innerText = "Smart Choice.";
-                        document.getElementById('text-modal-content').innerHTML = `
+                return `Sawadee Krap! I'm currently scouting Thailand and haven't personally vetted ${unverifiedLoc} yet. <br><br>I refuse to give you unverified data—I only recommend spots I have hand-verified to ensure the pricing and quality are real.<br><br>${pivot}<br><br>I am adding 5 new gyms every week. Click the 'Unlock 100+ More' button below to join the waitlist and vote for which city I should scout next!`;
+            }
+
+            // 4. Default / Booking Intent
+            if (lowerInput.includes('book') || lowerInput.includes('yes') || lowerInput.includes('price')) {
+                // Simulate closing
+                setTimeout(() => {
+                    document.getElementById('text-modal').classList.remove('hidden');
+                    document.getElementById('text-modal').classList.add('flex');
+                    document.getElementById('text-modal-title').innerText = "Smart Choice.";
+                    document.getElementById('text-modal-content').innerHTML = `
                             <p class="text-xl text-white mb-4">You're making a smart move.</p>
                             <p>To have our Personal Booking Agent handle this reservation (and ensure you get the Foreigner Rates we negotiated), you need the <b>VIP Concierge</b> or <b>Fighter's Passport</b>.</p>
                             <div class="mt-8 flex gap-4">
                                 <button onclick="document.getElementById('text-modal').classList.add('hidden');" class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-full font-bold w-full">Access Passport ($47)</button>
                             </div>
                         `;
-                    }, 800);
-                    return "Excellent. I'm pulling up the booking details for the verified rate now...";
-                }
-
-                // 5. Fallback
-                return "I'm the Fightlore Scout. I can help you find verified gyms in Bangkok, Chiang Mai, and Koh Samui. Ask me about <b>Saunas</b>, <b>CrossFit</b>, or <b>Authentic</b> training.";
+                }, 800);
+                return "Excellent. I'm pulling up the booking details for the verified rate now...";
             }
 
+            // 5. Fallback
+            return "I'm the Fightlore Scout. I can help you find verified gyms in Bangkok, Chiang Mai, and Koh Samui. Ask me about <b>Saunas</b>, <b>CrossFit</b>, or <b>Authentic</b> training.";
+        }
 
-            function addMessage(text, sender) {
-                const div = document.createElement('div');
-                // Gemini Style: No bubbles for AI, just icon + text. User gets a bubble.
-                // Wide container, left aligned for AI. Right aligned bubble for user.
 
-                if (sender === 'ai') {
-                    div.className = `flex gap-4 animate-fade-in w-full max-w-3xl`;
-                    div.innerHTML = `
+        function addMessage(text, sender) {
+            const div = document.createElement('div');
+            // Gemini Style: No bubbles for AI, just icon + text. User gets a bubble.
+            // Wide container, left aligned for AI. Right aligned bubble for user.
+
+            if (sender === 'ai') {
+                div.className = `flex gap-4 animate-fade-in w-full max-w-3xl`;
+                div.innerHTML = `
                     <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-400 to-blue-600 flex items-center justify-center text-white shrink-0 mt-1 shadow-lg shadow-blue-500/20">
                         <i data-lucide="sparkles" class="w-4 h-4"></i>
                     </div>
@@ -1898,9 +1901,9 @@
                         </div>
                     </div>
                 `;
-                } else {
-                    div.className = `flex gap-4 animate-fade-in flex-row-reverse w-full ml-auto max-w-3xl`;
-                    div.innerHTML = `
+            } else {
+                div.className = `flex gap-4 animate-fade-in flex-row-reverse w-full ml-auto max-w-3xl`;
+                div.innerHTML = `
                     <div class="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center text-white shrink-0 mt-1 border border-zinc-700">
                         <i data-lucide="user" class="w-4 h-4"></i>
                     </div>
@@ -1908,59 +1911,54 @@
                         <p class="text-[15px]">${text}</p>
                     </div>
                 `;
-                }
-                chatHistory.appendChild(div);
-                // Re-init icons for new content
-                lucide.createIcons();
-                chatHistory.scrollTop = chatHistory.scrollHeight;
+            }
+            chatHistory.appendChild(div);
+            // Re-init icons for new content
+            lucide.createIcons();
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+
+        // --- Chat Limit Logic ---
+        let messageCount = 0;
+        const FREE_CHAT_LIMIT = 3;
+        const chatInputContainer = document.getElementById('chat-input-container'); // Need to ID this div in HTML logic below if not exists
+
+        function checkChatLimit() {
+            if (messageCount >= FREE_CHAT_LIMIT) {
+                showWaitlistCard();
+                return true;
+            }
+            return false;
+        }
+
+        function showWaitlistCard() {
+            console.log("Triggering Founding Waitlist Modal...");
+
+            // Hide input container
+            const inputForm = document.getElementById('chat-input-container');
+            if (inputForm) inputForm.style.display = 'none';
+
+            // Hide suggestion pills
+            const pills = document.getElementById('suggestion-pills');
+            if (pills) pills.style.display = 'none';
+
+            // Show New Founding Modal
+            if (window.openFoundingModal) {
+                window.openFoundingModal();
+            } else {
+                console.error("openFoundingModal not defined");
             }
 
-            // --- Chat Limit Logic ---
-            let messageCount = 0;
-            const FREE_CHAT_LIMIT = 3;
-            const chatInputContainer = document.getElementById('chat-input-container'); // Need to ID this div in HTML logic below if not exists
+            // Also scroll to bottom
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
 
-            function checkChatLimit() {
-                if (messageCount >= FREE_CHAT_LIMIT) {
-                    showWaitlistCard();
-                    return true;
-                }
-                return false;
-            }
-
-            function showWaitlistCard() {
-                console.log("Triggering Waitlist Card...");
-
-                // Hide input container
-                const inputForm = document.getElementById('chat-input-container'); // Hide the container, not just form
-                if (inputForm) inputForm.style.display = 'none';
-
-                // Hide suggestion pills
-                const pills = document.getElementById('suggestion-pills');
-                if (pills) pills.style.display = 'none';
-
-                // Show Waitlist Modal
-                const waitlistCard = document.getElementById('waitlist-card');
-                if (waitlistCard) {
-                    console.log("Found card, showing it.");
-                    waitlistCard.classList.remove('hidden');
-                    waitlistCard.classList.add('flex');
-                    // Force style just in case
-                    waitlistCard.style.display = 'flex';
-                } else {
-                    console.error("Waitlist Card element not found!");
-                }
-
-                // Also scroll to bottom
-                chatHistory.scrollTop = chatHistory.scrollHeight;
-            }
-
-            function addLoadingIndicator() {
-                const id = 'loading-' + Date.now();
-                const div = document.createElement('div');
-                div.id = id;
-                div.className = 'flex gap-4 animate-fade-in w-full max-w-3xl';
-                div.innerHTML = `
+        function addLoadingIndicator() {
+            const id = 'loading-' + Date.now();
+            const div = document.createElement('div');
+            div.id = id;
+            div.className = 'flex gap-4 animate-fade-in w-full max-w-3xl';
+            div.innerHTML = `
                 <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-400 to-blue-600 flex items-center justify-center text-white shrink-0 mt-1 shadow-lg shadow-blue-500/20">
                     <i data-lucide="sparkles" class="w-4 h-4"></i>
                 </div>
@@ -1972,94 +1970,94 @@
                     </div>
                 </div>
             `;
-                chatHistory.appendChild(div);
-                lucide.createIcons();
-                chatHistory.scrollTop = chatHistory.scrollHeight;
-                return id;
-            }
+            chatHistory.appendChild(div);
+            lucide.createIcons();
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+            return id;
+        }
 
-            function removeMessage(id) {
-                const el = document.getElementById(id);
-                if (el) el.remove();
-            }
+        function removeMessage(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
 
-            // --- Video Modal Logic ---
-            // REMOVED: Conflicted with Swiper delegation and Redesigned Modal Logic below.
-            // All modal interactions are now handled by the Swiper wrapper delegation and the unified logic block.
+        // --- Video Modal Logic ---
+        // REMOVED: Conflicted with Swiper delegation and Redesigned Modal Logic below.
+        // All modal interactions are now handled by the Swiper wrapper delegation and the unified logic block.
 
-            // --- Stripe Payment Client-Side Logic ---
-            // --- Stripe Payment Client-Side Logic ---
-            async function handleCheckout(priceType) {
-                try {
-                    let btnId;
-                    if (priceType === 'fighter-passport') btnId = 'btn-fighter-passport';
-                    else if (priceType === 'vip-concierge') btnId = 'btn-vip-concierge';
-                    else return;
+        // --- Stripe Payment Client-Side Logic ---
+        // --- Stripe Payment Client-Side Logic ---
+        async function handleCheckout(priceType) {
+            try {
+                let btnId;
+                if (priceType === 'fighter-passport') btnId = 'btn-fighter-passport';
+                else if (priceType === 'vip-concierge') btnId = 'btn-vip-concierge';
+                else return;
 
-                    const button = document.getElementById(btnId);
-                    const originalText = button.innerText;
-                    button.innerText = 'Processing...';
-                    button.disabled = true;
+                const button = document.getElementById(btnId);
+                const originalText = button.innerText;
+                button.innerText = 'Processing...';
+                button.disabled = true;
 
-                    const response = await fetch('http://localhost:3000/api/create-checkout-session', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ priceType }),
-                    });
+                const response = await fetch('http://localhost:3000/api/create-checkout-session', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ priceType }),
+                });
 
-                    const data = await response.json();
+                const data = await response.json();
 
-                    if (data.url) {
-                        window.location.href = data.url;
-                    } else {
-                        console.error('Payment Error:', data.error);
-                        alert('Could not initiate payment. Please try again.');
-                        button.innerText = originalText;
-                        button.disabled = false;
-                    }
-                } catch (error) {
-                    console.error('Network Error:', error);
-                    alert('Network error. Check console.');
-                    // Restore button text strictly based on type
-                    if (priceType === 'fighter-passport') {
-                        document.getElementById('btn-fighter-passport').innerText = 'Get Passport';
-                        document.getElementById('btn-fighter-passport').disabled = false;
-                    } else if (priceType === 'vip-concierge') {
-                        document.getElementById('btn-vip-concierge').innerText = 'Join VIP';
-                        document.getElementById('btn-vip-concierge').disabled = false;
-                    }
+                if (data.url) {
+                    window.location.href = data.url;
+                } else {
+                    console.error('Payment Error:', data.error);
+                    alert('Could not initiate payment. Please try again.');
+                    button.innerText = originalText;
+                    button.disabled = false;
+                }
+            } catch (error) {
+                console.error('Network Error:', error);
+                alert('Network error. Check console.');
+                // Restore button text strictly based on type
+                if (priceType === 'fighter-passport') {
+                    document.getElementById('btn-fighter-passport').innerText = 'Get Passport';
+                    document.getElementById('btn-fighter-passport').disabled = false;
+                } else if (priceType === 'vip-concierge') {
+                    document.getElementById('btn-vip-concierge').innerText = 'Join VIP';
+                    document.getElementById('btn-vip-concierge').disabled = false;
                 }
             }
+        }
 
-            const btnScoutFree = document.getElementById('btn-scout-free');
-            const btnFighterPassport = document.getElementById('btn-fighter-passport');
-            const btnVipConcierge = document.getElementById('btn-vip-concierge');
+        const btnScoutFree = document.getElementById('btn-scout-free');
+        const btnFighterPassport = document.getElementById('btn-fighter-passport');
+        const btnVipConcierge = document.getElementById('btn-vip-concierge');
 
-            if (btnScoutFree) {
-                btnScoutFree.addEventListener('click', () => {
-                    const chatSection = document.getElementById('chatbot');
-                    if (chatSection) chatSection.scrollIntoView({ behavior: 'smooth' });
-                });
-            }
+        if (btnScoutFree) {
+            btnScoutFree.addEventListener('click', () => {
+                const chatSection = document.getElementById('chatbot');
+                if (chatSection) chatSection.scrollIntoView({ behavior: 'smooth' });
+            });
+        }
 
-            // if (btnFighterPassport) {
-            //     btnFighterPassport.addEventListener('click', () => handleCheckout('fighter-passport'));
-            // }
+        // if (btnFighterPassport) {
+        //     btnFighterPassport.addEventListener('click', () => handleCheckout('fighter-passport'));
+        // }
 
-            // if (btnVipConcierge) {
-            //     btnVipConcierge.addEventListener('click', () => handleCheckout('vip-concierge'));
-            // }
-            // --- Text Modal Logic (Privacy & Terms) ---
-            const textModal = document.getElementById('text-modal');
-            const textModalTitle = document.getElementById('text-modal-title');
-            const textModalContent = document.getElementById('text-modal-content');
-            const closeTextModalBtn = document.getElementById('close-text-modal-btn');
-            const linkPrivacy = document.getElementById('link-privacy');
-            const linkTerms = document.getElementById('link-terms');
+        // if (btnVipConcierge) {
+        //     btnVipConcierge.addEventListener('click', () => handleCheckout('vip-concierge'));
+        // }
+        // --- Text Modal Logic (Privacy & Terms) ---
+        const textModal = document.getElementById('text-modal');
+        const textModalTitle = document.getElementById('text-modal-title');
+        const textModalContent = document.getElementById('text-modal-content');
+        const closeTextModalBtn = document.getElementById('close-text-modal-btn');
+        const linkPrivacy = document.getElementById('link-privacy');
+        const linkTerms = document.getElementById('link-terms');
 
-            const dummyPrivacy = `
+        const dummyPrivacy = `
             <p><strong>Last Updated: January 2026</strong></p>
             <p>Welcome to GymFinder.ai. We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy outlines how we collect, use, and safeguard your data when you use our website and services.</p>
             <h3>1. Information We Collect</h3>
@@ -2070,7 +2068,7 @@
             <p>We implement industry-standard security measures to protect your data from unauthorized access, disclosure, or misuse. However, no method of transmission over the internet is 100% secure.</p>
         `;
 
-            const dummyTerms = `
+        const dummyTerms = `
             <p><strong>Effective Date: January 2026</strong></p>
             <p>Please read these Terms of Service carefully before using GymFinder.ai. By accessing or using our services, you agree to be bound by these terms.</p>
             <h3>1. Acceptance of Terms</h3>
@@ -2081,587 +2079,584 @@
             <p>GymFinder.ai is not liable for any direct, indirect, incidental, or consequential damages arising from your use of our services or the gyms recommended by our platform.</p>
         `;
 
-            function openTextModal(title, content) {
-                textModalTitle.innerText = title;
-                textModalContent.innerHTML = content;
-                textModal.classList.remove('hidden');
-                textModal.classList.add('flex');
-                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        function openTextModal(title, content) {
+            textModalTitle.innerText = title;
+            textModalContent.innerHTML = content;
+            textModal.classList.remove('hidden');
+            textModal.classList.add('flex');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeTextModal() {
+            textModal.classList.add('hidden');
+            textModal.classList.remove('flex');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        if (linkPrivacy) {
+            linkPrivacy.addEventListener('click', (e) => {
+                e.preventDefault();
+                openTextModal('Privacy Policy', dummyPrivacy);
+            });
+        }
+
+        if (linkTerms) {
+            linkTerms.addEventListener('click', (e) => {
+                e.preventDefault();
+                openTextModal('Terms of Service', dummyTerms);
+            });
+        }
+
+        if (closeTextModalBtn) {
+            closeTextModalBtn.addEventListener('click', closeTextModal);
+        }
+
+        if (textModal) {
+            textModal.addEventListener('click', (e) => {
+                if (e.target === textModal) {
+                    closeTextModal();
+                }
+            });
+        }
+
+        // --- Redesigned Modal Logic ---
+        {
+            const closeModalMobile = document.getElementById('close-modal-mobile');
+            const btnConciergeBook = document.getElementById('btn-concierge-book');
+            const videoModal = document.getElementById('video-modal');
+
+            function closeVideoModal() {
+                videoModal.classList.add('hidden');
+                videoModal.classList.remove('flex');
+                const vid = document.getElementById('modal-video');
+                if (vid) {
+                    vid.pause();
+                    vid.currentTime = 0;
+                }
+
+                // Reset State (New Overlay)
+                if (window.resetModalState) window.resetModalState();
             }
 
-            function closeTextModal() {
-                textModal.classList.add('hidden');
-                textModal.classList.remove('flex');
-                document.body.style.overflow = ''; // Restore scrolling
+            if (closeModalMobile) {
+                closeModalMobile.addEventListener('click', closeVideoModal);
             }
 
-            if (linkPrivacy) {
-                linkPrivacy.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    openTextModal('Privacy Policy', dummyPrivacy);
+            const closeModalBtn = document.getElementById('close-modal-btn');
+            if (closeModalBtn) {
+                closeModalBtn.addEventListener('click', closeVideoModal);
+            }
+
+            if (videoModal) {
+                videoModal.addEventListener('click', (e) => {
+                    if (e.target === videoModal) closeVideoModal();
                 });
             }
 
-            if (linkTerms) {
-                linkTerms.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    openTextModal('Terms of Service', dummyTerms);
-                });
+            // Full Screen Modal Logic
+            const videoModalFull = document.getElementById('video-modal-full');
+            const closeFullBtn = document.getElementById('close-modal-full-btn');
+
+            function closeFullModal() {
+                if (!videoModalFull) return;
+                videoModalFull.classList.add('hidden');
+                videoModalFull.classList.remove('flex');
+                const vidFull = document.getElementById('modal-video-full');
+                if (vidFull) {
+                    vidFull.pause();
+                    vidFull.currentTime = 0;
+                }
             }
 
-            if (closeTextModalBtn) {
-                closeTextModalBtn.addEventListener('click', closeTextModal);
-            }
-
-            if (textModal) {
-                textModal.addEventListener('click', (e) => {
-                    if (e.target === textModal) {
-                        closeTextModal();
-                    }
-                });
-            }
-
-            // --- Redesigned Modal Logic ---
-            {
-                const closeModalMobile = document.getElementById('close-modal-mobile');
-                const btnConciergeBook = document.getElementById('btn-concierge-book');
-                const videoModal = document.getElementById('video-modal');
-
-                function closeVideoModal() {
-                    videoModal.classList.add('hidden');
-                    videoModal.classList.remove('flex');
-                    const vid = document.getElementById('modal-video');
-                    if (vid) {
-                        vid.pause();
-                        vid.currentTime = 0;
-                    }
-
-                    // Reset State (New Overlay)
-                    if (window.resetModalState) window.resetModalState();
-                }
-
-                if (closeModalMobile) {
-                    closeModalMobile.addEventListener('click', closeVideoModal);
-                }
-
-                const closeModalBtn = document.getElementById('close-modal-btn');
-                if (closeModalBtn) {
-                    closeModalBtn.addEventListener('click', closeVideoModal);
-                }
-
-                if (videoModal) {
-                    videoModal.addEventListener('click', (e) => {
-                        if (e.target === videoModal) closeVideoModal();
-                    });
-                }
-
-                // Full Screen Modal Logic
-                const videoModalFull = document.getElementById('video-modal-full');
-                const closeFullBtn = document.getElementById('close-modal-full-btn');
-
-                function closeFullModal() {
-                    if (!videoModalFull) return;
-                    videoModalFull.classList.add('hidden');
-                    videoModalFull.classList.remove('flex');
+            // VSL Trigger Logic (Hand-Verified Section)
+            const vslTrigger = document.getElementById('vsl-trigger');
+            if (vslTrigger) {
+                vslTrigger.addEventListener('click', () => {
                     const vidFull = document.getElementById('modal-video-full');
-                    if (vidFull) {
-                        vidFull.pause();
-                        vidFull.currentTime = 0;
+                    const modalFull = document.getElementById('video-modal-full');
+                    // Use specific source or extract from the trigger's video tag
+                    const source = "https://cdn.shopify.com/videos/c/o/v/48ec1e59d63740a1bd3b81486969da95.mp4";
+
+                    if (vidFull && modalFull) {
+                        vidFull.src = source;
+                        modalFull.classList.remove('hidden');
+                        modalFull.classList.add('flex');
+                        vidFull.play();
                     }
+                });
+            }
+
+
+            if (closeFullBtn) closeFullBtn.addEventListener('click', closeFullModal);
+            if (videoModalFull) {
+                videoModalFull.addEventListener('click', (e) => {
+                    if (e.target === videoModalFull) closeFullModal();
+                });
+            }
+
+            if (btnConciergeBook) {
+                btnConciergeBook.addEventListener('click', () => {
+                    const gymName = document.getElementById('modal-title').innerText;
+                    // Do NOT close the video modal immediately if we want to layer, 
+                    // but usually we want to switch context. Let's close video modal for cleaner UI.
+                    closeVideoModal();
+
+                    // Populate Booking Modal
+                    const bookingModal = document.getElementById('booking-modal');
+                    const bookingGymInput = document.getElementById('booking-gym-name');
+
+                    if (bookingGymInput) bookingGymInput.value = gymName;
+
+                    if (bookingModal) {
+                        bookingModal.style.display = 'flex';
+                    }
+                });
+            }
+
+            // New Ask AI Button Logic
+            const btnAskAi = document.getElementById('btn-ask-ai');
+            if (btnAskAi) {
+                btnAskAi.addEventListener('click', () => {
+                    const gymName = document.getElementById('modal-title').innerText;
+                    closeVideoModal();
+
+                    const chatSection = document.getElementById('chatbot');
+                    if (chatSection) chatSection.scrollIntoView({ behavior: 'smooth' });
+
+                    const chatInput = document.getElementById('chat-input');
+                    if (chatInput) {
+                        chatInput.value = `Tell me more about ${gymName}. Is it good for beginners?`;
+                        chatInput.focus();
+                    }
+                });
+            }
+
+            // Slide-to-Info Logic
+            // Slide-to-Info Logic (New Overlay Method)
+            const btnGetInfo = document.getElementById('btn-get-info');
+            const btnInfoBack = document.getElementById('btn-info-back');
+            const detailsOverlay = document.getElementById('full-screen-details');
+
+            if (btnGetInfo && detailsOverlay) {
+                btnGetInfo.addEventListener('click', () => {
+                    // Slide in Overlay from Right
+                    detailsOverlay.classList.remove('translate-x-full');
+                });
+            }
+
+            if (btnInfoBack && detailsOverlay) {
+                btnInfoBack.addEventListener('click', () => {
+                    // Slide Overlay back to Right
+                    detailsOverlay.classList.add('translate-x-full');
+                });
+            }
+
+            // Function to reset modal state on close
+            window.resetModalState = () => {
+                const overlay = document.getElementById('full-screen-details');
+                if (overlay) {
+                    overlay.classList.add('translate-x-full');
+                    // Optional: Reset scroll position
+                    const content = overlay.querySelector('#modal-detailed-content');
+                    if (content && content.parentNode) content.parentNode.scrollTop = 0;
                 }
+            };
 
-                // VSL Trigger Logic (Hand-Verified Section)
-                const vslTrigger = document.getElementById('vsl-trigger');
-                if (vslTrigger) {
-                    vslTrigger.addEventListener('click', () => {
-                        const vidFull = document.getElementById('modal-video-full');
-                        const modalFull = document.getElementById('video-modal-full');
-                        // Use specific source or extract from the trigger's video tag
-                        const source = "https://cdn.shopify.com/videos/c/o/v/48ec1e59d63740a1bd3b81486969da95.mp4";
+            // Map and Save Actions
+            const btnActionMap = document.getElementById('btn-action-map');
+            const toast = document.getElementById('toast-notification');
+            const toastMessage = document.getElementById('toast-message');
+            let toastTimeout;
 
-                        if (vidFull && modalFull) {
-                            vidFull.src = source;
-                            modalFull.classList.remove('hidden');
-                            modalFull.classList.add('flex');
-                            vidFull.play();
-                        }
-                    });
-                }
+            function showToast(msg) {
+                if (!toast || !toastMessage) return;
+
+                // Reset animation
+                clearTimeout(toastTimeout);
+                toast.classList.remove('hidden');
+                // Trigger reflow
+                void toast.offsetWidth;
+
+                toast.classList.remove('translate-y-10', 'opacity-0');
+                toast.classList.add('flex', 'translate-y-0', 'opacity-100');
+                toastMessage.textContent = msg;
+
+                toastTimeout = setTimeout(() => {
+                    toast.classList.remove('translate-y-0', 'opacity-100');
+                    toast.classList.add('translate-y-10', 'opacity-0');
+                    setTimeout(() => {
+                        toast.classList.remove('flex');
+                        toast.classList.add('hidden');
+                    }, 300);
+                }, 3000);
+            }
+
+            if (btnActionMap) {
+                btnActionMap.addEventListener('click', () => {
+                    const location = document.getElementById('modal-location').textContent.trim();
+                    const title = document.getElementById('modal-title').textContent.trim();
+                    const query = encodeURIComponent(`${title} ${location}`);
+                    window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, '_blank');
+                });
+            }
 
 
-                if (closeFullBtn) closeFullBtn.addEventListener('click', closeFullModal);
-                if (videoModalFull) {
-                    videoModalFull.addEventListener('click', (e) => {
-                        if (e.target === videoModalFull) closeFullModal();
-                    });
-                }
+            // Beta Unlock Logic
+            document.addEventListener('DOMContentLoaded', () => {
+                const unlockBtn = document.getElementById('unlock-btn');
+                const betaModal = document.getElementById('beta-modal');
+                const closeBetaBtn = document.getElementById('close-beta-modal');
+                const joinBetaBtn = document.getElementById('join-beta-btn');
+                const pricing = document.getElementById('pricing');
 
-                if (btnConciergeBook) {
-                    btnConciergeBook.addEventListener('click', () => {
-                        const gymName = document.getElementById('modal-title').innerText;
-                        // Do NOT close the video modal immediately if we want to layer, 
-                        // but usually we want to switch context. Let's close video modal for cleaner UI.
-                        closeVideoModal();
-
-                        // Populate Booking Modal
-                        const bookingModal = document.getElementById('booking-modal');
-                        const bookingGymInput = document.getElementById('booking-gym-name');
-
-                        if (bookingGymInput) bookingGymInput.value = gymName;
-
-                        if (bookingModal) {
-                            bookingModal.style.display = 'flex';
-                        }
-                    });
-                }
-
-                // New Ask AI Button Logic
-                const btnAskAi = document.getElementById('btn-ask-ai');
-                if (btnAskAi) {
-                    btnAskAi.addEventListener('click', () => {
-                        const gymName = document.getElementById('modal-title').innerText;
-                        closeVideoModal();
-
-                        const chatSection = document.getElementById('chatbot');
-                        if (chatSection) chatSection.scrollIntoView({ behavior: 'smooth' });
-
-                        const chatInput = document.getElementById('chat-input');
-                        if (chatInput) {
-                            chatInput.value = `Tell me more about ${gymName}. Is it good for beginners?`;
-                            chatInput.focus();
-                        }
-                    });
-                }
-
-                // Slide-to-Info Logic
-                // Slide-to-Info Logic (New Overlay Method)
-                const btnGetInfo = document.getElementById('btn-get-info');
-                const btnInfoBack = document.getElementById('btn-info-back');
-                const detailsOverlay = document.getElementById('full-screen-details');
-
-                if (btnGetInfo && detailsOverlay) {
-                    btnGetInfo.addEventListener('click', () => {
-                        // Slide in Overlay from Right
-                        detailsOverlay.classList.remove('translate-x-full');
-                    });
-                }
-
-                if (btnInfoBack && detailsOverlay) {
-                    btnInfoBack.addEventListener('click', () => {
-                        // Slide Overlay back to Right
-                        detailsOverlay.classList.add('translate-x-full');
-                    });
-                }
-
-                // Function to reset modal state on close
-                window.resetModalState = () => {
-                    const overlay = document.getElementById('full-screen-details');
-                    if (overlay) {
-                        overlay.classList.add('translate-x-full');
-                        // Optional: Reset scroll position
-                        const content = overlay.querySelector('#modal-detailed-content');
-                        if (content && content.parentNode) content.parentNode.scrollTop = 0;
+                // Helper to open modal
+                const openBetaModal = () => {
+                    if (betaModal) {
+                        betaModal.classList.remove('hidden');
+                        betaModal.classList.add('flex');
                     }
                 };
 
-                // Map and Save Actions
-                const btnActionMap = document.getElementById('btn-action-map');
-                const toast = document.getElementById('toast-notification');
-                const toastMessage = document.getElementById('toast-message');
-                let toastTimeout;
+                // Helper to close modal
+                const closeBetaModal = () => {
+                    if (betaModal) {
+                        betaModal.classList.add('hidden');
+                        betaModal.classList.remove('flex');
+                    }
+                };
 
-                function showToast(msg) {
-                    if (!toast || !toastMessage) return;
-
-                    // Reset animation
-                    clearTimeout(toastTimeout);
-                    toast.classList.remove('hidden');
-                    // Trigger reflow
-                    void toast.offsetWidth;
-
-                    toast.classList.remove('translate-y-10', 'opacity-0');
-                    toast.classList.add('flex', 'translate-y-0', 'opacity-100');
-                    toastMessage.textContent = msg;
-
-                    toastTimeout = setTimeout(() => {
-                        toast.classList.remove('translate-y-0', 'opacity-100');
-                        toast.classList.add('translate-y-10', 'opacity-0');
-                        setTimeout(() => {
-                            toast.classList.remove('flex');
-                            toast.classList.add('hidden');
-                        }, 300);
-                    }, 3000);
-                }
-
-                if (btnActionMap) {
-                    btnActionMap.addEventListener('click', () => {
-                        const location = document.getElementById('modal-location').textContent.trim();
-                        const title = document.getElementById('modal-title').textContent.trim();
-                        const query = encodeURIComponent(`${title} ${location}`);
-                        window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, '_blank');
+                if (unlockBtn) {
+                    unlockBtn.addEventListener('click', (e) => {
+                        e.preventDefault(); // Prevent default link behavior if any
+                        openBetaModal();
                     });
                 }
 
+                if (closeBetaBtn) {
+                    closeBetaBtn.addEventListener('click', closeBetaModal);
+                }
 
-                // Beta Unlock Logic
-                document.addEventListener('DOMContentLoaded', () => {
-                    const unlockBtn = document.getElementById('unlock-btn');
-                    const betaModal = document.getElementById('beta-modal');
-                    const closeBetaBtn = document.getElementById('close-beta-modal');
-                    const joinBetaBtn = document.getElementById('join-beta-btn');
-                    const pricing = document.getElementById('pricing');
+                if (betaModal) {
+                    betaModal.addEventListener('click', (e) => {
+                        if (e.target === betaModal) closeBetaModal();
+                    });
+                }
 
-                    // Helper to open modal
-                    const openBetaModal = () => {
-                        if (betaModal) {
-                            betaModal.classList.remove('hidden');
-                            betaModal.classList.add('flex');
+                if (joinBetaBtn) {
+                    joinBetaBtn.addEventListener('click', () => {
+                        closeBetaModal();
+                        if (pricing) pricing.scrollIntoView({ behavior: 'smooth' });
+                    });
+                }
+
+                // Video Rollover Logic (Delegated with Best Bits Preview)
+                const gymContainer = document.getElementById('gyms');
+                if (gymContainer) {
+                    let activeCard = null;
+                    let previewInterval;
+                    let startTimeout;
+
+                    const stopPreview = () => {
+                        if (!activeCard) return;
+                        const video = activeCard.querySelector('video');
+                        if (video) {
+                            video.classList.add('opacity-0');
+                            video.pause();
+                            setTimeout(() => {
+                                if (video.paused) video.currentTime = 0;
+                            }, 300);
                         }
+                        clearInterval(previewInterval);
+                        clearTimeout(startTimeout);
+                        activeCard = null;
                     };
 
-                    // Helper to close modal
-                    const closeBetaModal = () => {
-                        if (betaModal) {
-                            betaModal.classList.add('hidden');
-                            betaModal.classList.remove('flex');
-                        }
-                    };
+                    gymContainer.addEventListener('mouseover', (e) => {
+                        const card = e.target.closest('.gym-card');
+                        if (!card) return;
 
-                    if (unlockBtn) {
-                        unlockBtn.addEventListener('click', (e) => {
-                            e.preventDefault(); // Prevent default link behavior if any
-                            openBetaModal();
-                        });
-                    }
+                        // If we are already handling this card, avoid re-triggering logic on child elements
+                        if (activeCard === card) return;
 
-                    if (closeBetaBtn) {
-                        closeBetaBtn.addEventListener('click', closeBetaModal);
-                    }
-
-                    if (betaModal) {
-                        betaModal.addEventListener('click', (e) => {
-                            if (e.target === betaModal) closeBetaModal();
-                        });
-                    }
-
-                    if (joinBetaBtn) {
-                        joinBetaBtn.addEventListener('click', () => {
-                            closeBetaModal();
-                            if (pricing) pricing.scrollIntoView({ behavior: 'smooth' });
-                        });
-                    }
-
-                    // Video Rollover Logic (Delegated with Best Bits Preview)
-                    const gymContainer = document.getElementById('gyms');
-                    if (gymContainer) {
-                        let activeCard = null;
-                        let previewInterval;
-                        let startTimeout;
-
-                        const stopPreview = () => {
-                            if (!activeCard) return;
-                            const video = activeCard.querySelector('video');
-                            if (video) {
-                                video.classList.add('opacity-0');
-                                video.pause();
-                                setTimeout(() => {
-                                    if (video.paused) video.currentTime = 0;
-                                }, 300);
-                            }
-                            clearInterval(previewInterval);
-                            clearTimeout(startTimeout);
-                            activeCard = null;
-                        };
-
-                        gymContainer.addEventListener('mouseover', (e) => {
-                            const card = e.target.closest('.gym-card');
-                            if (!card) return;
-
-                            // If we are already handling this card, avoid re-triggering logic on child elements
-                            if (activeCard === card) return;
-
-                            // If we moved directly from one card to another
-                            if (activeCard && activeCard !== card) {
-                                stopPreview();
-                            }
-
-                            activeCard = card;
-                            const video = card.querySelector('video');
-                            if (!video) return;
-
-                            // Debounce start to avoid flickering
-                            startTimeout = setTimeout(() => {
-                                if (activeCard !== card) return;
-
-                                video.currentTime = 0;
-                                video.play().then(() => {
-                                    video.classList.remove('opacity-0');
-
-                                    // "Best Bits" Preview Logic: Skip forward every few seconds
-                                    previewInterval = setInterval(() => {
-                                        if (!video.paused) {
-                                            if (video.currentTime + 5 >= video.duration) {
-                                                video.currentTime = 0;
-                                            } else {
-                                                video.currentTime += 5;
-                                            }
-                                        }
-                                    }, 1500); // Skip 5s every 1.5s
-
-                                }).catch(() => { });
-                            }, 500);
-                        });
-
-                        gymContainer.addEventListener('mouseout', (e) => {
-                            const card = e.target.closest('.gym-card');
-                            if (!card) return;
-
-                            // If moving to a child element, do nothing
-                            if (card.contains(e.relatedTarget)) return;
-
-                            // Truly left the card
+                        // If we moved directly from one card to another
+                        if (activeCard && activeCard !== card) {
                             stopPreview();
-                        });
+                        }
 
-                        // --- Gym Card Click Logic (Restore Modal) ---
-                        gymContainer.addEventListener('click', (e) => {
-                            const card = e.target.closest('.gym-card');
-                            if (!card) return;
+                        activeCard = card;
+                        const video = card.querySelector('video');
+                        if (!video) return;
 
-                            // Prevent if clicking a button inside the card (optional, but good UX)
-                            if (e.target.closest('button') || e.target.closest('a')) return;
+                        // Debounce start to avoid flickering
+                        startTimeout = setTimeout(() => {
+                            if (activeCard !== card) return;
 
-                            // Extract Data
-                            const videoSrc = card.querySelector('video')?.src;
-                            const title = card.querySelector('h3')?.innerText;
-                            // Clean location text to extract just the city name if possible, or just raw text
-                            // The location element has an icon, so innerText will include it. That's fine or we clean it.
-                            // Let's rely on textContent and trim.
-                            const locationText = card.querySelector('.absolute.top-4.right-4')?.textContent.trim() || 'Thailand';
+                            video.currentTime = 0;
+                            video.play().then(() => {
+                                video.classList.remove('opacity-0');
 
-                            const rating = card.querySelector('.text-yellow-400')?.innerText.trim();
-                            const desc = card.querySelector('p')?.innerText;
+                                // "Best Bits" Preview Logic: Skip forward every few seconds
+                                previewInterval = setInterval(() => {
+                                    if (!video.paused) {
+                                        if (video.currentTime + 5 >= video.duration) {
+                                            video.currentTime = 0;
+                                        } else {
+                                            video.currentTime += 5;
+                                        }
+                                    }
+                                }, 1500); // Skip 5s every 1.5s
 
-                            // Populate Modal
-                            const modal = document.getElementById('video-modal');
-                            const modalVideo = document.getElementById('modal-video');
-                            const modalTitle = document.getElementById('modal-title');
-                            const modalLocation = document.getElementById('modal-location');
-                            const modalRating = document.getElementById('modal-rating');
-                            const modalDesc = document.getElementById('modal-desc');
+                            }).catch(() => { });
+                        }, 500);
+                    });
 
-                            if (modal && modalVideo) {
-                                if (videoSrc) modalVideo.src = videoSrc;
-                                if (title && modalTitle) modalTitle.innerText = title;
-                                if (modalLocation) {
-                                    // Recreate the inner HTML for location
-                                    modalLocation.innerHTML = `<i data-lucide="map-pin" class="w-3 h-3"></i> ${locationText}`;
-                                }
-                                if (rating && modalRating) modalRating.innerText = rating;
-                                if (desc && modalDesc) modalDesc.innerText = desc;
+                    gymContainer.addEventListener('mouseout', (e) => {
+                        const card = e.target.closest('.gym-card');
+                        if (!card) return;
 
-                                // Show Modal
-                                modal.classList.remove('hidden');
-                                modal.classList.add('flex');
+                        // If moving to a child element, do nothing
+                        if (card.contains(e.relatedTarget)) return;
 
-                                // Play Video
-                                modalVideo.play().catch(() => { });
+                        // Truly left the card
+                        stopPreview();
+                    });
 
-                                // Re-init generic icons in modal if needed
-                                if (window.lucide) lucide.createIcons();
+                    // --- Gym Card Click Logic (Restore Modal) ---
+                    gymContainer.addEventListener('click', (e) => {
+                        const card = e.target.closest('.gym-card');
+                        if (!card) return;
 
-                                // Reset any overlay states
-                                if (window.resetModalState) window.resetModalState();
+                        // Prevent if clicking a button inside the card (optional, but good UX)
+                        if (e.target.closest('button') || e.target.closest('a')) return;
 
-                                // Trigger simulated live tracker
-                                if (window.refreshLiveTracker) window.refreshLiveTracker();
+                        // Extract Data
+                        const videoSrc = card.querySelector('video')?.src;
+                        const title = card.querySelector('h3')?.innerText;
+                        // Clean location text to extract just the city name if possible, or just raw text
+                        // The location element has an icon, so innerText will include it. That's fine or we clean it.
+                        // Let's rely on textContent and trim.
+                        const locationText = card.querySelector('.absolute.top-4.right-4')?.textContent.trim() || 'Thailand';
+
+                        const rating = card.querySelector('.text-yellow-400')?.innerText.trim();
+                        const desc = card.querySelector('p')?.innerText;
+
+                        // Populate Modal
+                        const modal = document.getElementById('video-modal');
+                        const modalVideo = document.getElementById('modal-video');
+                        const modalTitle = document.getElementById('modal-title');
+                        const modalLocation = document.getElementById('modal-location');
+                        const modalRating = document.getElementById('modal-rating');
+                        const modalDesc = document.getElementById('modal-desc');
+
+                        if (modal && modalVideo) {
+                            if (videoSrc) modalVideo.src = videoSrc;
+                            if (title && modalTitle) modalTitle.innerText = title;
+                            if (modalLocation) {
+                                // Recreate the inner HTML for location
+                                modalLocation.innerHTML = `<i data-lucide="map-pin" class="w-3 h-3"></i> ${locationText}`;
                             }
-                        });
-                    }
+                            if (rating && modalRating) modalRating.innerText = rating;
+                            if (desc && modalDesc) modalDesc.innerText = desc;
+
+                            // Show Modal
+                            modal.classList.remove('hidden');
+                            modal.classList.add('flex');
+
+                            // Play Video
+                            modalVideo.play().catch(() => { });
+
+                            // Re-init generic icons in modal if needed
+                            if (window.lucide) lucide.createIcons();
+
+                            // Reset any overlay states
+                            if (window.resetModalState) window.resetModalState();
+
+                            // Trigger simulated live tracker
+                            if (window.refreshLiveTracker) window.refreshLiveTracker();
+                        }
+                    });
+                }
+            });
+        }
+        // --- VIP Onboarding Modal Logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const vipModal = document.getElementById('vip-onboarding-modal');
+            const vipForm = document.getElementById('vip-onboarding-form');
+            const closeVipModalBtn = document.getElementById('close-vip-modal-btn');
+
+            // Check URL for payment success param
+            function checkPaymentSuccess() {
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.get('payment_success') === 'vip') {
+                    openVipModal();
+                    // Clean URL without refresh
+                    const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+                    window.history.replaceState({ path: newUrl }, '', newUrl);
+                }
+            }
+
+            function openVipModal() {
+                if (!vipModal) return;
+                vipModal.classList.remove('hidden');
+                vipModal.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeVipModal() {
+                if (!vipModal) return;
+                vipModal.classList.add('hidden');
+                vipModal.classList.remove('flex');
+                document.body.style.overflow = '';
+            }
+
+            if (closeVipModalBtn) {
+                closeVipModalBtn.addEventListener('click', closeVipModal);
+            }
+
+            if (vipForm) {
+                vipForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    // Mock submission
+                    const formData = {
+                        gym: document.getElementById('vip-gym-name').value,
+                        training: document.getElementById('vip-training-type').value,
+                        date: document.getElementById('vip-start-date').value,
+                        notes: document.getElementById('vip-notes').value
+                    };
+                    console.log('VIP Request:', formData);
+                    alert('Request Received! We will get to work on your booking immediately.');
+                    closeVipModal();
                 });
             }
-            // --- VIP Onboarding Modal Logic ---
-            document.addEventListener('DOMContentLoaded', () => {
-                const vipModal = document.getElementById('vip-onboarding-modal');
-                const vipForm = document.getElementById('vip-onboarding-form');
-                const closeVipModalBtn = document.getElementById('close-vip-modal-btn');
 
-                // Check URL for payment success param
-                function checkPaymentSuccess() {
-                    const urlParams = new URLSearchParams(window.location.search);
-                    if (urlParams.get('payment_success') === 'vip') {
-                        openVipModal();
-                        // Clean URL without refresh
-                        const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-                        window.history.replaceState({ path: newUrl }, '', newUrl);
-                    }
-                }
+            // Run check on load
+            checkPaymentSuccess();
+        });
+    </script>
+    <!-- Beta Info Modal -->
+    <div id="beta-modal"
+        class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/95 backdrop-blur-md p-4 animate-fade-in">
+        <div class="bg-zinc-900 border border-zinc-700/50 w-full max-w-lg rounded-3xl p-8 relative shadow-2xl">
+            <button id="close-beta-modal"
+                class="absolute top-4 right-4 text-zinc-500 hover:text-white transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
 
-                function openVipModal() {
-                    if (!vipModal) return;
-                    vipModal.classList.remove('hidden');
-                    vipModal.classList.add('flex');
-                    document.body.style.overflow = 'hidden';
-                }
-
-                function closeVipModal() {
-                    if (!vipModal) return;
-                    vipModal.classList.add('hidden');
-                    vipModal.classList.remove('flex');
-                    document.body.style.overflow = '';
-                }
-
-                if (closeVipModalBtn) {
-                    closeVipModalBtn.addEventListener('click', closeVipModal);
-                }
-
-                if (vipForm) {
-                    vipForm.addEventListener('submit', (e) => {
-                        e.preventDefault();
-                        // Mock submission
-                        const formData = {
-                            gym: document.getElementById('vip-gym-name').value,
-                            training: document.getElementById('vip-training-type').value,
-                            date: document.getElementById('vip-start-date').value,
-                            notes: document.getElementById('vip-notes').value
-                        };
-                        console.log('VIP Request:', formData);
-                        alert('Request Received! We will get to work on your booking immediately.');
-                        closeVipModal();
-                    });
-                }
-
-                // Run check on load
-                checkPaymentSuccess();
-            });
-        </script>
-        <!-- Beta Info Modal -->
-        <div id="beta-modal"
-            class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/95 backdrop-blur-md p-4 animate-fade-in">
-            <div class="bg-zinc-900 border border-zinc-700/50 w-full max-w-lg rounded-3xl p-8 relative shadow-2xl">
-                <button id="close-beta-modal"
-                    class="absolute top-4 right-4 text-zinc-500 hover:text-white transition-colors">
-                    <i data-lucide="x" class="w-6 h-6"></i>
-                </button>
-
-                <div class="text-center mb-6">
-                    <div
-                        class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-blue-600/20 text-blue-500 mb-4">
-                        <i data-lucide="map" class="w-7 h-7"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-white mb-2">We're currently in the ring... 🥊</h3>
-                    <p class="text-zinc-400">We are hand-verifying 5-10 new gyms every week to ensure the data is 100%
-                        accurate.</p>
+            <div class="text-center mb-6">
+                <div
+                    class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-blue-600/20 text-blue-500 mb-4">
+                    <i data-lucide="map" class="w-7 h-7"></i>
                 </div>
-
-                <div class="bg-zinc-950 rounded-2xl p-6 border border-zinc-800 mb-8">
-                    <h4 class="text-lg font-bold text-white mb-4">Join the Beta: Pay $19 today</h4>
-                    <ul class="space-y-3">
-                        <li class="flex flex-col gap-1">
-                            <div class="flex items-start gap-3">
-                                <i data-lucide="check" class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5"></i>
-                                <span class="text-zinc-300 text-sm">Immediate access to the next 10 gyms as they are
-                                    verified.</span>
-                            </div>
-                            <p class="text-zinc-500 text-xs ml-8">Next week's uploads include: PK Saenchai Gym,
-                                Petchyindee,
-                                and Fairtex Gym.</p>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i data-lucide="check" class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5"></i>
-                            <span class="text-zinc-300 text-sm">Lifetime access to the full 100+ gym database.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i data-lucide="check" class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5"></i>
-                            <span class="text-zinc-300 text-sm">A 'Founder's Badge' and vote on next cities.</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <button id="join-beta-btn"
-                    class="w-full py-4 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-lg transition-all shadow-lg shadow-blue-900/40 hover:scale-[1.02]">
-                    Secure Early Bird Access
-                </button>
+                <h3 class="text-2xl font-bold text-white mb-2">We're currently in the ring... 🥊</h3>
+                <p class="text-zinc-400">We are hand-verifying 5-10 new gyms every week to ensure the data is 100%
+                    accurate.</p>
             </div>
-        </div>
-        <!-- Booking Modal -->
-        <!-- Booking Modal -->
-        <div id="booking-modal" style="display: none;"
-            class="fixed inset-0 z-[70] items-center justify-center bg-black/95 backdrop-blur-md p-4 animate-fade-in">
-            <div class="bg-zinc-900 border border-zinc-700/50 w-full max-w-lg rounded-3xl p-8 relative shadow-2xl">
-                <button id="close-booking-modal"
-                    onclick="document.getElementById('booking-modal').style.display='none';"
-                    class="absolute top-4 right-4 text-zinc-500 hover:text-white transition-colors">
-                    <i data-lucide="x" class="w-6 h-6"></i>
-                </button>
 
-                <div class="text-center mb-6">
-                    <div
-                        class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-emerald-600/20 text-emerald-500 mb-4">
-                        <i data-lucide="calendar-check" class="w-7 h-7"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-white mb-2">Book Your Session</h3>
-                    <p class="text-zinc-400">Secure your spot with our verified partner.</p>
+            <div class="bg-zinc-950 rounded-2xl p-6 border border-zinc-800 mb-8">
+                <h4 class="text-lg font-bold text-white mb-4">Join the Beta: Pay $19 today</h4>
+                <ul class="space-y-3">
+                    <li class="flex flex-col gap-1">
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5"></i>
+                            <span class="text-zinc-300 text-sm">Immediate access to the next 10 gyms as they are
+                                verified.</span>
+                        </div>
+                        <p class="text-zinc-500 text-xs ml-8">Next week's uploads include: PK Saenchai Gym,
+                            Petchyindee,
+                            and Fairtex Gym.</p>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="check" class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5"></i>
+                        <span class="text-zinc-300 text-sm">Lifetime access to the full 100+ gym database.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="check" class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5"></i>
+                        <span class="text-zinc-300 text-sm">A 'Founder's Badge' and vote on next cities.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <button id="join-beta-btn"
+                class="w-full py-4 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-lg transition-all shadow-lg shadow-blue-900/40 hover:scale-[1.02]">
+                Secure Early Bird Access
+            </button>
+        </div>
+    </div>
+    <!-- Booking Modal -->
+    <!-- Booking Modal -->
+    <div id="booking-modal" style="display: none;"
+        class="fixed inset-0 z-[70] items-center justify-center bg-black/95 backdrop-blur-md p-4 animate-fade-in">
+        <div class="bg-zinc-900 border border-zinc-700/50 w-full max-w-lg rounded-3xl p-8 relative shadow-2xl">
+            <button id="close-booking-modal" onclick="document.getElementById('booking-modal').style.display='none';"
+                class="absolute top-4 right-4 text-zinc-500 hover:text-white transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <div class="text-center mb-6">
+                <div
+                    class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-emerald-600/20 text-emerald-500 mb-4">
+                    <i data-lucide="calendar-check" class="w-7 h-7"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2">Book Your Session</h3>
+                <p class="text-zinc-400">Secure your spot with our verified partner.</p>
+            </div>
+
+            <form id="booking-form" class="space-y-4">
+                <div>
+                    <label class="block text-zinc-400 text-xs font-bold uppercase tracking-wider mb-2">Gym
+                        Name</label>
+                    <input type="text" id="booking-gym-name" readonly
+                        class="w-full bg-zinc-950 text-zinc-300 border border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 cursor-not-allowed">
                 </div>
 
-                <form id="booking-form" class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-zinc-400 text-xs font-bold uppercase tracking-wider mb-2">Gym
-                            Name</label>
-                        <input type="text" id="booking-gym-name" readonly
-                            class="w-full bg-zinc-950 text-zinc-300 border border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 cursor-not-allowed">
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label
-                                class="block text-zinc-400 text-xs font-bold uppercase tracking-wider mb-2">Date</label>
-                            <input type="date" required
-                                class="w-full bg-zinc-950 text-white border border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 appearance-none">
-                        </div>
-                        <div>
-                            <label
-                                class="block text-zinc-400 text-xs font-bold uppercase tracking-wider mb-2">Time</label>
-                            <input type="time" required
-                                class="w-full bg-zinc-950 text-white border border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 appearance-none">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-zinc-400 text-xs font-bold uppercase tracking-wider mb-2">Training
-                            Type</label>
-                        <select required
+                        <label class="block text-zinc-400 text-xs font-bold uppercase tracking-wider mb-2">Date</label>
+                        <input type="date" required
                             class="w-full bg-zinc-950 text-white border border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 appearance-none">
-                            <option value="Drop-in">Drop-in Session</option>
-                            <option value="Private">Private 1-on-1</option>
-                            <option value="Weekly">Weekly Pass</option>
-                            <option value="Monthly">Monthly Package</option>
-                        </select>
                     </div>
+                    <div>
+                        <label class="block text-zinc-400 text-xs font-bold uppercase tracking-wider mb-2">Time</label>
+                        <input type="time" required
+                            class="w-full bg-zinc-950 text-white border border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 appearance-none">
+                    </div>
+                </div>
 
-                    <button type="submit"
-                        class="w-full py-4 mt-4 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-lg transition-all shadow-lg shadow-emerald-900/40 hover:scale-[1.02] flex items-center justify-center gap-2">
-                        <span>Proceed to Payment</span>
-                        <span class="bg-black/20 px-2 py-0.5 rounded text-sm">$15.00</span>
-                    </button>
+                <div>
+                    <label class="block text-zinc-400 text-xs font-bold uppercase tracking-wider mb-2">Training
+                        Type</label>
+                    <select required
+                        class="w-full bg-zinc-950 text-white border border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 appearance-none">
+                        <option value="Drop-in">Drop-in Session</option>
+                        <option value="Private">Private 1-on-1</option>
+                        <option value="Weekly">Weekly Pass</option>
+                        <option value="Monthly">Monthly Package</option>
+                    </select>
+                </div>
 
-                    <p class="text-center text-xs text-zinc-500 mt-2">
-                        <i data-lucide="lock" class="w-3 h-3 inline mr-1"></i> Secure SSL Payment
-                    </p>
-                </form>
-            </div>
+                <button type="submit"
+                    class="w-full py-4 mt-4 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-lg transition-all shadow-lg shadow-emerald-900/40 hover:scale-[1.02] flex items-center justify-center gap-2">
+                    <span>Proceed to Payment</span>
+                    <span class="bg-black/20 px-2 py-0.5 rounded text-sm">$15.00</span>
+                </button>
+
+                <p class="text-center text-xs text-zinc-500 mt-2">
+                    <i data-lucide="lock" class="w-3 h-3 inline mr-1"></i> Secure SSL Payment
+                </p>
+            </form>
         </div>
-        <!-- Privacy & Terms Logic -->
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                const privacyLink = document.getElementById('link-privacy');
-                const termsLink = document.getElementById('link-terms');
-                const textModal = document.getElementById('text-modal');
-                const modalTitle = document.getElementById('text-modal-title');
-                const modalContent = document.getElementById('text-modal-content');
-                const closeBtn = document.getElementById('close-text-modal-btn');
+    </div>
+    <!-- Privacy & Terms Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const privacyLink = document.getElementById('link-privacy');
+            const termsLink = document.getElementById('link-terms');
+            const textModal = document.getElementById('text-modal');
+            const modalTitle = document.getElementById('text-modal-title');
+            const modalContent = document.getElementById('text-modal-content');
+            const closeBtn = document.getElementById('close-text-modal-btn');
 
-                const privacyPolicyText = `
+            const privacyPolicyText = `
                 <h3 class="text-xl text-white font-bold mb-2">1. Introduction</h3>
                 <p>Welcome to Fightlore+. We value your privacy and are committed to protecting your personal data.</p>
                 <h3 class="text-xl text-white font-bold mb-2 mt-4">2. Data Collection</h3>
@@ -2676,7 +2671,7 @@
                 <p>If you have any questions about this Privacy Policy, please contact us at support@gymfinder.ai.</p>
             `;
 
-                const termsOfServiceText = `
+            const termsOfServiceText = `
                 <h3 class="text-xl text-white font-bold mb-2">1. Acceptance of Terms</h3>
                 <p>By accessing or using our services, you agree to be bound by these Terms of Service.</p>
                 <h3 class="text-xl text-white font-bold mb-2 mt-4">2. Description of Service</h3>
@@ -2691,152 +2686,331 @@
                 <p>We reserve the right to modify these terms at any time. We will provide notice of any significant changes.</p>
             `;
 
-                function openTextModal(title, content) {
-                    if (textModal && modalTitle && modalContent) {
-                        modalTitle.textContent = title;
-                        modalContent.innerHTML = content;
-                        textModal.classList.remove('hidden');
-                        textModal.classList.add('flex');
-                        document.body.classList.add('overflow-hidden');
-                    }
+            function openTextModal(title, content) {
+                if (textModal && modalTitle && modalContent) {
+                    modalTitle.textContent = title;
+                    modalContent.innerHTML = content;
+                    textModal.classList.remove('hidden');
+                    textModal.classList.add('flex');
+                    document.body.classList.add('overflow-hidden');
                 }
+            }
 
-                function closeTextModal() {
-                    if (textModal) {
-                        textModal.classList.add('hidden');
-                        textModal.classList.remove('flex');
-                        document.body.classList.remove('overflow-hidden');
-                    }
-                }
-
-                if (privacyLink) {
-                    privacyLink.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        openTextModal('Privacy Policy', privacyPolicyText);
-                    });
-                }
-
-                if (termsLink) {
-                    termsLink.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        openTextModal('Terms of Service', termsOfServiceText);
-                    });
-                }
-
-                if (closeBtn) {
-                    closeBtn.addEventListener('click', closeTextModal);
-                }
-
+            function closeTextModal() {
                 if (textModal) {
-                    textModal.addEventListener('click', (e) => {
-                        if (e.target === textModal) {
-                            closeTextModal();
-                        }
-                    });
+                    textModal.classList.add('hidden');
+                    textModal.classList.remove('flex');
+                    document.body.classList.remove('overflow-hidden');
                 }
-            });
-        </script>
-        <!-- Waitlist Modal (Global Overlay) -->
-        <div id="waitlist-card"
-            class="hidden fixed inset-0 z-[100] items-center justify-center bg-black/80 backdrop-blur-md animate-fade-in">
-            <div
-                class="relative w-full max-w-md p-6 mx-4 bg-[#050505] border border-zinc-800 rounded-3xl shadow-2xl animate-scale-up">
+            }
 
-                <div class="flex flex-col items-center text-center gap-4 mb-8">
-                    <div
-                        class="w-14 h-14 rounded-full bg-blue-500/10 flex items-center justify-center border border-blue-500/20 mb-2 shadow-lg shadow-blue-500/10">
-                        <i data-lucide="map" class="w-7 h-7 text-blue-400"></i>
-                    </div>
-                    <div>
-                        <h4 class="text-white font-bold text-2xl tracking-tight mb-2">You've reached the edge of the
-                            map.</h4>
-                        <p class="text-zinc-400 text-sm leading-relaxed max-w-[320px] mx-auto">
-                            Drop your email to join the <span class="text-white font-medium">Founding 500</span>. You'll
-                            get an invite to the full Black Book at <span class="text-white font-medium">50% off
-                                ($9.50)</span> when we go live. No credit card needed today.
-                        </p>
-                    </div>
+            if (privacyLink) {
+                privacyLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openTextModal('Privacy Policy', privacyPolicyText);
+                });
+            }
+
+            if (termsLink) {
+                termsLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openTextModal('Terms of Service', termsOfServiceText);
+                });
+            }
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeTextModal);
+            }
+
+            if (textModal) {
+                textModal.addEventListener('click', (e) => {
+                    if (e.target === textModal) {
+                        closeTextModal();
+                    }
+                });
+            }
+        });
+    </script>
+    <!-- Waitlist Modal (Global Overlay) -->
+    <div id="waitlist-card"
+        class="hidden fixed inset-0 z-[100] items-center justify-center bg-black/80 backdrop-blur-md animate-fade-in">
+        <div
+            class="relative w-full max-w-md p-6 mx-4 bg-[#050505] border border-zinc-800 rounded-3xl shadow-2xl animate-scale-up">
+
+            <div class="flex flex-col items-center text-center gap-4 mb-8">
+                <div
+                    class="w-14 h-14 rounded-full bg-blue-500/10 flex items-center justify-center border border-blue-500/20 mb-2 shadow-lg shadow-blue-500/10">
+                    <i data-lucide="map" class="w-7 h-7 text-blue-400"></i>
                 </div>
-
-                <form class="space-y-4" id="waitlist-form">
-                    <div class="space-y-3">
-                        <div class="relative group">
-                            <i
-                                class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500 group-focus-within:text-blue-400 transition-colors"></i>
-                            <input type="text" id="waitlist-name" placeholder="Enter your full name"
-                                class="w-full bg-zinc-900 border border-zinc-800 text-white text-base pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all placeholder-zinc-600">
-                        </div>
-                        <div class="relative group">
-                            <i
-                                class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500 group-focus-within:text-blue-400 transition-colors"></i>
-                            <input type="email" id="waitlist-email" required placeholder="Enter your email"
-                                class="w-full bg-zinc-900 border border-zinc-800 text-white text-base pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all placeholder-zinc-600">
-                        </div>
-                    </div>
-
-                    <button type="submit" id="waitlist-btn"
-                        class="w-full bg-white hover:bg-zinc-200 text-black font-bold text-lg py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-white/5 transform active:scale-[0.99] mt-2">
-                        <span>Join the Black Book</span>
-                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                    </button>
-                </form>
-
-                <p id="waitlist-success"
-                    class="hidden text-emerald-400 text-sm font-bold mt-4 text-center bg-emerald-500/10 py-2 rounded-lg border border-emerald-500/20">
-                    <i data-lucide="check-circle" class="w-4 h-4 inline mr-1"></i> Access Granted. Welcome to the inner
-                    circle.
-                </p>
-
-                <div class="text-center mt-6 pt-6 border-t border-zinc-900">
-                    <p class="text-[11px] text-zinc-600 tracking-wide uppercase font-medium">Limited spots available for
-                        beta access</p>
+                <div>
+                    <h4 class="text-white font-bold text-2xl tracking-tight mb-2">You've reached the edge of the
+                        map.</h4>
+                    <p class="text-zinc-400 text-sm leading-relaxed max-w-[320px] mx-auto">
+                        Drop your email to join the <span class="text-white font-medium">Founding 500</span>. You'll
+                        get an invite to the full Black Book at <span class="text-white font-medium">50% off
+                            ($9.50)</span> when we go live. No credit card needed today.
+                    </p>
                 </div>
             </div>
+
+            <form class="space-y-4" id="waitlist-form">
+                <div class="space-y-3">
+                    <div class="relative group">
+                        <i
+                            class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500 group-focus-within:text-blue-400 transition-colors"></i>
+                        <input type="text" id="waitlist-name" placeholder="Enter your full name"
+                            class="w-full bg-zinc-900 border border-zinc-800 text-white text-base pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all placeholder-zinc-600">
+                    </div>
+                    <div class="relative group">
+                        <i
+                            class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500 group-focus-within:text-blue-400 transition-colors"></i>
+                        <input type="email" id="waitlist-email" required placeholder="Enter your email"
+                            class="w-full bg-zinc-900 border border-zinc-800 text-white text-base pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all placeholder-zinc-600">
+                    </div>
+                </div>
+
+                <button type="submit" id="waitlist-btn"
+                    class="w-full bg-white hover:bg-zinc-200 text-black font-bold text-lg py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-white/5 transform active:scale-[0.99] mt-2">
+                    <span>Join the Black Book</span>
+                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </button>
+            </form>
+
+            <p id="waitlist-success"
+                class="hidden text-emerald-400 text-sm font-bold mt-4 text-center bg-emerald-500/10 py-2 rounded-lg border border-emerald-500/20">
+                <i data-lucide="check-circle" class="w-4 h-4 inline mr-1"></i> Access Granted. Welcome to the inner
+                circle.
+            </p>
+
+            <div class="text-center mt-6 pt-6 border-t border-zinc-900">
+                <p class="text-[11px] text-zinc-600 tracking-wide uppercase font-medium">Limited spots available for
+                    beta access</p>
+            </div>
         </div>
+    </div>
 
-        <script>
-            document.getElementById('waitlist-form').addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const name = document.getElementById('waitlist-name').value;
-                const email = document.getElementById('waitlist-email').value;
-                const btn = document.getElementById('waitlist-btn');
+    <script>
+        document.getElementById('waitlist-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('waitlist-name').value;
+            const email = document.getElementById('waitlist-email').value;
+            const btn = document.getElementById('waitlist-btn');
 
-                const originalText = btn.innerHTML;
-                btn.innerHTML = `<i data-lucide="loader" class="w-5 h-5 animate-spin"></i> Securing Spot...`;
-                btn.disabled = true;
-                btn.classList.add('opacity-80', 'cursor-not-allowed');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `<i data-lucide="loader" class="w-5 h-5 animate-spin"></i> Securing Spot...`;
+            btn.disabled = true;
+            btn.classList.add('opacity-80', 'cursor-not-allowed');
 
-                try {
-                    const res = await fetch('/api/waitlist', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ email, name })
-                    });
+            try {
+                const res = await fetch('/api/waitlist', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, name })
+                });
 
-                    if (res.ok) {
-                        btn.innerHTML = `<i data-lucide="check" class="w-5 h-5"></i> Saved`;
-                        btn.classList.replace('bg-white', 'bg-emerald-500');
-                        btn.classList.replace('text-black', 'text-white');
-                        btn.classList.replace('hover:bg-zinc-200', 'hover:bg-emerald-600');
+                if (res.ok) {
+                    btn.innerHTML = `<i data-lucide="check" class="w-5 h-5"></i> Saved`;
+                    btn.classList.replace('bg-white', 'bg-emerald-500');
+                    btn.classList.replace('text-black', 'text-white');
+                    btn.classList.replace('hover:bg-zinc-200', 'hover:bg-emerald-600');
 
-                        document.getElementById('waitlist-success').classList.remove('hidden');
+                    document.getElementById('waitlist-success').classList.remove('hidden');
 
-                        // Create confetti effect or nice feedback
-                        if (lucide) lucide.createIcons();
-                    } else {
-                        alert('Something went wrong. Please try again.');
-                        btn.innerHTML = originalText;
-                        btn.disabled = false;
-                        btn.classList.remove('opacity-80', 'cursor-not-allowed');
-                    }
-                } catch (error) {
-                    console.error(error);
+                    // Create confetti effect or nice feedback
+                    if (lucide) lucide.createIcons();
+                } else {
+                    alert('Something went wrong. Please try again.');
                     btn.innerHTML = originalText;
                     btn.disabled = false;
                     btn.classList.remove('opacity-80', 'cursor-not-allowed');
                 }
+            } catch (error) {
+                console.error(error);
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                btn.classList.remove('opacity-80', 'cursor-not-allowed');
+            }
+        });
+    </script>
+    <!-- Founding 500 Waitlist Modal -->
+    <div id="founding-modal"
+        class="fixed inset-0 z-[120] hidden items-center justify-center bg-black/90 backdrop-blur-md p-4">
+        <div
+            class="w-full max-w-lg bg-zinc-950 border border-blue-500 rounded-2xl shadow-[0_0_50px_-10px_rgba(59,130,246,0.3)] relative overflow-hidden flex flex-col p-8">
+
+            <!-- Close Button -->
+            <button onclick="closeFoundingModal()"
+                class="absolute top-4 right-4 text-zinc-500 hover:text-white transition-colors z-20">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+
+            <!-- Content -->
+            <div id="founding-content">
+                <h2 class="text-3xl font-bold text-white mb-4 leading-tight">Unlock the Full Database</h2>
+                <p class="text-zinc-400 text-base leading-relaxed mb-10">
+                    Love it? Join the waitlist for $9.50 to get unlimited AI searches, real gym pricing, and lifetime
+                    access to 200+ verified gyms.
+                </p>
+
+                <!-- Feature List -->
+                <div class="space-y-5 mb-10">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-6 h-6 rounded-full border-2 border-blue-500 flex items-center justify-center shrink-0">
+                            <i data-lucide="check" class="w-4 h-4 text-blue-400"></i>
+                        </div>
+                        <span class="text-white text-lg font-medium">200+ Verified Gyms</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-6 h-6 flex items-center justify-center shrink-0">
+                            <i data-lucide="infinity" class="w-6 h-6 text-blue-400"></i>
+                        </div>
+                        <span class="text-white text-lg font-medium">Unlimited AI Searches</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-6 h-6 flex items-center justify-center shrink-0">
+                            <i data-lucide="lock-open" class="w-6 h-6 text-blue-400"></i>
+                        </div>
+                        <span class="text-white text-lg font-medium">Lifetime Access</span>
+                    </div>
+                </div>
+
+                <form id="founding-form" class="space-y-4">
+                    <div>
+                        <input type="text" id="founding-name" required placeholder="Enter your name"
+                            class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3.5 text-white placeholder-zinc-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
+                    </div>
+                    <div>
+                        <input type="email" id="founding-email" required placeholder="Enter your email"
+                            class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3.5 text-white placeholder-zinc-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
+                    </div>
+                    <button type="submit" id="founding-submit-btn"
+                        class="w-full bg-white hover:bg-zinc-200 text-black font-bold text-lg py-4 rounded-xl transition-all shadow-lg shadow-white/10 flex items-center justify-center gap-2">
+                        <span>Join Waitlist ($9.50)</span>
+                    </button>
+                    <p class="text-center text-zinc-500 text-xs uppercase tracking-widest font-medium">Pay when we
+                        launch</p>
+                </form>
+            </div>
+
+            <!-- Success State (Hidden - using toast instead) -->
+            <div id="founding-success" class="hidden flex-col items-center text-center py-4">
+                <div
+                    class="w-16 h-16 rounded-full bg-blue-500/10 flex items-center justify-center mb-4 border border-blue-500/20">
+                    <i data-lucide="check" class="w-8 h-8 text-blue-400"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Welcome to the Inner Circle.</h3>
+                <p class="text-zinc-400 text-sm leading-relaxed">
+                    We just sent your confirmation to <span id="confirmed-email" class="text-white"></span>. The
+                    Scout will be in touch soon.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal Logic
+        const foundingModal = document.getElementById('founding-modal');
+        const foundingForm = document.getElementById('founding-form');
+        const foundingEmail = document.getElementById('founding-email');
+        const foundingContent = document.getElementById('founding-content');
+        const foundingSuccess = document.getElementById('founding-success');
+        const confirmedEmailSpan = document.getElementById('confirmed-email');
+        const foundingSubmitBtn = document.getElementById('founding-submit-btn');
+
+        window.openFoundingModal = function () {
+            if (foundingModal) {
+                foundingModal.classList.remove('hidden');
+                foundingModal.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        window.closeFoundingModal = function () {
+            if (foundingModal) {
+                foundingModal.classList.add('hidden');
+                foundingModal.classList.remove('flex');
+                document.body.style.overflow = '';
+                // Reset success state after delay to allow re-entry
+                setTimeout(() => {
+                    foundingForm.reset();
+                    foundingContent.classList.remove('hidden');
+                    foundingSuccess.classList.add('hidden');
+                    foundingSuccess.classList.remove('flex');
+                    if (foundingSubmitBtn) {
+                        foundingSubmitBtn.disabled = false;
+                        foundingSubmitBtn.innerHTML = '<span>Get Early Access</span><i data-lucide="arrow-right" class="w-4 h-4"></i>';
+                    }
+                }, 300);
+            }
+        }
+
+        // Close on backdrop click
+        if (foundingModal) {
+            foundingModal.addEventListener('click', (e) => {
+                if (e.target === foundingModal) closeFoundingModal();
             });
-        </script>
+        }
+
+        // Handle Submit
+        if (foundingForm) {
+            foundingForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const email = foundingEmail.value;
+                const name = document.getElementById('founding-name').value;
+                if (!email || !name) return;
+
+                // Loading State
+                const originalBtnContent = foundingSubmitBtn.innerHTML;
+                foundingSubmitBtn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i>';
+                foundingSubmitBtn.disabled = true;
+
+                try {
+                    const response = await fetch('/api/waitlist', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: email, name: name })
+                    });
+
+                    if (response.ok) {
+                        // Show Toast
+                        const toast = document.getElementById('toast-notification');
+                        const toastMessage = document.getElementById('toast-message');
+                        if (toast && toastMessage) {
+                            toastMessage.textContent = `✓ Welcome to the waitlist, ${name}!`;
+                            toast.classList.remove('hidden', 'translate-y-10', 'opacity-0');
+                            toast.classList.add('flex', 'translate-y-0', 'opacity-100');
+
+                            setTimeout(() => {
+                                toast.classList.remove('translate-y-0', 'opacity-100');
+                                toast.classList.add('translate-y-10', 'opacity-0');
+                                setTimeout(() => toast.classList.add('hidden'), 300);
+                            }, 3000);
+                        }
+
+                        // Reset form and close modal
+                        foundingForm.reset();
+                        foundingSubmitBtn.innerHTML = originalBtnContent;
+                        foundingSubmitBtn.disabled = false;
+
+                        setTimeout(() => {
+                            closeFoundingModal();
+                        }, 1000);
+                    } else {
+                        alert('Something went wrong. Please try again.');
+                        foundingSubmitBtn.innerHTML = originalBtnContent;
+                        foundingSubmitBtn.disabled = false;
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Network error. Please try again.');
+                    foundingSubmitBtn.innerHTML = originalBtnContent;
+                    foundingSubmitBtn.disabled = false;
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>
