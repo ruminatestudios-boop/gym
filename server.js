@@ -10,6 +10,7 @@ const port = 3000;
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(express.static('.')); // Serve frontend files from root
 
 // Initialize Clients
 const openai = new OpenAI({
@@ -109,6 +110,31 @@ Tone: Helpful, expert, slightly "insider," and encouraging. Use Thai greetings l
     } catch (error) {
         console.error('Error processing chat request:', error);
         res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Waitlist Endpoint
+app.post('/api/waitlist', async (req, res) => {
+    const { email, name } = req.body;
+
+    if (!email) {
+        return res.status(400).json({ error: 'Email is required' });
+    }
+
+    try {
+        await airtableBase('Waitlist').create([
+            {
+                "fields": {
+                    "Name": name || '',
+                    "Email": email,
+                    "Date": new Date().toISOString()
+                }
+            }
+        ]);
+        res.json({ success: true, message: "Added to Waitlist" });
+    } catch (error) {
+        console.error('Airtable Error:', error);
+        res.status(500).json({ error: 'Failed to join waitlist' });
     }
 });
 

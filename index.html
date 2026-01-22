@@ -52,6 +52,11 @@
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'glow-pulse': 'glowPulse 2s ease-in-out infinite',
                         'shimmer': 'shimmer 3s linear infinite',
+                        'typewriter': 'typewriter 2s steps(20) forwards',
+                        'cursor-blink': 'cursorBlink 1s step-end infinite',
+                        'progress-load': 'progressLoad 2s ease-out forwards',
+                        'slide-up-fade': 'slideUpFade 0.5s ease-out forwards',
+                        'slide-up-wait': 'slideUpWait 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
                     },
                     keyframes: {
                         fadeInUp: {
@@ -65,6 +70,26 @@
                         shimmer: {
                             from: { backgroundPosition: '0 0' },
                             to: { backgroundPosition: '-200% 0' },
+                        },
+                        typewriter: {
+                            from: { width: '0' },
+                            to: { width: '100%' }
+                        },
+                        cursorBlink: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0' }
+                        },
+                        progressLoad: {
+                            '0%': { width: '0%' },
+                            '100%': { width: '100%' }
+                        },
+                        slideUpFade: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        slideUpWait: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
                         }
                     }
                 }
@@ -283,22 +308,31 @@
                     </div>
                 </div>
 
-                <form id="chat-form" class="relative group">
-                    <input type="text" id="chat-input"
-                        class="w-full bg-zinc-800/50 text-white placeholder-zinc-500 rounded-2xl py-4 pl-6 pr-14 border border-zinc-700/50 focus:border-blue-500/50 focus:bg-zinc-800 focus:outline-none transition-all"
-                        placeholder="Ask anything about gyms in Thailand...">
-                    <button type="submit"
-                        class="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed">
-                        <i data-lucide="arrow-up" class="w-5 h-5"></i>
-                    </button>
-                </form>
-                <div class="text-center mt-3">
-                    <p class="text-[10px] text-zinc-600">AI may display inaccurate info. Always verify booking
-                        details.
-                    </p>
+                <!-- Input Container -->
+                <div id="chat-input-container">
+                    <form id="chat-form" class="relative group">
+                        <input type="text" id="chat-input"
+                            class="w-full bg-zinc-800/50 text-white placeholder-zinc-500 rounded-2xl py-4 pl-6 pr-14 border border-zinc-700/50 focus:border-blue-500/50 focus:bg-zinc-800 focus:outline-none transition-all"
+                            placeholder="Ask anything about gyms in Thailand...">
+                        <button type="submit"
+                            class="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                            <i data-lucide="arrow-up" class="w-5 h-5"></i>
+                        </button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <p class="text-[10px] text-zinc-600">AI may display inaccurate info. Always verify booking
+                            details.
+                        </p>
+                    </div>
                 </div>
+
+                <!-- Waitlist Card (Hidden by Default) -->
+
+
+
             </div>
         </div>
+    </div>
     </div>
 
     <!-- Features Section -->
@@ -372,54 +406,189 @@
     </section>
 
     <!-- Product Demos Section -->
-    <section id="demos" class="py-24 bg-black relative border-t border-zinc-800/50">
+    <section id="demos" class="py-24 bg-black relative border-t border-zinc-900">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid md:grid-cols-2 gap-8">
-                <!-- Card 1: AI Scout -->
+                <!-- Card 1: AI Scout (Bequant Style) -->
                 <div
-                    class="bg-zinc-900/50 border border-zinc-800 rounded-3xl p-8 flex flex-col items-start gap-8 group hover:border-zinc-700 transition-colors">
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-2 text-blue-400">
-                            <i data-lucide="sparkles" class="w-5 h-5"></i>
-                            <span class="text-sm font-semibold tracking-wide uppercase">AI Scout</span>
+                    class="bg-[#0b0b0c] border border-white/5 rounded-3xl p-10 flex flex-col items-start gap-10 group hover:border-zinc-800 transition-colors">
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-3">
+                            <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-zinc-500">AI Scout</span>
+                            <div class="h-px w-8 bg-zinc-800"></div>
                         </div>
-                        <h3 class="text-3xl font-serif italic text-white">Find your gym in <span
-                                class="not-italic font-sans font-bold text-blue-500">Seconds</span></h3>
-                        <p class="text-zinc-400 leading-relaxed text-lg">
-                            Stop scrolling through outdated maps. Our AI analyzes 50+ data points to match you with the
-                            perfect gym for your budget and style.
+                        <h3 class="text-4xl font-sans font-bold tracking-tighter text-white leading-[1.1]">
+                            Find your gym in <br>
+                            <span class="text-white">Seconds</span>
+                        </h3>
+                        <p class="text-zinc-500 leading-relaxed text-base max-w-sm font-medium">
+                            Stop scrolling through outdated maps. Our AI matches you with the perfect gym based on
+                            budget, style, and amenities.
                         </p>
                     </div>
-                    <!-- Video Container -->
-                    <div class="w-full aspect-[4/3] rounded-2xl overflow-hidden relative shadow-2xl bg-zinc-950">
-                        <video autoplay muted loop playsinline
-                            class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
-                            src="https://cdn.shopify.com/videos/c/o/v/87ebce8eb39446949a227dc8580860fd.mp4"></video>
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                    <!-- Demo Container: AI Search Animation -->
+                    <div
+                        class="w-full aspect-[4/3] rounded-xl overflow-hidden relative bg-[#050505] border border-white/5 ring-1 ring-white/5 group-hover:border-zinc-800 transition-colors">
+                        <!-- Abstract Background Map/Grid -->
+                        <div class="absolute inset-0 opacity-10"
+                            style="background-image: radial-gradient(#3b82f6 1px, transparent 1px); background-size: 32px 32px;">
+                        </div>
+
+                        <!-- Floating UI Container -->
+                        <div class="absolute inset-0 flex flex-col items-center justify-center p-6">
+
+                            <!-- Search Bar Animation -->
+                            <div
+                                class="w-full max-w-xs bg-[#0e0e10] border border-white/10 rounded-lg p-3 flex items-center gap-3 shadow-2xl mb-6 relative overflow-hidden group/search">
+                                <span
+                                    class="bg-blue-500/10 text-blue-400 text-[9px] font-bold px-1.5 py-0.5 rounded border border-blue-500/20 tracking-widest uppercase">Scout</span>
+                                <div class="h-5 w-full relative overflow-hidden flex items-center">
+                                    <span
+                                        class="whitespace-nowrap text-sm text-zinc-300 animate-typewriter font-medium">Muay
+                                        Thai
+                                        in Phuket...</span>
+                                    <span
+                                        class="absolute right-0 top-0 h-full w-0.5 bg-blue-500 animate-cursor-blink"></span>
+                                </div>
+                            </div>
+
+                            <!-- Processing/Results Container -->
+                            <div class="w-full max-w-xs space-y-2 relative h-32">
+                                <!-- Step 1: Searching Spinner -->
+                                <div class="absolute inset-0 flex items-center justify-center gap-2 text-zinc-500 text-xs font-bold tracking-wide uppercase animate-fade-out-up"
+                                    style="animation-delay: 2s; animation-fill-mode: forwards;">
+                                    <div
+                                        class="w-4 h-4 border-2 border-zinc-800 border-t-zinc-400 rounded-full animate-spin">
+                                    </div>
+                                    Searching database...
+                                </div>
+
+                                <!-- Step 2: Results List (Appears after search) -->
+                                <div class="absolute inset-x-0 top-0 space-y-2 animate-slide-up-fade opacity-0"
+                                    style="animation-delay: 2.5s; animation-fill-mode: forwards;">
+                                    <!-- Result 1 -->
+                                    <div
+                                        class="bg-[#0e0e10] rounded-lg p-3 border border-white/10 flex items-center gap-3 shadow-lg">
+                                        <div
+                                            class="w-10 h-10 rounded bg-blue-500/10 flex items-center justify-center shrink-0 border border-blue-500/10">
+                                            <i data-lucide="trophy" class="w-5 h-5 text-blue-400"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <div class="text-xs font-bold text-white mb-1">Tiger Muay Thai</div>
+                                            <div class="flex gap-1">
+                                                <span
+                                                    class="text-[9px] bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-400 font-medium">AC</span>
+                                                <span
+                                                    class="text-[9px] bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-400 font-medium">Sauna</span>
+                                            </div>
+                                        </div>
+                                        <div class="text-xs font-bold text-blue-400">98%</div>
+                                    </div>
+                                    <!-- Result 2 -->
+                                    <div
+                                        class="bg-[#0e0e10] rounded-lg p-3 border border-white/10 flex items-center gap-3 opacity-50">
+                                        <div
+                                            class="w-10 h-10 rounded bg-orange-500/10 flex items-center justify-center shrink-0 border border-orange-500/10">
+                                            <i data-lucide="flame" class="w-5 h-5 text-orange-400"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <div class="text-xs font-bold text-white mb-1">Dragon Gym</div>
+                                            <div class="flex gap-1">
+                                                <span
+                                                    class="text-[9px] bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-400 font-medium">Pool</span>
+                                            </div>
+                                        </div>
+                                        <div class="text-xs font-bold text-orange-400">95%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Card 2: Concierge -->
+                <!-- Card 2: Concierge (Bequant Style) -->
                 <div
-                    class="bg-zinc-900/50 border border-zinc-800 rounded-3xl p-8 flex flex-col items-start gap-8 group hover:border-zinc-700 transition-colors">
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-2 text-emerald-400">
-                            <i data-lucide="user-check" class="w-5 h-5"></i>
-                            <span class="text-sm font-semibold tracking-wide uppercase">VIP Concierge</span>
+                    class="bg-[#0b0b0c] border border-white/5 rounded-3xl p-10 flex flex-col items-start gap-10 group hover:border-zinc-800 transition-colors">
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-3">
+                            <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-zinc-500">BQN
+                                Concierge</span>
+                            <div class="h-px w-8 bg-zinc-800"></div>
                         </div>
-                        <h3 class="text-3xl font-serif italic text-white">We handle the <span
-                                class="not-italic font-sans font-bold text-emerald-500">Conversation</span></h3>
-                        <p class="text-zinc-400 leading-relaxed text-lg">
+                        <h3 class="text-4xl font-sans font-bold tracking-tighter text-white leading-[1.1]">
+                            We handle the <br>
+                            <span class="text-white">Conversation</span>
+                        </h3>
+                        <p class="text-zinc-500 leading-relaxed text-base max-w-sm font-medium">
                             Language barriers shouldn't stop you. We contact the gym directly in Thai to secure your
-                            spot and confirm your arrival.
+                            spot and confirm arrival.
                         </p>
                     </div>
-                    <!-- Video Container -->
-                    <div class="w-full aspect-[4/3] rounded-2xl overflow-hidden relative shadow-2xl bg-zinc-950">
-                        <video autoplay muted loop playsinline
-                            class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
-                            src="https://cdn.shopify.com/videos/c/o/v/acecec08b9d74f8c87da744035dcb576.mov"></video>
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                    <!-- Demo Container: Stacked Cards Animation (Agent Flow) -->
+                    <div
+                        class="w-full aspect-[4/3] rounded-xl overflow-hidden relative bg-[#050505] border border-white/5 ring-1 ring-white/5 group-hover:border-zinc-800 transition-colors">
+                        <!-- Abstract Background Grid (Dots) -->
+                        <div class="absolute inset-0 opacity-10"
+                            style="background-image: radial-gradient(#10b981 1.5px, transparent 1.5px); background-size: 32px 32px;">
+                        </div>
+
+                        <!-- Floating UI Container -->
+                        <div class="absolute inset-0 flex flex-col items-center justify-center p-6">
+
+                            <!-- Header (Concierge + Toggle) -->
+                            <div class="flex items-center gap-4 mb-8">
+                                <div class="flex gap-1.5 opacity-20">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-zinc-400"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-zinc-400"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-zinc-400"></div>
+                                </div>
+                                <span class="text-[10px] font-bold text-zinc-600 tracking-[0.2em] uppercase ml-1">Live
+                                    Agent</span>
+                                <div
+                                    class="flex items-center gap-2 px-1.5 py-1 bg-[#0a0a0a] rounded-full border border-zinc-800 ml-2">
+                                    <div
+                                        class="w-3 h-3 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]">
+                                    </div>
+                                    <span
+                                        class="text-[9px] font-bold text-zinc-500 uppercase tracking-wider pr-1">Online</span>
+                                </div>
+                            </div>
+
+                            <!-- Processing Cards (Stacked) -->
+                            <div class="w-full max-w-xs space-y-4 relative">
+
+                                <!-- Card 1: Contacting -->
+                                <div class="bg-[#0e0e10] rounded-lg p-4 border border-white/10 shadow-xl flex items-start gap-4 animate-slide-up-fade relative z-10 w-full"
+                                    style="animation-delay: 0.5s; animation-fill-mode: forwards; opacity: 0;">
+                                    <div class="flex-1 min-w-0">
+                                        <div class="text-[13px] font-bold mb-1 text-emerald-500">Contacting Gym...</div>
+                                        <div class="text-[11px] text-zinc-500 font-medium tracking-wide">Speaking in
+                                            <span class="text-indigo-400 font-bold">Thai</span> to confirm
+                                        </div>
+                                    </div>
+                                    <div class="shrink-0 pt-0.5">
+                                        <div
+                                            class="w-4 h-4 border-[2px] border-zinc-800 border-t-emerald-500 rounded-full animate-spin">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Card 2: Confirmed -->
+                                <div class="bg-[#0e0e10] rounded-lg p-4 border border-white/10 shadow-xl flex items-start gap-4 animate-slide-up-fade relative z-20 w-full"
+                                    style="animation-delay: 2.5s; animation-fill-mode: forwards; opacity: 0;">
+                                    <div class="flex-1 min-w-0">
+                                        <div class="text-[13px] font-bold mb-1 text-emerald-500">Booking Confirmed</div>
+                                        <div class="text-[11px] text-zinc-500 font-medium tracking-wide">Tomorrow 10:00
+                                            AM • <span class="text-zinc-300 font-bold">Tiger Muay Thai</span></div>
+                                    </div>
+                                    <div class="shrink-0 pt-0.5">
+                                        <i data-lucide="check-circle-2"
+                                            class="w-4 h-4 text-emerald-500 fill-emerald-950/20"></i>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1139,17 +1308,16 @@
                     class="group bg-black border border-zinc-800 rounded-2xl overflow-hidden transition-all duration-300 open:pb-4">
                     <summary
                         class="flex items-center justify-between p-6 cursor-pointer list-none text-lg font-medium hover:text-blue-400 transition-colors">
-                        <span>How does the AI gym finder work with only a few gyms?</span>
+                        <span>Is Fightlore+ free?</span>
                         <span class="transition-transform group-open:rotate-180">
                             <i data-lucide="chevron-down" class="w-5 h-5"></i>
                         </span>
                     </summary>
                     <div class="px-6 text-zinc-400 leading-relaxed">
-                        Think of it as your personal scout. I’ve currently hand-verified 5 elite gyms across
-                        Bangkok,
-                        Samui, and Chiang Mai. The AI helps you match with the perfect one based on your specific
-                        needs—like whether you want a sauna, AC, or a pro-fight camp atmosphere. As I add 5 new gyms
-                        every week, the AI’s knowledge grows with me.
+                        The basic AI Scout is free to try! To access the full "Black Book" (pricing, direct contacts,
+                        and
+                        unblurred maps), we will charge a one-time fee of $19.00 at launch. Founding Members on the
+                        waitlist get it for $9.50.
                     </div>
                 </details>
 
@@ -1158,16 +1326,14 @@
                     class="group bg-black border border-zinc-800 rounded-2xl overflow-hidden transition-all duration-300 open:pb-4">
                     <summary
                         class="flex items-center justify-between p-6 cursor-pointer list-none text-lg font-medium hover:text-blue-400 transition-colors">
-                        <span>Why are there only 5 gyms listed right now?</span>
+                        <span>When do I pay?</span>
                         <span class="transition-transform group-open:rotate-180">
                             <i data-lucide="chevron-down" class="w-5 h-5"></i>
                         </span>
                     </summary>
                     <div class="px-6 text-zinc-400 leading-relaxed">
-                        Because I refuse to give you outdated or fake info. Most sites scrape Google Maps; I
-                        actually
-                        visit the gyms, talk to the owners, and check the bathrooms. I am currently in the "Scouting
-                        Phase," verifying 5 gyms per week. Quality and accuracy come before quantity.
+                        Not today. You only pay once we officially launch the full database. Joining the waitlist just
+                        locks in your 50% discount.
                     </div>
                 </details>
 
@@ -1176,35 +1342,14 @@
                     class="group bg-black border border-zinc-800 rounded-2xl overflow-hidden transition-all duration-300 open:pb-4">
                     <summary
                         class="flex items-center justify-between p-6 cursor-pointer list-none text-lg font-medium hover:text-blue-400 transition-colors">
-                        <span>What happens if I unlock the "Full Database" today?</span>
+                        <span>Why a one-time fee instead of a subscription?</span>
                         <span class="transition-transform group-open:rotate-180">
                             <i data-lucide="chevron-down" class="w-5 h-5"></i>
                         </span>
                     </summary>
                     <div class="px-6 text-zinc-400 leading-relaxed">
-                        By joining the Founder’s Beta today, you get immediate access to the current verified list
-                        and
-                        lifetime access to all 100+ gyms as they go live. You are essentially getting a "Founder’s
-                        Discount" before the price increases once the database is fully complete.
-                    </div>
-                </details>
-
-                <!-- Item 4 -->
-                <details
-                    class="group bg-black border border-zinc-800 rounded-2xl overflow-hidden transition-all duration-300 open:pb-4">
-                    <summary
-                        class="flex items-center justify-between p-6 cursor-pointer list-none text-lg font-medium hover:text-blue-400 transition-colors">
-                        <span>Can the AI find me a gym in a city you haven't scouted yet?</span>
-                        <span class="transition-transform group-open:rotate-180">
-                            <i data-lucide="chevron-down" class="w-5 h-5"></i>
-                        </span>
-                    </summary>
-                    <div class="px-6 text-zinc-400 leading-relaxed">
-                        Not yet. To ensure 100% accuracy, the AI only recommends gyms I have physically vetted. If
-                        you
-                        need a specific city, you can "Vote for my next Scout" after you click the Unlock 100+
-                        button. I
-                        prioritize new locations based on where you want to go next.
+                        We believe in the "Fighter's Code"—you pay for the scout once, and you own that knowledge
+                        forever. No monthly "Farang Tax" here.
                     </div>
                 </details>
 
@@ -1314,126 +1459,82 @@
                     Everything clearly priced so you can plan your Thailand training trip with confidence.</p>
             </div>
 
-            <div class="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <!-- Founding Member Card -->
+            <div class="max-w-2xl mx-auto">
+                <div class="relative group">
+                    <!-- Glow Effect -->
+                    <div
+                        class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-emerald-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200">
+                    </div>
 
-
-                <!-- Tier 2: Fighter's Passport ($47) -->
-                <div class="card-glow p-[2px]">
-                    <div class="bg-zinc-950 h-full rounded-[1.4rem] p-8 flex flex-col relative z-10 overflow-hidden">
-                        <!-- Diagonal Ribbon -->
-                        <div class="absolute top-0 right-0 w-32 h-32 overflow-hidden">
-                            <div
-                                class="absolute top-[20px] right-[-34px] w-[140px] bg-blue-600 text-white text-[10px] font-bold py-1 text-center rotate-45 transform shadow-lg shadow-blue-900/40 border-y border-blue-400/30 uppercase tracking-wider">
-                                Most Popular
+                    <div class="relative bg-zinc-950 border border-zinc-800 rounded-2xl p-8 md:p-10 shadow-2xl">
+                        <!-- Header -->
+                        <div class="mb-8 border-b border-zinc-900 pb-8">
+                            <h3 class="text-3xl font-bold text-white mb-2">The Founding 500 Pass</h3>
+                            <div class="flex items-center gap-3">
+                                <span
+                                    class="bg-blue-500/10 text-blue-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-blue-500/20">
+                                    Limited Early Access
+                                </span>
+                                <span class="text-zinc-500 text-sm">Valid for Lifetime</span>
                             </div>
                         </div>
 
-                        <div class="mb-8 relative">
-                            <h3 class="text-2xl font-bold text-white mb-2">Fightlore+ Access</h3>
-                            <p class="text-emerald-400 font-bold">The "Secret Key" to Thailand</p>
-                        </div>
-                        <div class="mb-8">
-                            <span class="text-5xl font-bold text-white">$19</span>
-                            <span class="text-zinc-500 font-medium text-sm">for 3 Months</span>
-                        </div>
+                        <!-- Table-like Features -->
+                        <div class="space-y-6 mb-10">
+                            <!-- Row 1: Price -->
+                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-4">
+                                <span class="text-zinc-400 font-medium w-32">Price</span>
+                                <div class="flex-1 md:text-right">
+                                    <span class="text-2xl font-bold text-white">$9.50</span>
+                                    <span class="text-zinc-600 text-sm line-through ml-2">Regular $19.00</span>
+                                    <span class="block text-xs text-emerald-500 font-medium">One-time payment. $0
+                                        today.</span>
+                                </div>
+                            </div>
 
-                        <ul class="space-y-5 mb-8 flex-1">
-                            <li class="flex items-start gap-3">
-                                <i data-lucide="check-circle-2" class="w-5 h-5 text-blue-400 shrink-0 mt-0.5"></i>
-                                <div>
-                                    <strong class="block text-white">Full "Black Book" Access</strong>
-                                    <span class="text-sm text-zinc-400">Unlock hidden local pricing & AC status.</span>
+                            <!-- Row 2: Access -->
+                            <div
+                                class="flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-4 border-t border-zinc-900 pt-4">
+                                <span class="text-zinc-400 font-medium w-32">Full Access</span>
+                                <div class="flex-1 md:text-right text-zinc-300">
+                                    Lifetime access to 200+ verified gyms
                                 </div>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <i data-lucide="check-circle-2" class="w-5 h-5 text-blue-400 shrink-0 mt-0.5"></i>
-                                <div>
-                                    <strong class="block text-white">Continuous Growth</strong>
-                                    <span class="text-sm text-zinc-400">First 5 gyms + 5 new added weekly.</span>
-                                </div>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <i data-lucide="check-circle-2" class="w-5 h-5 text-blue-400 shrink-0 mt-0.5"></i>
-                                <div>
-                                    <strong class="block text-white">Unlimited AI Scout</strong>
-                                    <span class="text-sm text-zinc-400">Ask about training, gear, or travel 24/7.</span>
-                                </div>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <i data-lucide="check-circle-2" class="w-5 h-5 text-blue-400 shrink-0 mt-0.5"></i>
-                                <div>
-                                    <strong class="block text-white">Vote on the Scout</strong>
-                                    <span class="text-sm text-zinc-400">You tell us which city to verify next.</span>
-                                </div>
-                            </li>
-                        </ul>
+                            </div>
 
-                        <a href="https://buy.stripe.com/test_28E00k5E8c0B7gc8G23ks00" id="btn-fighter-passport"
-                            class="block text-center w-full py-4 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-blue-900/20">
-                            Get All-Access
-                        </a>
-                        <p
-                            class="text-xs text-zinc-500 mt-4 text-center leading-relaxed opacity-0 pointer-events-none select-none">
-                            After payment, you'll receive a short form to tell us your dates and gym choice. We’ll have
-                            your booking confirmed within 24 hours.
-                        </p>
-                    </div>
-                </div>
+                            <!-- Row 3: AI Scout -->
+                            <div
+                                class="flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-4 border-t border-zinc-900 pt-4">
+                                <span class="text-zinc-400 font-medium w-32">AI Scout</span>
+                                <div class="flex-1 md:text-right text-zinc-300">
+                                    Unlimited messages & insider data
+                                </div>
+                            </div>
 
-                <!-- Tier 3: VIP Concierge ($147) -->
-                <div class="card-glow p-[2px]">
-                    <div class="bg-zinc-950 h-full rounded-[1.4rem] p-8 flex flex-col relative z-10">
-                        <div class="mb-8">
-                            <h3 class="text-2xl font-bold text-emerald-400 mb-2">Concierge Add-on</h3>
-                            <p class="text-zinc-400">A Real Person in Your Corner</p>
-                        </div>
-                        <div class="mb-8">
-                            <span class="text-5xl font-bold text-white">+$15</span>
-                            <span class="text-zinc-500 font-medium text-sm">per booking</span>
+                            <!-- Row 4: Updates -->
+                            <div
+                                class="flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-4 border-t border-zinc-900 pt-4">
+                                <span class="text-zinc-400 font-medium w-32">Updates</span>
+                                <div class="flex-1 md:text-right text-zinc-300">
+                                    All future gym scouts included for free
+                                </div>
+                            </div>
                         </div>
 
-                        <ul class="space-y-5 mb-8 flex-1">
-                            <li class="flex items-start gap-3">
-                                <i data-lucide="message-circle" class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5"></i>
-                                <div>
-                                    <strong class="block text-white">Real Human Communication</strong>
-                                    <span class="text-sm text-zinc-400">A real person handles all talking.</span>
-                                </div>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <i data-lucide="languages" class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5"></i>
-                                <div>
-                                    <strong class="block text-white">Native Thai Support</strong>
-                                    <span class="text-sm text-zinc-400">We contact owners directly in Thai.</span>
-                                </div>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <i data-lucide="calendar-check" class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5"></i>
-                                <div>
-                                    <strong class="block text-white">Guaranteed Booking</strong>
-                                    <span class="text-sm text-zinc-400">We verify space & book your session.</span>
-                                </div>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <i data-lucide="check-square" class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5"></i>
-                                <div>
-                                    <strong class="block text-white">The "Final Check"</strong>
-                                    <span class="text-sm text-zinc-400">Confirm specific details before arrival.</span>
-                                </div>
-                            </li>
-                        </ul>
+                        <!-- CTA -->
+                        <button onclick="showWaitlistCard()"
+                            class="w-full bg-white hover:bg-zinc-200 text-black font-bold text-lg py-4 rounded-xl transition-all shadow-lg shadow-white/5 transform active:scale-[0.99] flex items-center justify-center gap-2">
+                            <span>Join the Waitlist — Pay $0 Now</span>
+                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </button>
 
-                        <a href="https://buy.stripe.com/test_5kQ6oI5E84y9aso9K63ks01" id="btn-vip-concierge"
-                            class="block text-center w-full py-4 rounded-full border border-emerald-900/50 bg-emerald-900/20 hover:bg-emerald-900/40 text-emerald-400 font-bold text-lg transition-colors">
-                            Join VIP
-                        </a>
-                        <p class="text-xs text-zinc-500 mt-4 text-center leading-relaxed">
-                            After payment, you'll receive a short form to tell us your dates and gym choice. We’ll have
-                            your booking confirmed within 24 hours.
+                        <p class="text-center text-zinc-600 text-xs mt-4">
+                            You won't be charged today. Secure your spot in the Founding 500.
                         </p>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 
@@ -1878,12 +1979,24 @@
 
             chatForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
+
+                // CHECK LIMIT BEFORE SENDING
+                if (checkChatLimit()) return;
+
                 const message = chatInput.value.trim();
                 if (!message) return;
 
                 addMessage(message, 'user');
                 chatInput.value = '';
+
+                // Increment Count
+                messageCount++;
+                console.log("Message Count:", messageCount);
+
                 if (suggestionPills) suggestionPills.style.display = 'none';
+
+                // Check limit again immediately to update UI if needed (e.g. at 3)
+                if (checkChatLimit()) return;
 
                 const loadingId = addLoadingIndicator();
                 await new Promise(r => setTimeout(r, 1000 + Math.random() * 500)); // Natural delay
@@ -1998,6 +2111,47 @@
                 lucide.createIcons();
                 chatHistory.scrollTop = chatHistory.scrollHeight;
             }
+
+            // --- Chat Limit Logic ---
+            let messageCount = 0;
+            const FREE_CHAT_LIMIT = 3;
+            const chatInputContainer = document.getElementById('chat-input-container'); // Need to ID this div in HTML logic below if not exists
+
+            function checkChatLimit() {
+                if (messageCount >= FREE_CHAT_LIMIT) {
+                    showWaitlistCard();
+                    return true;
+                }
+                return false;
+            }
+
+            function showWaitlistCard() {
+                console.log("Triggering Waitlist Card...");
+
+                // Hide input container
+                const inputForm = document.getElementById('chat-input-container'); // Hide the container, not just form
+                if (inputForm) inputForm.style.display = 'none';
+
+                // Hide suggestion pills
+                const pills = document.getElementById('suggestion-pills');
+                if (pills) pills.style.display = 'none';
+
+                // Show Waitlist Modal
+                const waitlistCard = document.getElementById('waitlist-card');
+                if (waitlistCard) {
+                    console.log("Found card, showing it.");
+                    waitlistCard.classList.remove('hidden');
+                    waitlistCard.classList.add('flex');
+                    // Force style just in case
+                    waitlistCard.style.display = 'flex';
+                } else {
+                    console.error("Waitlist Card element not found!");
+                }
+
+                // Also scroll to bottom
+                chatHistory.scrollTop = chatHistory.scrollHeight;
+            }
+
             function addLoadingIndicator() {
                 const id = 'loading-' + Date.now();
                 const div = document.createElement('div');
@@ -2776,6 +2930,106 @@
                             closeTextModal();
                         }
                     });
+                }
+            });
+        </script>
+        <!-- Waitlist Modal (Global Overlay) -->
+        <div id="waitlist-card"
+            class="hidden fixed inset-0 z-[100] items-center justify-center bg-black/80 backdrop-blur-md animate-fade-in">
+            <div
+                class="relative w-full max-w-md p-6 mx-4 bg-[#050505] border border-zinc-800 rounded-3xl shadow-2xl animate-scale-up">
+
+                <div class="flex flex-col items-center text-center gap-4 mb-8">
+                    <div
+                        class="w-14 h-14 rounded-full bg-blue-500/10 flex items-center justify-center border border-blue-500/20 mb-2 shadow-lg shadow-blue-500/10">
+                        <i data-lucide="map" class="w-7 h-7 text-blue-400"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold text-2xl tracking-tight mb-2">You've reached the edge of the
+                            map.</h4>
+                        <p class="text-zinc-400 text-sm leading-relaxed max-w-[320px] mx-auto">
+                            Join the <span class="text-white font-medium">Founding 500</span> to unlock full pricing,
+                            direct booking access, and our "Black Book" of verified gyms.
+                        </p>
+                    </div>
+                </div>
+
+                <form class="space-y-4" id="waitlist-form">
+                    <div class="space-y-3">
+                        <div class="relative group">
+                            <i
+                                class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500 group-focus-within:text-blue-400 transition-colors"></i>
+                            <input type="text" id="waitlist-name" placeholder="Enter your full name"
+                                class="w-full bg-zinc-900 border border-zinc-800 text-white text-base pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all placeholder-zinc-600">
+                        </div>
+                        <div class="relative group">
+                            <i
+                                class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500 group-focus-within:text-blue-400 transition-colors"></i>
+                            <input type="email" id="waitlist-email" required placeholder="Enter your email"
+                                class="w-full bg-zinc-900 border border-zinc-800 text-white text-base pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all placeholder-zinc-600">
+                        </div>
+                    </div>
+
+                    <button type="submit" id="waitlist-btn"
+                        class="w-full bg-white hover:bg-zinc-200 text-black font-bold text-lg py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-white/5 transform active:scale-[0.99] mt-2">
+                        <span>Join the Black Book</span>
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </button>
+                </form>
+
+                <p id="waitlist-success"
+                    class="hidden text-emerald-400 text-sm font-bold mt-4 text-center bg-emerald-500/10 py-2 rounded-lg border border-emerald-500/20">
+                    <i data-lucide="check-circle" class="w-4 h-4 inline mr-1"></i> Access Granted. Welcome to the inner
+                    circle.
+                </p>
+
+                <div class="text-center mt-6 pt-6 border-t border-zinc-900">
+                    <p class="text-[11px] text-zinc-600 tracking-wide uppercase font-medium">Limited spots available for
+                        beta access</p>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            document.getElementById('waitlist-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const name = document.getElementById('waitlist-name').value;
+                const email = document.getElementById('waitlist-email').value;
+                const btn = document.getElementById('waitlist-btn');
+
+                const originalText = btn.innerHTML;
+                btn.innerHTML = `<i data-lucide="loader" class="w-5 h-5 animate-spin"></i> Securing Spot...`;
+                btn.disabled = true;
+                btn.classList.add('opacity-80', 'cursor-not-allowed');
+
+                try {
+                    const res = await fetch('/api/waitlist', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, name })
+                    });
+
+                    if (res.ok) {
+                        btn.innerHTML = `<i data-lucide="check" class="w-5 h-5"></i> Saved`;
+                        btn.classList.replace('bg-white', 'bg-emerald-500');
+                        btn.classList.replace('text-black', 'text-white');
+                        btn.classList.replace('hover:bg-zinc-200', 'hover:bg-emerald-600');
+
+                        document.getElementById('waitlist-success').classList.remove('hidden');
+
+                        // Create confetti effect or nice feedback
+                        if (lucide) lucide.createIcons();
+                    } else {
+                        alert('Something went wrong. Please try again.');
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                        btn.classList.remove('opacity-80', 'cursor-not-allowed');
+                    }
+                } catch (error) {
+                    console.error(error);
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-80', 'cursor-not-allowed');
                 }
             });
         </script>
