@@ -406,191 +406,47 @@
     </section>
 
     <!-- Product Demos Section -->
-    <section id="demos" class="py-24 bg-black relative border-t border-zinc-900">
+    <!-- Product Explanation Section (Text Only) -->
+    <section id="demos" class="py-24 bg-black relative border-t border-zinc-900 border-b border-zinc-800/50">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Card 1: AI Scout (Bequant Style) -->
-                <div
-                    class="bg-[#0b0b0c] border border-white/5 rounded-3xl p-10 flex flex-col items-start gap-10 group hover:border-zinc-800 transition-colors">
-                    <div class="space-y-6">
-                        <div class="flex items-center gap-3">
-                            <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-zinc-500">AI Scout</span>
-                            <div class="h-px w-8 bg-zinc-800"></div>
-                        </div>
-                        <h3 class="text-4xl font-sans font-bold tracking-tighter text-white leading-[1.1]">
-                            Find your gym in <br>
-                            <span class="text-white">Seconds</span>
-                        </h3>
-                        <p class="text-zinc-500 leading-relaxed text-base max-w-sm font-medium">
-                            Stop scrolling through outdated maps. Our AI matches you with the perfect gym based on
-                            budget, style, and amenities.
-                        </p>
+            <div class="grid md:grid-cols-2 gap-16 items-start">
+
+                <!-- AI Scout Text -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3">
+                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-blue-500">Feature 01</span>
+                        <div class="h-px w-8 bg-zinc-800"></div>
+                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-zinc-500">AI Scout</span>
                     </div>
-                    <!-- Demo Container: AI Search Animation -->
-                    <div
-                        class="w-full aspect-[4/3] rounded-xl overflow-hidden relative bg-[#050505] border border-white/5 ring-1 ring-white/5 group-hover:border-zinc-800 transition-colors">
-                        <!-- Abstract Background Map/Grid -->
-                        <div class="absolute inset-0 opacity-10"
-                            style="background-image: radial-gradient(#3b82f6 1px, transparent 1px); background-size: 32px 32px;">
-                        </div>
-
-                        <!-- Floating UI Container -->
-                        <div class="absolute inset-0 flex flex-col items-center justify-center p-6">
-
-                            <!-- Search Bar Animation -->
-                            <div
-                                class="w-full max-w-xs bg-[#0e0e10] border border-white/10 rounded-lg p-3 flex items-center gap-3 shadow-2xl mb-6 relative overflow-hidden group/search">
-                                <span
-                                    class="bg-blue-500/10 text-blue-400 text-[9px] font-bold px-1.5 py-0.5 rounded border border-blue-500/20 tracking-widest uppercase">Scout</span>
-                                <div class="h-5 w-full relative overflow-hidden flex items-center">
-                                    <span
-                                        class="whitespace-nowrap text-sm text-zinc-300 animate-typewriter font-medium">Muay
-                                        Thai
-                                        in Phuket...</span>
-                                    <span
-                                        class="absolute right-0 top-0 h-full w-0.5 bg-blue-500 animate-cursor-blink"></span>
-                                </div>
-                            </div>
-
-                            <!-- Processing/Results Container -->
-                            <div class="w-full max-w-xs space-y-2 relative h-32">
-                                <!-- Step 1: Searching Spinner -->
-                                <div class="absolute inset-0 flex items-center justify-center gap-2 text-zinc-500 text-xs font-bold tracking-wide uppercase animate-fade-out-up"
-                                    style="animation-delay: 2s; animation-fill-mode: forwards;">
-                                    <div
-                                        class="w-4 h-4 border-2 border-zinc-800 border-t-zinc-400 rounded-full animate-spin">
-                                    </div>
-                                    Searching database...
-                                </div>
-
-                                <!-- Step 2: Results List (Appears after search) -->
-                                <div class="absolute inset-x-0 top-0 space-y-2 animate-slide-up-fade opacity-0"
-                                    style="animation-delay: 2.5s; animation-fill-mode: forwards;">
-                                    <!-- Result 1 -->
-                                    <div
-                                        class="bg-[#0e0e10] rounded-lg p-3 border border-white/10 flex items-center gap-3 shadow-lg">
-                                        <div
-                                            class="w-10 h-10 rounded bg-blue-500/10 flex items-center justify-center shrink-0 border border-blue-500/10">
-                                            <i data-lucide="trophy" class="w-5 h-5 text-blue-400"></i>
-                                        </div>
-                                        <div class="flex-1 min-w-0">
-                                            <div class="text-xs font-bold text-white mb-1">Tiger Muay Thai</div>
-                                            <div class="flex gap-1">
-                                                <span
-                                                    class="text-[9px] bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-400 font-medium">AC</span>
-                                                <span
-                                                    class="text-[9px] bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-400 font-medium">Sauna</span>
-                                            </div>
-                                        </div>
-                                        <div class="text-xs font-bold text-blue-400">98%</div>
-                                    </div>
-                                    <!-- Result 2 -->
-                                    <div
-                                        class="bg-[#0e0e10] rounded-lg p-3 border border-white/10 flex items-center gap-3 opacity-50">
-                                        <div
-                                            class="w-10 h-10 rounded bg-orange-500/10 flex items-center justify-center shrink-0 border border-orange-500/10">
-                                            <i data-lucide="flame" class="w-5 h-5 text-orange-400"></i>
-                                        </div>
-                                        <div class="flex-1 min-w-0">
-                                            <div class="text-xs font-bold text-white mb-1">Dragon Gym</div>
-                                            <div class="flex gap-1">
-                                                <span
-                                                    class="text-[9px] bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-400 font-medium">Pool</span>
-                                            </div>
-                                        </div>
-                                        <div class="text-xs font-bold text-orange-400">95%</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <h3 class="text-4xl font-sans font-bold tracking-tighter text-white leading-[1.1]">
+                        Find your gym in <br>
+                        <span class="text-white">Seconds.</span>
+                    </h3>
+                    <p class="text-zinc-400 leading-relaxed text-lg max-w-sm">
+                        Stop scrolling through outdated maps. Our AI matches you with the perfect gym based on
+                        budget, style, and amenities. We verify every single datapoint personally.
+                    </p>
                 </div>
 
-                <!-- Card 2: Concierge (Bequant Style) -->
-                <div
-                    class="bg-[#0b0b0c] border border-white/5 rounded-3xl p-10 flex flex-col items-start gap-10 group hover:border-zinc-800 transition-colors">
-                    <div class="space-y-6">
-                        <div class="flex items-center gap-3">
-                            <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-zinc-500">BQN
-                                Concierge</span>
-                            <div class="h-px w-8 bg-zinc-800"></div>
-                        </div>
-                        <h3 class="text-4xl font-sans font-bold tracking-tighter text-white leading-[1.1]">
-                            We handle the <br>
-                            <span class="text-white">Conversation</span>
-                        </h3>
-                        <p class="text-zinc-500 leading-relaxed text-base max-w-sm font-medium">
-                            Language barriers shouldn't stop you. We contact the gym directly in Thai to secure your
-                            spot and confirm arrival.
-                        </p>
+                <!-- Concierge Text -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3">
+                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-emerald-500">Feature
+                            02</span>
+                        <div class="h-px w-8 bg-zinc-800"></div>
+                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-zinc-500">BQN
+                            Concierge</span>
                     </div>
-                    <!-- Demo Container: Stacked Cards Animation (Agent Flow) -->
-                    <div
-                        class="w-full aspect-[4/3] rounded-xl overflow-hidden relative bg-[#050505] border border-white/5 ring-1 ring-white/5 group-hover:border-zinc-800 transition-colors">
-                        <!-- Abstract Background Grid (Dots) -->
-                        <div class="absolute inset-0 opacity-10"
-                            style="background-image: radial-gradient(#10b981 1.5px, transparent 1.5px); background-size: 32px 32px;">
-                        </div>
-
-                        <!-- Floating UI Container -->
-                        <div class="absolute inset-0 flex flex-col items-center justify-center p-6">
-
-                            <!-- Header (Concierge + Toggle) -->
-                            <div class="flex items-center gap-4 mb-8">
-                                <div class="flex gap-1.5 opacity-20">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-zinc-400"></div>
-                                    <div class="w-1.5 h-1.5 rounded-full bg-zinc-400"></div>
-                                    <div class="w-1.5 h-1.5 rounded-full bg-zinc-400"></div>
-                                </div>
-                                <span class="text-[10px] font-bold text-zinc-600 tracking-[0.2em] uppercase ml-1">Live
-                                    Agent</span>
-                                <div
-                                    class="flex items-center gap-2 px-1.5 py-1 bg-[#0a0a0a] rounded-full border border-zinc-800 ml-2">
-                                    <div
-                                        class="w-3 h-3 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]">
-                                    </div>
-                                    <span
-                                        class="text-[9px] font-bold text-zinc-500 uppercase tracking-wider pr-1">Online</span>
-                                </div>
-                            </div>
-
-                            <!-- Processing Cards (Stacked) -->
-                            <div class="w-full max-w-xs space-y-4 relative">
-
-                                <!-- Card 1: Contacting -->
-                                <div class="bg-[#0e0e10] rounded-lg p-4 border border-white/10 shadow-xl flex items-start gap-4 animate-slide-up-fade relative z-10 w-full"
-                                    style="animation-delay: 0.5s; animation-fill-mode: forwards; opacity: 0;">
-                                    <div class="flex-1 min-w-0">
-                                        <div class="text-[13px] font-bold mb-1 text-emerald-500">Contacting Gym...</div>
-                                        <div class="text-[11px] text-zinc-500 font-medium tracking-wide">Speaking in
-                                            <span class="text-indigo-400 font-bold">Thai</span> to confirm
-                                        </div>
-                                    </div>
-                                    <div class="shrink-0 pt-0.5">
-                                        <div
-                                            class="w-4 h-4 border-[2px] border-zinc-800 border-t-emerald-500 rounded-full animate-spin">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Card 2: Confirmed -->
-                                <div class="bg-[#0e0e10] rounded-lg p-4 border border-white/10 shadow-xl flex items-start gap-4 animate-slide-up-fade relative z-20 w-full"
-                                    style="animation-delay: 2.5s; animation-fill-mode: forwards; opacity: 0;">
-                                    <div class="flex-1 min-w-0">
-                                        <div class="text-[13px] font-bold mb-1 text-emerald-500">Booking Confirmed</div>
-                                        <div class="text-[11px] text-zinc-500 font-medium tracking-wide">Tomorrow 10:00
-                                            AM • <span class="text-zinc-300 font-bold">Tiger Muay Thai</span></div>
-                                    </div>
-                                    <div class="shrink-0 pt-0.5">
-                                        <i data-lucide="check-circle-2"
-                                            class="w-4 h-4 text-emerald-500 fill-emerald-950/20"></i>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+                    <h3 class="text-4xl font-sans font-bold tracking-tighter text-white leading-[1.1]">
+                        We handle the <br>
+                        <span class="text-white">Conversation.</span>
+                    </h3>
+                    <p class="text-zinc-400 leading-relaxed text-lg max-w-sm">
+                        Language barriers shouldn't stop you. We contact the gym directly in Thai to secure your
+                        spot and confirm arrival. No "Farang Tax", no confusion.
+                    </p>
                 </div>
+
             </div>
         </div>
     </section>
@@ -2948,8 +2804,9 @@
                         <h4 class="text-white font-bold text-2xl tracking-tight mb-2">You've reached the edge of the
                             map.</h4>
                         <p class="text-zinc-400 text-sm leading-relaxed max-w-[320px] mx-auto">
-                            Join the <span class="text-white font-medium">Founding 500</span> to unlock full pricing,
-                            direct booking access, and our "Black Book" of verified gyms.
+                            Drop your email to join the <span class="text-white font-medium">Founding 500</span>. You'll
+                            get an invite to the full Black Book at <span class="text-white font-medium">50% off
+                                ($9.50)</span> when we go live. No credit card needed today.
                         </p>
                     </div>
                 </div>
