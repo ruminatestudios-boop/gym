@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const OpenAI = require('openai');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 const Airtable = require('airtable');
 require('dotenv').config();
 
@@ -13,9 +13,7 @@ app.use(express.json());
 app.use(express.static('.')); // Serve frontend files from root
 
 // Initialize Clients
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-});
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 
 const airtableBase = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(process.env.AIRTABLE_BASE_ID);
 const tableName = process.env.AIRTABLE_TABLE_NAME || 'Gyms';
@@ -33,23 +31,36 @@ async function getGymKnowledge() {
     try {
         const response = await fetch(url, {
             headers: { Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}` },
-            // next: { revalidate: 3600 } // Note: This Next.js option is ignored in Node.js fetch, but kept per request
         });
         const data = await response.json();
 
-        // Turns your 200 rows into a simple list for the AI to "read"
-        return data.records.map((r) => (
-            `Gym: ${r.fields['Gym Name']} | Location: ${r.fields['City/Region']} | Price: ${r.fields['Prices']}`
-        )).join('\n');
+        if (!response.ok) {
+            console.error(`❌ API ERROR: ${response.status} ${response.statusText}`);
+            console.error("DETAILS:", JSON.stringify(data, null, 2));
+            throw new Error(`Airtable API returned ${response.status}`);
+        }
+
+        if (data.records) {
+            console.log(`✅ SUCCESS: Loaded ${data.records.length} gyms from Airtable.`);
+            return data.records.map((r) => {
+                let price = r.fields['Prices'];
+                // Clean up if it's an ID or array (common in Airtable linked records)
+                if (Array.isArray(price)) price = "Contact for details";
+                if (typeof price === 'string' && price.startsWith('rec')) price = "Contact for details";
+                if (!price) price = "Contact for details";
+
+                return `Gym: ${r.fields['Gym Name']} | Location: ${r.fields['City/Region']} | Price: ${price}`;
+            }).join('\n');
+        }
     } catch (error) {
-        // ONLY use a fallback if the Airtable connection breaks
+        console.error("❌ FETCH FAILURE:", error.message);
         return "I'm currently updating my verified gym list. Please check back in a moment!";
     }
 }
 
 // API Key Validation (Optional check)
 const hasApiKeys = () => {
-    return process.env.OPENAI_API_KEY && process.env.AIRTABLE_API_KEY && process.env.AIRTABLE_BASE_ID;
+    return process.env.GOOGLE_API_KEY && process.env.AIRTABLE_API_KEY && process.env.AIRTABLE_BASE_ID;
 };
 
 // Chat Endpoint
@@ -71,39 +82,32 @@ app.post('/api/chat', async (req, res) => {
         // 1. Get Context
         const dynamicKnowledge = await getGymKnowledge();
 
-        // 2. Call OpenAI
-        const completion = await openai.chat.completions.create({
-            model: "gpt-4o",
-            messages: [
-                {
-                    role: "system",
-                    content: `Role: You are the Fightlore Scout, a personal fight concierge. Your job is to help users find the perfect Muay Thai or Boxing gym in Thailand. You speak with "boots-on-the-ground" authority because you have personally visited every gym you recommend.
+        console.log("\n--- 🔍 DEBUG: AI Knowledge Base (from Airtable) ---");
+        console.log(dynamicKnowledge || "No gyms found or Airtable error.");
+        console.log("---------------------------------------------------\n");
 
-Core Knowledge (Verified Gyms): You only provide deep details for gyms in your "Verified List."
+        // 2. Call Google Gemini
+        const model = genAI.getGenerativeModel({
+            model: "gemini-2.0-flash",
+            systemInstruction: `Role: You are the Fightlore Scout. Help users find gyms in Thailand.
 
-Here is your Verified List (Data fetched live):
+CONTEXT:
+Verified Gyms List:
 ${dynamicKnowledge}
 
-Interaction Rules:
+RULES:
+1. CONCISE: Be short. No fluff. Max 2-3 sentences.
+2. NO GREETINGS: Do NOT say "Sawadee Krap" or "Hello". Jump straight to the answer.
+3. FORMAT: If you suggest a gym, must WRAP the name in triple pipes like this: |||Sitsarawatseur|||.
+   Example: "Sitsarawatseur is a great traditional option. |||Sitsarawatseur|||"
 
-Be Honest: If a gym doesn't have AC (like Highland), say so. Users trust you because you tell the truth.
-
-Handle Unknowns (The Sales Pitch): If a user asks about a gym NOT on your list, or asks for data you haven't unlocked yet, say:
-
-"I haven't hand-verified that spot yet! I'm currently on the ground scouting 5 new gyms every week to ensure the pricing and quality are real. To see my full 'Black Book' of scout notes and locked prices, you should grab a Fightlore+ Pass."
-
-Pivoting: If they ask a random question (like "Where to eat?"), give a short answer based on "Nearby Amenities" and then bring it back to training.
-
-The VIP Hook: If a user sounds overwhelmed about logistics, mention: "If you want me to handle the Thai-language booking and confirm mat space for you, I can do that through our VIP Concierge service."
-
-Tone: Helpful, expert, slightly "insider," and encouraging. Use Thai greetings like "Sawadee Krap" occasionally.`
-                },
-                { role: "user", content: message },
-            ],
-            // Note: Streaming is disabled to maintain compatibility with current frontend
+RESPONSE:
+- Direct answer.
+- If ID found in price, say "Contact us".`
         });
 
-        const reply = completion.choices[0].message.content;
+        const result = await model.generateContent(message);
+        const reply = await result.response.text();
 
         res.json({ response: reply });
 
@@ -194,7 +198,17 @@ app.post('/api/create-checkout-session', async (req, res) => {
     }
 });
 
-app.listen(port, () => {
+app.listen(port, async () => {
     console.log(`Server running at http://localhost:${port}`);
     console.log('Environment variables loaded:', hasApiKeys() ? 'Yes' : 'No (Please configure .env)');
+
+    // Test Airtable Connection on Startup
+    console.log("\n--- 🔄 Connecting to Airtable... ---");
+    const knowledge = await getGymKnowledge();
+    if (typeof knowledge === 'string' && knowledge.startsWith("Gym:")) {
+        console.log(`✅ Knowledge Base Loaded (${knowledge.split('\n').length} gyms)`);
+    } else {
+        console.log("⚠️ Knowledge Base Warning:", knowledge);
+    }
+    console.log("-----------------------------------------\n");
 });
