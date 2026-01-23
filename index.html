@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=EB+Garamond:ital,wght@0,400;1,300;1,400&display=swap"
         rel="stylesheet">
 
     <!-- Swiper CSS -->
@@ -31,7 +31,7 @@
                 extend: {
                     fontFamily: {
                         sans: ['Manrope', 'sans-serif'],
-                        serif: ['Instrument Serif', 'serif'],
+                        serif: ['EB Garamond', 'serif'],
                     },
                     colors: {
                         brand: {
@@ -119,6 +119,21 @@
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+
+        /* Shimmer Effect */
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        .animate-shimmer {
+            animation: shimmer 6s linear infinite;
         }
 
         /* Swiper Linear Transition for Marquee Effect */
@@ -213,7 +228,8 @@
                 style="animation-delay: 0.2s;">
                 Find Your Perfect <br>
                 <span
-                    class="animate-shimmer bg-[linear-gradient(110deg,#93c5fd,45%,#ffffff,55%,#93c5fd)] bg-[length:200%_100%] bg-clip-text text-transparent not-italic font-sans font-bold">Muay
+                    class="animate-shimmer bg-[linear-gradient(110deg,#60a5fa,40%,#ffffff,50%,#60a5fa)] bg-[length:250%_100%] bg-clip-text text-transparent not-italic font-sans font-bold"
+                    style="-webkit-background-clip: text; -webkit-text-fill-color: transparent;">Muay
                     Thai Gym</span>
             </h1>
 
@@ -320,8 +336,27 @@
                     </div>
                 </div>
 
-                <!-- Waitlist Card (Hidden by Default) -->
-
+                <!-- Waitlist Prompt Card (Hidden by Default, shown after 3 messages) -->
+                <div id="chat-limit-prompt" class="hidden">
+                    <div
+                        class="bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-blue-500/30 rounded-2xl p-6 text-center">
+                        <div
+                            class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/40 mb-4">
+                            <i data-lucide="lock" class="w-6 h-6 text-blue-400"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">You've reached your free limit</h3>
+                        <p class="text-zinc-400 text-sm mb-6 leading-relaxed max-w-md mx-auto">
+                            Join the waitlist to unlock unlimited AI searches, 200+ verified gyms, and lifetime access
+                            for just $9.50.
+                        </p>
+                        <button onclick="openFoundingModal()"
+                            class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2">
+                            <i data-lucide="sparkles" class="w-5 h-5"></i>
+                            <span>Join Waitlist - Unlock Full Access</span>
+                        </button>
+                        <p class="text-zinc-500 text-xs mt-3 uppercase tracking-wider">Pay when we launch</p>
+                    </div>
+                </div>
 
 
             </div>
@@ -597,7 +632,7 @@
                         </div>
                         <div class="p-5 flex-1 flex flex-col gap-4">
                             <div class="flex justify-between items-start gap-4">
-                                <h3 class="text-xl font-bold text-white leading-tight">PK. Saenchai Muay Thai Gym</h3>
+                                <h3 class="text-xl font-bold text-white leading-tight">Sor.Dechapant Muay Thai</h3>
                                 <div
                                     class="flex items-center gap-1.5 px-2 py-1 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-yellow-400 text-xs font-bold">
                                     <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i> 4.9
@@ -769,7 +804,7 @@
                         </div>
                         <div class="p-5 flex-1 flex flex-col gap-4">
                             <div class="flex justify-between items-start gap-4">
-                                <h3 class="text-xl font-bold text-white leading-tight">PK. Saenchai Muay Thai Gym</h3>
+                                <h3 class="text-xl font-bold text-white leading-tight">Sor.Dechapant Muay Thai</h3>
                                 <div
                                     class="flex items-center gap-1.5 px-2 py-1 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-yellow-400 text-xs font-bold">
                                     <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i> 4.9
@@ -941,7 +976,7 @@
                         </div>
                         <div class="p-5 flex-1 flex flex-col gap-4">
                             <div class="flex justify-between items-start gap-4">
-                                <h3 class="text-xl font-bold text-white leading-tight">PK. Saenchai Muay Thai Gym
+                                <h3 class="text-xl font-bold text-white leading-tight">Sor.Dechapant Muay Thai
                                 </h3>
                                 <div
                                     class="flex items-center gap-1.5 px-2 py-1 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-yellow-400 text-xs font-bold">
@@ -1238,7 +1273,7 @@
                 </details>
             </div>
             <p class="text-center text-zinc-500 mt-12">Have questions? We'd love to help - <a
-                    href="mailto:support@gymfinder.ai" class="text-blue-500 hover:underline">Email us.</a></p>
+                    href="mailto:fightloreplus@gmail.com" class="text-blue-500 hover:underline">Email us.</a></p>
         </div>
     </section>
 
@@ -1942,6 +1977,14 @@
             const pills = document.getElementById('suggestion-pills');
             if (pills) pills.style.display = 'none';
 
+            // Show limit prompt card
+            const limitPrompt = document.getElementById('chat-limit-prompt');
+            if (limitPrompt) {
+                limitPrompt.classList.remove('hidden');
+                // Re-init icons for the new card
+                if (window.lucide) lucide.createIcons();
+            }
+
             // Show New Founding Modal
             if (window.openFoundingModal) {
                 window.openFoundingModal();
@@ -2553,32 +2596,31 @@
             </div>
 
             <div class="bg-zinc-950 rounded-2xl p-6 border border-zinc-800 mb-8">
-                <h4 class="text-lg font-bold text-white mb-4">Join the Beta: Pay $19 today</h4>
+                <h4 class="text-lg font-bold text-white mb-4">Join the Founding 500: Pay $0 today</h4>
                 <ul class="space-y-3">
                     <li class="flex flex-col gap-1">
                         <div class="flex items-start gap-3">
                             <i data-lucide="check" class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5"></i>
-                            <span class="text-zinc-300 text-sm">Immediate access to the next 10 gyms as they are
-                                verified.</span>
+                            <span class="text-zinc-300 text-sm">Get notified when we launch with early access to 200+
+                                verified gyms.</span>
                         </div>
-                        <p class="text-zinc-500 text-xs ml-8">Next week's uploads include: PK Saenchai Gym,
-                            Petchyindee,
-                            and Fairtex Gym.</p>
                     </li>
                     <li class="flex items-start gap-3">
                         <i data-lucide="check" class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5"></i>
-                        <span class="text-zinc-300 text-sm">Lifetime access to the full 100+ gym database.</span>
+                        <span class="text-zinc-300 text-sm">Lock in lifetime 50% discount - pay just $9.50 at launch
+                            (normally $19).</span>
                     </li>
                     <li class="flex items-start gap-3">
                         <i data-lucide="check" class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5"></i>
-                        <span class="text-zinc-300 text-sm">A 'Founder's Badge' and vote on next cities.</span>
+                        <span class="text-zinc-300 text-sm">Unlimited AI searches and vote on which cities we scout
+                            next.</span>
                     </li>
                 </ul>
             </div>
 
-            <button id="join-beta-btn"
+            <button onclick="openFoundingModal()" id="join-beta-btn"
                 class="w-full py-4 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-lg transition-all shadow-lg shadow-blue-900/40 hover:scale-[1.02]">
-                Secure Early Bird Access
+                Join Waitlist - Pay When We Launch
             </button>
         </div>
     </div>
@@ -2668,7 +2710,7 @@
                 <h3 class="text-xl text-white font-bold mb-2 mt-4">5. Security</h3>
                 <p>We take reasonable measures to help protect information about you from loss, theft, misuse and unauthorized access.</p>
                 <h3 class="text-xl text-white font-bold mb-2 mt-4">6. Contact Us</h3>
-                <p>If you have any questions about this Privacy Policy, please contact us at support@gymfinder.ai.</p>
+                <p>If you have any questions about this Privacy Policy, please contact us at fightloreplus@gmail.com.</p>
             `;
 
             const termsOfServiceText = `
