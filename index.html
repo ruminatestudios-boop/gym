@@ -997,6 +997,57 @@
                     </div>
                 </div>
 
+                <!-- Gym 6: Sitsarawatseur (Added for AI Demo) -->
+                <div class="swiper-slide !w-[300px] md:!w-[400px] h-auto gym-card group cursor-pointer"
+                    data-modal-type="split">
+                    <div
+                        class="bg-zinc-950 rounded-3xl overflow-hidden border border-zinc-800 hover:border-zinc-600 transition-all h-full flex flex-col relative group-hover:transform group-hover:scale-[1.02] duration-500">
+
+                        <!-- Video Background -->
+                        <div class="relative h-[250px] w-full overflow-hidden">
+                            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all z-10">
+                            </div>
+                            <!-- Reusing a video for demo purposes -->
+                            <video src="https://cdn.shopify.com/videos/c/o/v/a0e5f5f429184562b88574167e45989e.mp4"
+                                class="w-full h-full object-cover transform scale-105 group-hover:scale-110 transition-transform duration-700"
+                                muted loop playsinline></video>
+
+                            <div
+                                class="absolute top-4 right-4 z-20 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full flex items-center gap-1.5 border border-white/10">
+                                <i data-lucide="map-pin" class="w-3 h-3 text-white"></i>
+                                <span class="text-xs font-bold text-white tracking-wide uppercase">Bangkok</span>
+                            </div>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="p-6 flex flex-col flex-1 relative bg-zinc-950">
+                            <div class="flex justify-between items-start mb-3">
+                                <div>
+                                    <h3 class="text-xl font-bold text-white leading-tight mb-1">Sitsarawatseur</h3>
+                                    <div class="flex items-center gap-1 text-yellow-500 text-xs font-bold">
+                                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
+                                        <span>4.9</span>
+                                        <span class="text-zinc-600 font-normal ml-1">(Verified)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="text-zinc-400 text-sm leading-relaxed line-clamp-2 mb-6">
+                                Traditional Muay Khao style gym. Known for intense clinch work and authentic stadium
+                                fighter training.
+                            </p>
+
+                            <!-- Tags -->
+                            <div class="flex flex-wrap gap-2 mt-auto">
+                                <span
+                                    class="px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-[10px] uppercase tracking-wider text-zinc-400 font-bold">Traditional</span>
+                                <span
+                                    class="px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-[10px] uppercase tracking-wider text-zinc-400 font-bold">Clinch</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Unlock More Card -->
                 <div class="swiper-slide !w-[300px] md:!w-[400px] h-auto gym-card group cursor-pointer"
                     onclick="document.getElementById('beta-modal').classList.remove('hidden'); document.getElementById('beta-modal').classList.add('flex');">
@@ -1608,45 +1659,95 @@
             </div>
             <!-- Full Screen Details Overlay (Absolute, swipes over everything) -->
             <div id="full-screen-details"
-                class="absolute inset-0 bg-zinc-950 z-40 translate-x-full transition-transform duration-500 ease-in-out flex flex-col p-8 overflow-y-auto">
-                <!-- Back Button -->
-                <button id="btn-info-back"
-                    class="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors mb-8 group self-start sticky top-0 bg-zinc-950 py-4 w-full z-10 border-b border-zinc-800/50">
-                    <i data-lucide="arrow-left" class="w-5 h-5 group-hover:-translate-x-1 transition-transform"></i>
-                    <span class="text-base font-medium">Back to Summary</span>
-                </button>
+                class="absolute inset-0 bg-zinc-950 z-40 translate-x-full transition-transform duration-500 ease-in-out flex flex-col overflow-hidden">
 
-                <!-- Content Output -->
-                <div id="modal-detailed-content" class="space-y-10 animate-fade-in-up max-w-2xl mx-auto w-full">
-                    <!-- Injected via JS -->
-                    <div class="space-y-4">
-                        <h3 class="text-3xl font-serif italic text-white" id="detail-title">About the Gym</h3>
-                        <p class="text-zinc-400 text-base leading-relaxed" id="detail-desc">
-                            Experience authentic Muay Thai training in a world-class facility. Our certified
-                            trainers bring years of ring experience to help you achieve your fitness and
-                            fighting goals.
-                        </p>
+                <!-- HEADER & TABS STICKY -->
+                <div class="shrink-0 border-b border-zinc-800 bg-zinc-950 z-10">
+                    <!-- Back Button -->
+                    <button id="btn-info-back"
+                        class="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors p-4 group w-full">
+                        <i data-lucide="arrow-left" class="w-5 h-5 group-hover:-translate-x-1 transition-transform"></i>
+                        <span class="text-base font-medium">Back to Summary</span>
+                    </button>
+
+                    <!-- TAB NAVIGATION -->
+                    <div class="flex items-center px-4 gap-6">
+                        <button onclick="switchTab('overview')" id="tab-btn-overview"
+                            class="pb-3 text-sm font-bold uppercase tracking-wider text-white border-b-2 border-white transition-colors">Overview</button>
+                        <button onclick="switchTab('training')" id="tab-btn-training"
+                            class="pb-3 text-sm font-bold uppercase tracking-wider text-zinc-500 hover:text-zinc-300 border-b-2 border-transparent transition-colors">Training</button>
+                        <button onclick="switchTab('facilities')" id="tab-btn-facilities"
+                            class="pb-3 text-sm font-bold uppercase tracking-wider text-zinc-500 hover:text-zinc-300 border-b-2 border-transparent transition-colors">Facilities</button>
+                    </div>
+                </div>
+
+                <!-- CONTENT AREA (Scrollable) -->
+                <div id="modal-detailed-content" class="flex-1 overflow-y-auto p-6 md:p-8 space-y-8 pb-20">
+
+                    <!-- TAB 1: OVERVIEW -->
+                    <div id="tab-content-overview" class="space-y-8 animate-fade-in-up">
+                        <div class="space-y-4">
+                            <h3 class="text-3xl font-serif italic text-white" id="detail-title">About the Gym</h3>
+
+                            <!-- Vibe Tags Container -->
+                            <div id="detail-tags" class="flex flex-wrap gap-2"></div>
+
+                            <p class="text-zinc-400 text-base leading-relaxed" id="detail-desc">
+                                <!-- Dynamic Description -->
+                            </p>
+                        </div>
                     </div>
 
-                    <div class="space-y-4">
-                        <h4 class="text-sm font-bold text-zinc-500 uppercase tracking-wider">Training Programs</h4>
-                        <div class="grid grid-cols-1 gap-3" id="detail-programs">
-                            <!-- Dynamic -->
-                            <div
-                                class="p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl flex items-center justify-between">
-                                <span class="text-sm text-zinc-300">Beginner Muay Thai</span>
-                                <span class="text-xs text-zinc-500 badge bg-zinc-800 px-2 py-1 rounded">Daily</span>
+                    <!-- TAB 2: TRAINING -->
+                    <div id="tab-content-training" class="space-y-8 hidden animate-fade-in-up">
+                        <div class="space-y-4">
+                            <h4 class="text-sm font-bold text-zinc-500 uppercase tracking-wider">Training Programs</h4>
+                            <div class="grid grid-cols-1 gap-3" id="detail-programs">
+                                <!-- Dynamic Program Cards -->
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <h4 class="text-sm font-bold text-zinc-500 uppercase tracking-wider">Trainer Experience</h4>
+                            <p class="text-zinc-400 text-base leading-relaxed" id="detail-trainers">
+                                <!-- Dynamic Trainer Info -->
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- TAB 3: FACILITIES -->
+                    <div id="tab-content-facilities" class="space-y-8 hidden animate-fade-in-up">
+
+                        <!-- Amenities Grid -->
+                        <div class="space-y-4">
+                            <h4 class="text-sm font-bold text-zinc-500 uppercase tracking-wider">Amenities</h4>
+                            <div id="detail-amenities" class="grid grid-cols-2 gap-4">
+                                <!-- Dynamic Amenities -->
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <h4 class="text-sm font-bold text-zinc-500 uppercase tracking-wider">Accommodation</h4>
+                            <p class="text-zinc-400 text-base leading-relaxed" id="detail-accom">
+                                <!-- Dynamic Accom Info -->
+                            </p>
+                        </div>
+
+                        <!-- Contact Actions -->
+                        <div class="space-y-4 pt-4 border-t border-zinc-900">
+                            <h4 class="text-sm font-bold text-zinc-500 uppercase tracking-wider">Contact & Location</h4>
+                            <div class="grid grid-cols-2 gap-3">
+                                <a id="btn-link-maps" href="#" target="_blank"
+                                    class="p-3 bg-zinc-900 hover:bg-zinc-800 rounded-xl flex items-center justify-center gap-2 text-zinc-300 transition-colors">
+                                    <i data-lucide="map-pin" class="w-4 h-4"></i> Maps
+                                </a>
+                                <a id="btn-link-insta" href="#" target="_blank"
+                                    class="p-3 bg-zinc-900 hover:bg-zinc-800 rounded-xl flex items-center justify-center gap-2 text-zinc-300 transition-colors">
+                                    <i data-lucide="instagram" class="w-4 h-4"></i> Instagram
+                                </a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="space-y-4">
-                        <h4 class="text-sm font-bold text-zinc-500 uppercase tracking-wider">Accommodation</h4>
-                        <p class="text-zinc-400 text-base leading-relaxed" id="detail-accom">
-                            On-site rooms available with AC and private bathrooms. Meal plans included in monthly
-                            packages.
-                        </p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -1679,6 +1780,21 @@
     <!-- Scripts -->
     <script>
         lucide.createIcons();
+
+        // Global data store
+        window.gymData = [];
+
+        // Load Gym Data on Start
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const res = await fetch('/api/gyms');
+                const data = await res.json();
+                window.gymData = data.gyms || [];
+                console.log("✅ Gym Data Loaded:", window.gymData.length);
+            } catch (err) {
+                console.error("Failed to load gym data:", err);
+            }
+        });
 
         // Mobile Menu Logic
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
@@ -2521,10 +2637,8 @@
 
                         // Extract Data
                         const videoSrc = card.querySelector('video')?.src;
-                        const title = card.querySelector('h3')?.innerText;
+                        let title = card.querySelector('h3')?.innerText; // Changed to let
                         // Clean location text to extract just the city name if possible, or just raw text
-                        // The location element has an icon, so innerText will include it. That's fine or we clean it.
-                        // Let's rely on textContent and trim.
                         const locationText = card.querySelector('.absolute.top-4.right-4')?.textContent.trim() || 'Thailand';
 
                         const rating = card.querySelector('.text-yellow-400')?.innerText.trim();
@@ -2538,6 +2652,13 @@
                         const modalRating = document.getElementById('modal-rating');
                         const modalDesc = document.getElementById('modal-desc');
 
+                        // Detailed Overlay Elements
+                        const detailTitle = document.getElementById('detail-title');
+                        const detailDesc = document.getElementById('detail-desc');
+                        const detailPrograms = document.getElementById('detail-programs');
+                        const detailAccom = document.getElementById('detail-accom');
+
+
                         if (modal && modalVideo) {
                             if (videoSrc) modalVideo.src = videoSrc;
                             if (title && modalTitle) modalTitle.innerText = title;
@@ -2546,7 +2667,53 @@
                                 modalLocation.innerHTML = `<i data-lucide="map-pin" class="w-3 h-3"></i> ${locationText}`;
                             }
                             if (rating && modalRating) modalRating.innerText = rating;
-                            if (desc && modalDesc) modalDesc.innerText = desc;
+
+                            // HYBRID REPLACEMENT: Use Airtable Data if available
+                            // Fuzzy Match Helper
+                            const normalize = (str) => str.toLowerCase().replace(/muay|thai|gym|camp|\s|\.|-/g, '');
+                            const cardKey = normalize(title);
+
+                            const gymProps = window.gymData ? window.gymData.find(g => normalize(g.name) === cardKey || normalize(g.name).includes(cardKey) || cardKey.includes(normalize(g.name))) : null;
+
+                            if (gymProps) {
+                                console.log("✅ MATCHED Airtable Data:", title, "->", gymProps.name);
+                                // Summary View
+                                if (modalDesc) modalDesc.innerText = gymProps.description;
+
+                                // Detailed View
+                                if (detailTitle) detailTitle.innerText = `About ${gymProps.name}`;
+                                if (detailDesc) detailDesc.innerText = gymProps.description;
+                                if (detailAccom) detailAccom.innerText = gymProps.accommodation;
+
+                                if (detailPrograms) {
+                                    // Split programs if it's a comma list or just one string
+                                    const programs = gymProps.training.split(',').map(p => p.trim());
+                                    let programsHtml = '';
+                                    programs.forEach(prog => {
+                                        programsHtml += `
+                                            <div class="p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl flex items-center justify-between">
+                                                <span class="text-sm text-zinc-300">${prog}</span>
+                                                <span class="text-xs text-zinc-500 badge bg-zinc-800 px-2 py-1 rounded">Daily</span>
+                                            </div>
+                                         `;
+                                    });
+                                    detailPrograms.innerHTML = programsHtml;
+                                }
+
+                            } else {
+                                console.warn("❌ NO MATCH for:", title, "| Output Key:", cardKey);
+                                // Fallback
+                                if (desc && modalDesc) modalDesc.innerText = desc;
+                                if (detailDesc) detailDesc.innerText = desc || "Experience authentic Muay Thai training in a world-class facility.";
+                                if (detailAccom) detailAccom.innerText = "Contact gym for accommodation details.";
+                                if (detailPrograms) {
+                                    detailPrograms.innerHTML = `
+                                        <div class="p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl flex items-center justify-between">
+                                            <span class="text-sm text-zinc-300">All Levels Muay Thai</span>
+                                            <span class="text-xs text-zinc-500 badge bg-zinc-800 px-2 py-1 rounded">Daily</span>
+                                        </div>`;
+                                }
+                            }
 
                             // Show Modal
                             modal.classList.remove('hidden');
@@ -2622,6 +2789,35 @@
             // Run check on load
             checkPaymentSuccess();
         });
+
+        // Global Helper for Chat Pills
+        window.openBookingFor = (gymName) => {
+            // Find the gym card in the DOM
+            const cards = document.querySelectorAll('.gym-card');
+            let found = false;
+
+            for (const card of cards) {
+                const title = card.querySelector('h3')?.innerText;
+                if (title && title.toLowerCase().includes(gymName.toLowerCase())) {
+                    // Simulate click to trigger existing modal logic
+                    card.click();
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                // Determine which modal system is active and show generic fallback
+                // Or just default to booking modal if we really can't show details
+                const bookingModal = document.getElementById('booking-modal');
+                const bookingGymInput = document.getElementById('booking-gym-name');
+                if (bookingModal && bookingGymInput) {
+                    bookingGymInput.value = gymName;
+                    bookingModal.style.display = 'flex';
+                    bookingModal.classList.remove('hidden');
+                }
+            }
+        };
     </script>
     <!-- Beta Info Modal -->
     <div id="beta-modal"

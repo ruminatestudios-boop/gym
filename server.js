@@ -42,7 +42,14 @@ async function getGymKnowledge() {
 
         if (data.records) {
             console.log(`✅ SUCCESS: Loaded ${data.records.length} gyms from Airtable.`);
+
+            // DEBUG: Log the first record's fields to see the schema
+            if (data.records.length > 0) {
+                console.log("👀 SCHEMA CHECK (First Record):", JSON.stringify(data.records[0].fields, null, 2));
+            }
+
             return data.records.map((r) => {
+
                 let price = r.fields['Prices'];
                 // Clean up if it's an ID or array (common in Airtable linked records)
                 if (Array.isArray(price)) price = "Contact for details";
@@ -62,6 +69,76 @@ async function getGymKnowledge() {
 const hasApiKeys = () => {
     return process.env.GOOGLE_API_KEY && process.env.AIRTABLE_API_KEY && process.env.AIRTABLE_BASE_ID;
 };
+
+// Endpoint: Get All Gyms (Structured Data for Frontend)
+app.get('/api/gyms', async (req, res) => {
+    try {
+        const url = `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/${process.env.AIRTABLE_TABLE_NAME}`;
+        const response = await fetch(url, { headers: { Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}` } });
+        const data = await response.json();
+
+        if (data.records) {
+            // Return cleaned map for frontend usage
+            // Return cleaned map for frontend usage
+            const gyms = data.records.map(r => {
+                const f = r.fields;
+
+                // 1. Generate Description from Tags
+                let generatedDesc = f['Description'] || f['Notes'];
+                if (!generatedDesc) {
+                    const vibe = f['Gym Atmosphere'] ? f['Gym Atmosphere'].join(', ') : 'Authentic';
+                    const levels = f['Best For (Level)'] ? f['Best For (Level)'].join(' and ') : 'all levels';
+                    const owner = f['Gym Owner'] ? `Owned by ${f['Gym Owner'].trim()}.` : '';
+                    generatedDesc = `${f['Gym Name']} offers a ${vibe} atmosphere in ${f['City/Region']}. Perfect for ${levels}. ${owner}`;
+                }
+
+                // 2. Generate Accommodation Text
+                let accomText = f['Accommodation'] || "Contact for accommodation details.";
+                if (f['On-site Accommodation'] === 'Yes') {
+                    const amenities = [];
+                    if (f['Kitchen Access'] === 'Yes') amenities.push("Kitchen Access");
+                    if (f['Air Conditioning'] === 'Yes') amenities.push("Air Conditioning");
+                    else if (f['Fans'] === 'Yes') amenities.push("Fan Rooms");
+
+                    accomText = `On-site accommodation available. ${amenities.length ? 'Includes: ' + amenities.join(', ') + '.' : ''}`;
+                } else if (f['On-site Accommodation'] === 'No') {
+                    accomText = "No on-site rooms, but many hotels nearby.";
+                }
+
+                // 3. Generate Training Text (Keep as CSV for frontend list pill generation)
+                let trainingText = f['Training Programs'] || f['Training Style'];
+                if (!trainingText) {
+                    // Just return the skills list so it maps to "Beginner", "Advanced" pills
+                    trainingText = f['Skill Level Welcome'] ? f['Skill Level Welcome'].join(', ') : 'All Levels, Muay Thai';
+                }
+
+                // Append Trainer Info to Description if needed
+                const trainerExp = f['Trainer Experience Level'] ? ` Trainers are ${f['Trainer Experience Level'].toLowerCase()}.` : '';
+                if (!generatedDesc.includes('Trainer')) {
+                    generatedDesc += trainerExp;
+                }
+
+                return {
+                    id: r.id,
+                    name: f['Gym Name'],
+                    location: f['City/Region'],
+                    price: f['Prices'],
+                    description: generatedDesc,
+                    training: trainingText,
+                    accommodation: accomText,
+                    rating: 4.8,
+                    ...f
+                };
+            });
+            res.json({ gyms });
+        } else {
+            res.json({ gyms: [] });
+        }
+    } catch (error) {
+        console.error("❌ API ERROR:", error);
+        res.status(500).json({ error: "Failed to fetch gyms" });
+    }
+});
 
 // Chat Endpoint
 app.post('/api/chat', async (req, res) => {
