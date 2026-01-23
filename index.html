@@ -1678,6 +1678,8 @@
                             class="pb-4 text-xs md:text-sm font-bold uppercase tracking-widest text-zinc-500 hover:text-zinc-300 border-b-2 border-transparent transition-colors whitespace-nowrap">Training</button>
                         <button onclick="switchTab('facilities')" id="tab-btn-facilities"
                             class="pb-4 text-xs md:text-sm font-bold uppercase tracking-widest text-zinc-500 hover:text-zinc-300 border-b-2 border-transparent transition-colors whitespace-nowrap">Facilities</button>
+                        <button onclick="switchTab('photos')" id="tab-btn-photos"
+                            class="pb-4 text-xs md:text-sm font-bold uppercase tracking-widest text-zinc-500 hover:text-zinc-300 border-b-2 border-transparent transition-colors whitespace-nowrap">Photos</button>
                     </div>
                 </div>
 
@@ -1687,10 +1689,41 @@
                     <!-- TAB 1: OVERVIEW -->
                     <div id="tab-content-overview" class="space-y-8 animate-fade-in-up">
                         <div class="space-y-4">
-                            <h3 class="text-3xl font-serif italic text-white" id="detail-title">About the Gym</h3>
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-3xl font-serif italic text-white" id="detail-title">About the Gym</h3>
+                                <div id="detail-recommended"
+                                    class="hidden px-3 py-1 bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 rounded-full text-xs font-bold uppercase tracking-wider">
+                                    <i data-lucide="star" class="w-3 h-3 inline mr-1"></i> Recommended
+                                </div>
+                            </div>
 
                             <!-- Vibe Tags Container -->
                             <div id="detail-tags" class="flex flex-wrap gap-2"></div>
+
+                            <!-- New: Quick Stats Grid -->
+                            <div class="grid grid-cols-2 gap-4 py-4 border-y border-zinc-900">
+                                <div>
+                                    <span
+                                        class="text-[10px] text-zinc-500 uppercase tracking-wider font-bold block mb-1">Price</span>
+                                    <span id="detail-price" class="text-zinc-200 text-sm font-medium">--</span>
+                                </div>
+                                <div>
+                                    <span
+                                        class="text-[10px] text-zinc-500 uppercase tracking-wider font-bold block mb-1">Open</span>
+                                    <span id="detail-open" class="text-zinc-200 text-sm font-medium">--</span>
+                                </div>
+                                <div>
+                                    <span
+                                        class="text-[10px] text-zinc-500 uppercase tracking-wider font-bold block mb-1">Language</span>
+                                    <span id="detail-language" class="text-zinc-200 text-sm font-medium">--</span>
+                                </div>
+                                <div>
+                                    <span
+                                        class="text-[10px] text-zinc-500 uppercase tracking-wider font-bold block mb-1">Location</span>
+                                    <span id="detail-address-short"
+                                        class="text-zinc-200 text-sm font-medium truncate">--</span>
+                                </div>
+                            </div>
 
                             <p class="text-zinc-400 text-base leading-relaxed" id="detail-desc">
                                 <!-- Dynamic Description -->
@@ -1700,6 +1733,28 @@
 
                     <!-- TAB 2: TRAINING -->
                     <div id="tab-content-training" class="space-y-8 hidden animate-fade-in-up">
+
+                        <!-- Training Stats -->
+                        <div class="grid grid-cols-3 gap-4 p-4 bg-zinc-900/30 rounded-2xl border border-zinc-800">
+                            <div class="text-center">
+                                <i data-lucide="users" class="w-5 h-5 text-blue-500 mx-auto mb-2"></i>
+                                <span class="block text-xl font-bold text-white leading-none"
+                                    id="detail-trainer-count">--</span>
+                                <span class="text-[10px] text-zinc-500 uppercase tracking-wider">Trainers</span>
+                            </div>
+                            <div class="text-center border-l border-zinc-800">
+                                <i data-lucide="ruler" class="w-5 h-5 text-emerald-500 mx-auto mb-2"></i>
+                                <span class="block text-xl font-bold text-white leading-none" id="detail-area">--</span>
+                                <span class="text-[10px] text-zinc-500 uppercase tracking-wider">Meters</span>
+                            </div>
+                            <div class="text-center border-l border-zinc-800">
+                                <i data-lucide="clock" class="w-5 h-5 text-purple-500 mx-auto mb-2"></i>
+                                <span class="block text-xl font-bold text-white leading-none"
+                                    id="detail-duration">--</span>
+                                <span class="text-[10px] text-zinc-500 uppercase tracking-wider">Mins</span>
+                            </div>
+                        </div>
+
                         <div class="space-y-4">
                             <h4 class="text-sm font-bold text-zinc-500 uppercase tracking-wider">Training Programs</h4>
                             <div class="grid grid-cols-1 gap-3" id="detail-programs">
@@ -1732,6 +1787,14 @@
                             </p>
                         </div>
 
+                        <!-- Amenities Nearby -->
+                        <div class="space-y-4">
+                            <h4 class="text-sm font-bold text-zinc-500 uppercase tracking-wider">Nearby</h4>
+                            <p class="text-zinc-400 text-sm italic" id="detail-nearby">
+                                <!-- Dynamic Nearby Info -->
+                            </p>
+                        </div>
+
                         <!-- Contact Actions -->
                         <div class="space-y-4 pt-4 border-t border-zinc-900">
                             <h4 class="text-sm font-bold text-zinc-500 uppercase tracking-wider">Contact & Location</h4>
@@ -1744,8 +1807,26 @@
                                     class="p-3 bg-zinc-900 hover:bg-zinc-800 rounded-xl flex items-center justify-center gap-2 text-zinc-300 transition-colors">
                                     <i data-lucide="instagram" class="w-4 h-4"></i> Instagram
                                 </a>
+                                <div id="detail-contact-phone"
+                                    class="hidden p-3 bg-zinc-900/50 rounded-xl flex items-center justify-center gap-2 text-zinc-500 text-xs text-center border border-zinc-800 col-span-1">
+                                    <i data-lucide="phone" class="w-3 h-3"></i> <span id="val-phone">--</span>
+                                </div>
+                                <div id="detail-contact-email"
+                                    class="hidden p-3 bg-zinc-900/50 rounded-xl flex items-center justify-center gap-2 text-zinc-500 text-xs text-center border border-zinc-800 col-span-1">
+                                    <i data-lucide="mail" class="w-3 h-3"></i> <span id="val-email">--</span>
+                                </div>
                             </div>
+                            <p class="text-xs text-zinc-600 mt-2 text-center" id="detail-full-address"></p>
                         </div>
+                    </div>
+
+                    <!-- TAB 4: PHOTOS -->
+                    <div id="tab-content-photos" class="space-y-8 hidden animate-fade-in-up">
+                        <div id="detail-photos-grid" class="grid grid-cols-3 gap-0.5 md:gap-1">
+                            <!-- Dynamic Photos -->
+                        </div>
+                        <p class="text-[10px] text-zinc-600 text-center uppercase tracking-widest">Verified by Fightlore
+                            Scout</p>
                     </div>
 
                 </div>
@@ -1753,6 +1834,18 @@
         </div>
     </div>
     <!-- End Video Modal Wrapper -->
+
+    <!-- LIGHTBOX MODAL (Photos) -->
+    <div id="lightbox-modal"
+        class="fixed inset-0 z-[150] hidden items-center justify-center bg-black/95 backdrop-blur-xl p-4 animate-fade-in"
+        onclick="if(event.target === this) { this.classList.add('hidden'); this.classList.remove('flex'); }">
+        <button
+            onclick="document.getElementById('lightbox-modal').classList.add('hidden'); document.getElementById('lightbox-modal').classList.remove('flex');"
+            class="absolute top-6 right-6 text-white/50 hover:text-white transition-colors z-[160] p-2 bg-black/20 rounded-full">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <img id="lightbox-image" src="" class="max-w-full max-h-[90vh] object-contain rounded shadow-2xl" />
+    </div>
     <div id="text-modal"
         class="fixed inset-0 z-[120] hidden items-center justify-center bg-black/95 backdrop-blur-sm p-4">
         <button id="close-text-modal-btn"
@@ -1784,10 +1877,21 @@
         // Global data store
         window.gymData = [];
 
+        // Lightbox Logic
+        window.openLightbox = (url) => {
+            const lb = document.getElementById('lightbox-modal');
+            const img = document.getElementById('lightbox-image');
+            if (lb && img) {
+                img.src = url;
+                lb.classList.remove('hidden');
+                lb.classList.add('flex');
+            }
+        };
+
         // Tab Switcher Logic
         window.switchTab = (tabId) => {
             // 1. Reset Buttons
-            ['overview', 'training', 'facilities'].forEach(t => {
+            ['overview', 'training', 'facilities', 'photos'].forEach(t => {
                 const btn = document.getElementById(`tab-btn-${t}`);
                 const content = document.getElementById(`tab-content-${t}`);
                 if (btn && content) {
@@ -2097,7 +2201,7 @@
                     pillsHtml = `<div class="mt-3 flex flex-wrap gap-2">`;
                     matches.forEach(match => {
                         const gymName = match.replace(/\|\|\|/g, '');
-                        pillsHtml += `<button onclick="openBookingFor('${gymName}')" class="px-4 py-2 bg-blue-600/20 hover:bg-blue-600/40 text-blue-300 text-sm rounded-full border border-blue-500/30 transition-all flex items-center gap-2 group">
+                        pillsHtml += `<button onclick="openVideoModalByName('${gymName}')" class="px-4 py-2 bg-blue-600/20 hover:bg-blue-600/40 text-blue-300 text-sm rounded-full border border-blue-500/30 transition-all flex items-center gap-2 group">
                             <span>${gymName}</span>
                             <i data-lucide="arrow-right" class="w-3 h-3 group-hover:translate-x-1 transition-transform"></i>
                         </button>`;
@@ -2688,112 +2792,19 @@
                             }
                             if (rating && modalRating) modalRating.innerText = rating;
 
-                            // HYBRID REPLACEMENT: Use Airtable Data if available
-                            // Fuzzy Match Helper
-                            const normalize = (str) => str.toLowerCase().replace(/muay|thai|gym|camp|\s|\.|-/g, '');
-                            const cardKey = normalize(title);
-
-                            const gymProps = window.gymData ? window.gymData.find(g => normalize(g.name) === cardKey || normalize(g.name).includes(cardKey) || cardKey.includes(normalize(g.name))) : null;
-
-                            if (gymProps) {
-                                console.log("✅ MATCHED Airtable Data:", title, "->", gymProps.name);
-                                // Summary View
-                                if (modalDesc) modalDesc.innerText = gymProps.description;
-
-                                // === NEW TABBED DATA POPULATION ===
-
-                                // 1. OVERVIEW TAB
-                                if (detailTitle) detailTitle.innerText = `About ${gymProps.name}`;
-                                if (detailDesc) detailDesc.innerText = gymProps.description;
-
-                                // Tags
-                                const detailTags = document.getElementById('detail-tags');
-                                if (detailTags && gymProps['Gym Atmosphere']) {
-                                    detailTags.innerHTML = gymProps['Gym Atmosphere'].map(tag =>
-                                        `<span class="px-2 py-1 bg-zinc-800 text-xs text-zinc-300 rounded border border-zinc-700">${tag}</span>`
-                                    ).join('');
-                                }
-
-                                // 2. TRAINING TAB
-                                if (detailPrograms) {
-                                    // Handle comma lists or single strings
-                                    let programs = [];
-                                    if (gymProps.training.includes(',')) {
-                                        programs = gymProps.training.split(',').map(p => p.trim());
-                                    } else {
-                                        programs = [gymProps.training];
-                                    }
-
-                                    let programsHtml = '';
-                                    programs.forEach(prog => {
-                                        programsHtml += `
-                                            <div class="p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl flex items-center justify-between transition-colors hover:bg-zinc-900">
-                                                <span class="text-sm text-zinc-300 font-medium">${prog}</span>
-                                                <span class="text-xs text-emerald-500 font-bold bg-emerald-500/10 px-2 py-1 rounded-full border border-emerald-500/20">Daily</span>
-                                            </div>
-                                         `;
-                                    });
-                                    detailPrograms.innerHTML = programsHtml;
-                                }
-
-                                const detailTrainers = document.getElementById('detail-trainers');
-                                if (detailTrainers) {
-                                    detailTrainers.innerText = gymProps['Trainer Experience Level']
-                                        ? `Our trainers are experienced ${gymProps['Trainer Experience Level']} professionals.`
-                                        : "Certified Muay Thai trainers available for all sessions.";
-                                }
-
-                                // 3. FACILITIES TAB
-                                if (detailAccom) detailAccom.innerText = gymProps.accommodation;
-
-                                const detailAmenities = document.getElementById('detail-amenities');
-                                if (detailAmenities) {
-                                    let amenitiesHtml = '';
-                                    const check = (val) => val === 'Yes';
-
-                                    // Map features to icons
-                                    if (check(gymProps['Showers'])) amenitiesHtml += `<div class="flex items-center gap-2 text-zinc-400"><i data-lucide="shower-head" class="w-4 h-4 text-blue-400"></i> Showers</div>`;
-                                    if (check(gymProps['Air Conditioning'])) amenitiesHtml += `<div class="flex items-center gap-2 text-zinc-400"><i data-lucide="snowflake" class="w-4 h-4 text-cyan-400"></i> Air Con</div>`;
-                                    if (check(gymProps['Fans'])) amenitiesHtml += `<div class="flex items-center gap-2 text-zinc-400"><i data-lucide="fan" class="w-4 h-4 text-zinc-400"></i> Fans</div>`;
-                                    if (check(gymProps['Lockers Available'])) amenitiesHtml += `<div class="flex items-center gap-2 text-zinc-400"><i data-lucide="lock" class="w-4 h-4 text-orange-400"></i> Lockers</div>`;
-                                    if (check(gymProps['Kitchen Access'])) amenitiesHtml += `<div class="flex items-center gap-2 text-zinc-400"><i data-lucide="utensils" class="w-4 h-4 text-yellow-400"></i> Kitchen</div>`;
-
-                                    detailAmenities.innerHTML = amenitiesHtml || `<div class="col-span-2 text-zinc-500 text-sm italic">Standard gym facilities available.</div>`;
-                                }
-
-                                // Contact Links
-                                const btnLinkMaps = document.getElementById('btn-link-maps');
-                                const btnLinkInsta = document.getElementById('btn-link-insta');
-
-                                if (btnLinkMaps) {
-                                    btnLinkMaps.href = gymProps['Google Maps Link'] || '#';
-                                    if (!gymProps['Google Maps Link']) btnLinkMaps.classList.add('opacity-50', 'pointer-events-none');
-                                    else btnLinkMaps.classList.remove('opacity-50', 'pointer-events-none');
-                                }
-                                if (btnLinkInsta) {
-                                    btnLinkInsta.href = gymProps['Instagram'] || '#';
-                                    if (!gymProps['Instagram']) btnLinkInsta.classList.add('opacity-50', 'pointer-events-none');
-                                    else btnLinkInsta.classList.remove('opacity-50', 'pointer-events-none');
-                                }
-
-                                // Reset Tab to Overview
-                                switchTab('overview');
-
+                            // UNIFIED LOGIC: Delegate to the robust function
+                            if (window.openVideoModalByName && title) {
+                                window.openVideoModalByName(title);
                             } else {
-                                console.warn("❌ NO MATCH for:", title, "| Output Key:", cardKey);
-                                // Fallback
-                                if (desc && modalDesc) modalDesc.innerText = desc;
-                                if (detailDesc) detailDesc.innerText = desc || "Experience authentic Muay Thai training in a world-class facility.";
-                                if (detailAccom) detailAccom.innerText = "Contact gym for accommodation details.";
-                                switchTab('overview');
-                                if (detailPrograms) {
-                                    detailPrograms.innerHTML = `
-                                        <div class="p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl flex items-center justify-between">
-                                            <span class="text-sm text-zinc-300">All Levels Muay Thai</span>
-                                            <span class="text-xs text-zinc-500 badge bg-zinc-800 px-2 py-1 rounded">Daily</span>
-                                        </div>`;
+                                console.error("openVideoModalByName missing or no title found");
+                                // Simple Fallback
+                                if (modalVideo) modalVideo.src = videoSrc;
+                                if (modal.classList) {
+                                    modal.classList.remove('hidden');
+                                    modal.classList.add('flex');
                                 }
                             }
+                            return; // Stop here, function handles the rest
 
 
 
@@ -2899,6 +2910,191 @@
                     bookingModal.style.display = 'flex';
                     bookingModal.classList.remove('hidden');
                 }
+            }
+        };
+
+        // NEW: Open Video Modal directly from Chat Name
+        window.openVideoModalByName = (gymName) => {
+            console.log("SCOUT: Opening modal for", gymName);
+            // 1. Normalize
+            const normalize = (str) => str.toLowerCase().replace(/muay|thai|gym|camp|\s|\.|-/g, '');
+            const key = normalize(gymName);
+            const gymProps = window.gymData ? window.gymData.find(g => normalize(g.name) === key || normalize(g.name).includes(key) || key.includes(normalize(g.name))) : null;
+
+            // 2. Try to find Media from DOM Cards (Hybrid approach since images/videos are static)
+            let videoSrc = '';
+            let locationText = 'Thailand';
+            let ratingText = '5.0';
+            let titleText = gymName;
+
+            const cards = document.querySelectorAll('.gym-card');
+            cards.forEach(card => {
+                const title = card.querySelector('h3')?.innerText || '';
+                const nTitle = normalize(title);
+                if (nTitle === key || nTitle.includes(key) || key.includes(nTitle)) {
+                    videoSrc = card.querySelector('video')?.src;
+                    locationText = card.querySelector('.absolute.top-4.right-4')?.textContent.trim() || locationText;
+                    ratingText = card.querySelector('.text-yellow-400')?.innerText.trim() || ratingText;
+                    titleText = title; // Use exact card title
+                }
+            });
+
+            // If no DOM match, maybe use gymProps data if available? 
+            // For now, if we found a match in gymData, use that name.
+            if (gymProps) titleText = gymProps.name;
+
+            // 3. Populate Modal
+            const modal = document.getElementById('video-modal');
+            const modalVideo = document.getElementById('modal-video');
+            const modalTitle = document.getElementById('modal-title');
+            const modalLocation = document.getElementById('modal-location');
+            const modalRating = document.getElementById('modal-rating');
+            const modalDesc = document.getElementById('modal-desc');
+
+            // Detailed Overlay Elements
+            const detailTitle = document.getElementById('detail-title');
+            const detailDesc = document.getElementById('detail-desc');
+            const detailPrograms = document.getElementById('detail-programs');
+            const detailAccom = document.getElementById('detail-accom');
+            const detailTags = document.getElementById('detail-tags');
+
+            if (modal && modalVideo) {
+                if (videoSrc) modalVideo.src = videoSrc;
+                if (modalTitle) modalTitle.innerText = titleText;
+                if (modalLocation) modalLocation.innerHTML = `<i data-lucide="map-pin" class="w-3 h-3"></i> ${locationText}`;
+                if (modalRating) modalRating.innerText = ratingText;
+
+                // Rich Data Population
+                if (gymProps) {
+                    // 1. Overview Tab
+                    if (modalDesc) modalDesc.innerText = gymProps.description;
+                    if (detailTitle) detailTitle.innerText = `About ${gymProps.name}`;
+                    if (detailDesc) detailDesc.innerText = gymProps.description;
+
+                    // Recommended Badge
+                    const badgeRec = document.getElementById('detail-recommended');
+                    if (badgeRec) {
+                        if (gymProps['Recommended']) badgeRec.classList.remove('hidden');
+                        else badgeRec.classList.add('hidden');
+                    }
+
+                    // Stats Grid
+                    const setText = (id, val) => {
+                        const el = document.getElementById(id);
+                        if (el) el.innerText = val || '--';
+                    };
+
+                    setText('detail-price', gymProps['Prices']);
+                    // Try 'Opening Hours' first, then 'Days Open' (handle variations)
+                    setText('detail-open', gymProps['Opening Hours'] || gymProps['Days Open']);
+                    setText('detail-language', gymProps['Languages Spoken']);
+                    setText('detail-address-short', gymProps['City/Region']); // Keep short for grid
+
+                    // Tags
+                    if (detailTags && gymProps['Gym Atmosphere']) {
+                        detailTags.innerHTML = gymProps['Gym Atmosphere'].map(tag =>
+                            `<span class="px-2 py-1 bg-zinc-800 text-xs text-zinc-300 rounded border border-zinc-700">${tag}</span>`
+                        ).join('');
+                    } else if (detailTags) {
+                        detailTags.innerHTML = '';
+                    }
+
+                    // 2. Training Tab
+                    setText('detail-trainer-count', gymProps['Number of Trainers']);
+                    setText('detail-area', gymProps['Training Area']);
+                    setText('detail-duration', gymProps['Class Duration']);
+
+                    if (detailPrograms) {
+                        let programs = [];
+                        if (gymProps.training && gymProps.training.includes(',')) {
+                            programs = gymProps.training.split(',').map(p => p.trim());
+                        } else if (gymProps.training) {
+                            programs = [gymProps.training];
+                        }
+
+                        let programsHtml = '';
+                        programs.forEach(prog => {
+                            programsHtml += `
+                                <div class="p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl flex items-center justify-between transition-colors hover:bg-zinc-900">
+                                    <span class="text-sm text-zinc-300 font-medium">${prog}</span>
+                                    <span class="text-xs text-emerald-500 font-bold bg-emerald-500/10 px-2 py-1 rounded-full border border-emerald-500/20">Daily</span>
+                                </div>
+                             `;
+                        });
+                        detailPrograms.innerHTML = programsHtml;
+                    }
+
+                    const detailTrainers = document.getElementById('detail-trainers');
+                    if (detailTrainers) {
+                        detailTrainers.innerText = gymProps['Trainer Experience Level']
+                            ? `Our trainers are experienced ${gymProps['Trainer Experience Level']} professionals.`
+                            : "Certified Muay Thai trainers available for all sessions.";
+                    }
+
+                    // 3. Facilities Tab
+                    if (detailAccom) detailAccom.innerText = gymProps.accommodation;
+
+                    const detailNearby = document.getElementById('detail-nearby');
+                    if (detailNearby) detailNearby.innerText = gymProps['Nearby Amenities'] || "Centrally located near food and convenience stores.";
+
+                    // Contact
+                    setText('val-phone', gymProps['Phone']);
+                    setText('val-email', gymProps['Email']);
+                    setText('detail-full-address', gymProps['Address']);
+
+                    // 4. Photos Tab
+                    const detailPhotos = document.getElementById('detail-photos-grid');
+                    if (detailPhotos && gymProps['Photos'] && Array.isArray(gymProps['Photos'])) {
+                        detailPhotos.innerHTML = gymProps['Photos'].map(photo => `
+                            <button onclick="window.openLightbox('${photo.url}')" class="relative aspect-square overflow-hidden bg-zinc-900 group block w-full">
+                                <img src="${photo.thumbnails?.large?.url || photo.url}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
+                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors"></div>
+                            </button>
+                        `).join('');
+                    } else if (detailPhotos) {
+                        detailPhotos.innerHTML = '<div class="col-span-full py-12 flex flex-col items-center justify-center text-zinc-500"><i data-lucide="image-off" class="w-8 h-8 mb-2 opacity-50"></i><p class="text-sm">No photos available yet</p></div>';
+                    }
+
+                    // Toggle Visibility of Phone/Email containers
+                    const boxPhone = document.getElementById('detail-contact-phone');
+                    const boxEmail = document.getElementById('detail-contact-email');
+                    if (boxPhone) {
+                        if (gymProps['Phone']) { boxPhone.classList.remove('hidden'); boxPhone.classList.add('flex'); }
+                        else { boxPhone.classList.add('hidden'); boxPhone.classList.remove('flex'); }
+                    }
+                    if (boxEmail) {
+                        if (gymProps['Email']) { boxEmail.classList.remove('hidden'); boxEmail.classList.add('flex'); }
+                        else { boxEmail.classList.add('hidden'); boxEmail.classList.remove('flex'); }
+                    }
+
+                    // Map Links
+                    const btnLinkMaps = document.getElementById('btn-link-maps');
+                    const btnLinkInsta = document.getElementById('btn-link-insta');
+
+                    if (btnLinkMaps) {
+                        btnLinkMaps.href = gymProps['Google Maps Link'] || '#';
+                        if (!gymProps['Google Maps Link']) btnLinkMaps.classList.add('opacity-50', 'pointer-events-none');
+                        else btnLinkMaps.classList.remove('opacity-50', 'pointer-events-none');
+                    }
+                    if (btnLinkInsta) {
+                        btnLinkInsta.href = gymProps['Instagram'] || '#';
+                        if (!gymProps['Instagram']) btnLinkInsta.classList.add('opacity-50', 'pointer-events-none');
+                        else btnLinkInsta.classList.remove('opacity-50', 'pointer-events-none');
+                    }
+
+                } else {
+                    // Fallback
+                    if (modalDesc) modalDesc.innerText = "Experience authentic Muay Thai training.";
+                    if (detailDesc) detailDesc.innerText = "Experience authentic Muay Thai training.";
+                }
+
+                // Show Modal
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                if (videoSrc) modalVideo.play().catch(() => { });
+                if (window.lucide) lucide.createIcons();
+                if (window.resetModalState) window.resetModalState();
+                if (window.switchTab) window.switchTab('overview');
             }
         };
     </script>
