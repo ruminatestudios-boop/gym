@@ -15,13 +15,5 @@
             "src": "/(.*)",
             "dest": "/$1"
         }
-    ],
-    "env": {
-        "GOOGLE_API_KEY": "@google-api-key",
-        "AIRTABLE_API_KEY": "@airtable-api-key",
-        "AIRTABLE_BASE_ID": "@airtable-base-id",
-        "AIRTABLE_TABLE_NAME": "@airtable-table-name",
-        "STRIPE_SECRET_KEY": "@stripe-secret-key",
-        "CLIENT_URL": "@client-url"
-    }
+    ]
 }
