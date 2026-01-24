@@ -1295,9 +1295,22 @@
                             const card = document.createElement('div');
                             card.className = 'swiper-slide !w-[300px] md:!w-[400px] h-auto gym-card group cursor-pointer';
 
-                            // Get training styles as array
-                            const trainingStyles = gym['Training Styles'] || [];
-                            const stylesArray = Array.isArray(trainingStyles) ? trainingStyles : [];
+                            // Get training styles as array - use correct Airtable field name
+                            const trainingStyles = gym['Training Styles Offered'] || gym['Training Styles'] || [];
+
+                            let stylesArray = [];
+
+                            if (Array.isArray(trainingStyles)) {
+                                stylesArray = trainingStyles;
+                            } else if (typeof trainingStyles === 'string') {
+                                // If it's a comma-separated string, split it
+                                stylesArray = trainingStyles.split(',').map(s => s.trim()).filter(s => s);
+                            }
+
+                            // Fallback to default if empty
+                            if (stylesArray.length === 0) {
+                                stylesArray = ['Muay Thai'];
+                            }
 
                             // Color mapping for different styles
                             const getStyleColor = (style) => {
@@ -1374,9 +1387,31 @@
                             const card = document.createElement('div');
                             card.className = 'swiper-slide !w-[300px] md:!w-[400px] h-auto gym-card group cursor-pointer';
 
-                            // Determine badge/tag from the gym data
-                            const tags = gym['Training Styles'] || gym['Skill Level Welcome'] || [];
-                            const firstTag = Array.isArray(tags) ? tags[0] : 'Muay Thai';
+                            // Get training styles as array - use correct Airtable field name
+                            const trainingStyles = gym['Training Styles Offered'] || gym['Training Styles'] || [];
+                            let stylesArray = [];
+
+                            if (Array.isArray(trainingStyles)) {
+                                stylesArray = trainingStyles;
+                            } else if (typeof trainingStyles === 'string') {
+                                // If it's a comma-separated string, split it
+                                stylesArray = trainingStyles.split(',').map(s => s.trim()).filter(s => s);
+                            }
+
+                            // Fallback to default if empty
+                            if (stylesArray.length === 0) {
+                                stylesArray = ['Muay Thai'];
+                            }
+
+                            // Color mapping for different styles
+                            const getStyleColor = (style) => {
+                                const styleLower = style.toLowerCase();
+                                if (styleLower.includes('muay thai')) return 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400';
+                                if (styleLower.includes('mma')) return 'bg-blue-500/10 border-blue-500/20 text-blue-400';
+                                if (styleLower.includes('boxing')) return 'bg-pink-500/10 border-pink-500/20 text-pink-400';
+                                if (styleLower.includes('fitness')) return 'bg-cyan-500/10 border-cyan-500/20 text-cyan-400';
+                                return 'bg-zinc-800/50 border-zinc-700/50 text-zinc-300';
+                            };
 
                             // Image support - Airtable field name is 'Primary Photo'
                             let imageUrl = '';
@@ -1420,9 +1455,11 @@
                                         </div>
                                         <p class="text-zinc-400 text-sm leading-relaxed line-clamp-2">${gym.description || 'Authentic Muay Thai training experience in Thailand.'}</p>
                                         <div class="mt-auto flex flex-wrap gap-2">
-                                            <span class="px-2.5 py-1.5 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-xs text-zinc-300 flex items-center gap-1.5 group-hover:bg-zinc-800 transition-colors">
-                                                <i data-lucide="dumbbell" class="w-3.5 h-3.5 text-blue-400"></i> ${firstTag}
-                                            </span>
+                                            ${stylesArray.slice(0, 3).map(style => `
+                                                <span class="px-2.5 py-1 rounded-lg ${getStyleColor(style)} border text-xs font-medium transition-colors">
+                                                    ${style}
+                                                </span>
+                                            `).join('')}
                                         </div>
                                     </div>
                                 </div>
@@ -2111,10 +2148,43 @@
             const btnInfoBack = document.getElementById('btn-info-back');
             const detailsOverlay = document.getElementById('full-screen-details');
 
+            // Helper function for smooth volume fade
+            function fadeVolume(videoElement, targetVolume, duration = 500) {
+                if (!videoElement) return;
+
+                const startVolume = videoElement.volume;
+                const volumeChange = targetVolume - startVolume;
+                const steps = 20; // Number of steps for smooth transition
+                const stepDuration = duration / steps;
+                let currentStep = 0;
+
+                const fadeInterval = setInterval(() => {
+                    currentStep++;
+                    const progress = currentStep / steps;
+                    // Ease-in-out for smoother transition
+                    const easedProgress = progress < 0.5
+                        ? 2 * progress * progress
+                        : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+                    videoElement.volume = Math.max(0, Math.min(1, startVolume + (volumeChange * easedProgress)));
+
+                    if (currentStep >= steps) {
+                        clearInterval(fadeInterval);
+                        videoElement.volume = targetVolume; // Ensure exact target
+                    }
+                }, stepDuration);
+            }
+
             if (btnGetInfo && detailsOverlay) {
                 btnGetInfo.addEventListener('click', () => {
                     // Slide in Overlay from Right
                     detailsOverlay.classList.remove('translate-x-full');
+
+                    // Smoothly lower video volume
+                    const modalVideo = document.getElementById('modal-video');
+                    const modalVideoFull = document.getElementById('modal-video-full');
+                    fadeVolume(modalVideo, 0.2, 500);
+                    fadeVolume(modalVideoFull, 0.2, 500);
                 });
             }
 
@@ -2122,6 +2192,12 @@
                 btnInfoBack.addEventListener('click', () => {
                     // Slide Overlay back to Right
                     detailsOverlay.classList.add('translate-x-full');
+
+                    // Smoothly restore video volume
+                    const modalVideo = document.getElementById('modal-video');
+                    const modalVideoFull = document.getElementById('modal-video-full');
+                    fadeVolume(modalVideo, 1.0, 500);
+                    fadeVolume(modalVideoFull, 1.0, 500);
                 });
             }
 
