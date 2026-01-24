@@ -163,6 +163,10 @@
                 <div class="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-400">
                     <a href="#features" class="hover:text-white transition-colors">How it Works</a>
                     <a href="#gyms" class="hover:text-white transition-colors">Verified Gyms</a>
+                    <button onclick="openFoundingModal()"
+                        class="hover:text-amber-400 text-amber-300 transition-colors font-semibold flex items-center gap-1">
+                        Unlock 200+ Gyms <i data-lucide="lock" class="w-3 h-3"></i>
+                    </button>
                     <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
                 </div>
 
@@ -367,7 +371,7 @@
     <section id="features" class="py-24 bg-zinc-900/30 border-y border-zinc-800/50">
         <div class="max-w-7xl mx-auto px-6">
             <h2 class="text-4xl md:text-5xl font-serif italic mb-12">How It Works <span
-                    class="not-italic font-sans font-bold text-white">Try Free → Unlock Everything</span></h2>
+                    class="not-italic font-sans font-bold text-white"></span></h2>
             <div class="md:grid md:grid-cols-2 gap-16 items-center">
                 <div>
                     <p class="text-lg text-zinc-400 mb-8 leading-relaxed">
@@ -479,603 +483,21 @@
         <div class="swiper mySwiper w-full px-6">
             <div class="swiper-wrapper">
 
-                <!-- Set 1 -->
-                <div class="swiper-slide !w-[300px] md:!w-[400px] h-auto gym-card group cursor-pointer">
-                    <div
-                        class="bg-zinc-900/50 backdrop-blur-sm rounded-3xl overflow-hidden border border-zinc-800 hover:border-zinc-500/50 transition-all duration-300 h-full flex flex-col hover:shadow-2xl hover:shadow-black/50">
-                        <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden shrink-0">
-                            <!-- Image -->
-                            <img src="https://cdn.shopify.com/s/files/1/0564/3957/0639/files/Frame_1000004929_ed3172d4-2474-4c70-a87e-16e9bb91f90a.jpg?v=1768677712"
-                                class="w-full h-full object-cover relative z-10" alt="Gold's Gym">
-                            <!-- Video -->
-                            <video loop muted playsinline
-                                class="absolute inset-0 w-full h-full object-cover z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                                src="https://cdn.shopify.com/videos/c/o/v/87ebce8eb39446949a227dc8580860fd.mp4"></video>
-
-                            <!-- Gradient Overlay -->
+                <!-- Loading Indicator (shown while fetching data) -->
+                <div id="gym-loading" class="absolute inset-0 flex items-center justify-center min-h-[400px]">
+                    <div class="flex flex-col items-center gap-4">
+                        <div class="relative w-16 h-16">
+                            <div class="absolute inset-0 border-4 border-zinc-800 rounded-full"></div>
                             <div
-                                class="absolute inset-0 bg-gradient-to-t from-zinc-900/80 via-transparent to-transparent z-10 pointer-events-none">
-                            </div>
-
-                            <div
-                                class="absolute top-4 right-4 bg-black/40 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full text-xs font-medium text-white z-20 flex items-center gap-1.5 shadow-lg">
-                                <i data-lucide="map-pin" class="w-3 h-3 text-emerald-400"></i> Bangkok
+                                class="absolute inset-0 border-4 border-transparent border-t-blue-500 rounded-full animate-spin">
                             </div>
                         </div>
-                        <div class="p-5 flex-1 flex flex-col gap-4">
-                            <div class="flex justify-between items-start gap-4">
-                                <h3 class="text-xl font-bold text-white leading-tight">Kiatsongkrit Gym</h3>
-                                <div
-                                    class="flex items-center gap-1.5 px-2 py-1 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-yellow-400 text-xs font-bold">
-                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i> 4.9
-                                </div>
-                            </div>
-                            <p class="text-zinc-400 text-sm leading-relaxed line-clamp-2">Premium equipment, sauna, and
-                                personal
-                                training.</p>
-                            <div class="mt-auto flex flex-wrap gap-2">
-                                <span
-                                    class="px-2.5 py-1.5 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-xs text-zinc-300 flex items-center gap-1.5 group-hover:bg-zinc-800 transition-colors">
-                                    <i data-lucide="dumbbell" class="w-3.5 h-3.5 text-blue-400"></i> Weightlifting
-                                </span>
-                            </div>
-                        </div>
+                        <p class="text-zinc-400 text-sm font-medium">Loading verified gyms...</p>
                     </div>
                 </div>
 
-                <div class="swiper-slide !w-[300px] md:!w-[400px] h-auto gym-card group cursor-pointer">
-                    <div
-                        class="bg-zinc-900/50 backdrop-blur-sm rounded-3xl overflow-hidden border border-zinc-800 hover:border-zinc-500/50 transition-all duration-300 h-full flex flex-col hover:shadow-2xl hover:shadow-black/50">
-                        <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden shrink-0">
-                            <!-- Image -->
-                            <img src="https://cdn.shopify.com/s/files/1/0564/3957/0639/files/Frame_1000004936.jpg?v=1768677712"
-                                class="w-full h-full object-cover relative z-10" alt="Pinsinchai Muay Thai Gym">
-                            <!-- Video -->
-                            <video loop muted playsinline
-                                class="absolute inset-0 w-full h-full object-cover z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                                src="https://cdn.shopify.com/videos/c/o/v/acecec08b9d74f8c87da744035dcb576.mov"></video>
+                <!-- Gym cards will be dynamically generated from API -->
 
-                            <!-- Gradient Overlay -->
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-zinc-900/80 via-transparent to-transparent z-10 pointer-events-none">
-                            </div>
-
-                            <div
-                                class="absolute top-4 right-4 bg-black/40 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full text-xs font-medium text-white z-20 flex items-center gap-1.5 shadow-lg">
-                                <i data-lucide="map-pin" class="w-3 h-3 text-emerald-400"></i> Bangkok
-                            </div>
-                        </div>
-                        <div class="p-5 flex-1 flex flex-col gap-4">
-                            <div class="flex justify-between items-start gap-4">
-                                <h3 class="text-xl font-bold text-white leading-tight">Pinsinchai Muay Thai Gym</h3>
-                                <div
-                                    class="flex items-center gap-1.5 px-2 py-1 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-yellow-400 text-xs font-bold">
-                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i> 5.0
-                                </div>
-                            </div>
-                            <p class="text-zinc-400 text-sm leading-relaxed line-clamp-2">World-class training camp
-                                for
-                                Muay Thai lovers.</p>
-                            <div class="mt-auto flex flex-wrap gap-2">
-                                <span
-                                    class="px-2.5 py-1.5 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-xs text-zinc-300 flex items-center gap-1.5 group-hover:bg-zinc-800 transition-colors">
-                                    <i data-lucide="crosshair" class="w-3.5 h-3.5 text-blue-400"></i> Muay Thai
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide !w-[300px] md:!w-[400px] h-auto gym-card group cursor-pointer">
-                    <div
-                        class="bg-zinc-900/50 backdrop-blur-sm rounded-3xl overflow-hidden border border-zinc-800 hover:border-zinc-500/50 transition-all duration-300 h-full flex flex-col hover:shadow-2xl hover:shadow-black/50">
-                        <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden shrink-0">
-                            <!-- Image -->
-                            <img src="https://cdn.shopify.com/s/files/1/0564/3957/0639/files/Frame_1000004933.jpg?v=1768651942"
-                                class="w-full h-full object-cover relative z-10" alt="CrossFit">
-                            <!-- Video -->
-                            <video loop muted playsinline
-                                class="absolute inset-0 w-full h-full object-cover z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                                src="https://cdn.shopify.com/videos/c/o/v/87ebce8eb39446949a227dc8580860fd.mp4"></video>
-
-                            <!-- Gradient Overlay -->
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-zinc-900/80 via-transparent to-transparent z-10 pointer-events-none">
-                            </div>
-
-                            <div
-                                class="absolute top-4 right-4 bg-black/40 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full text-xs font-medium text-white z-20 flex items-center gap-1.5 shadow-lg">
-                                <i data-lucide="map-pin" class="w-3 h-3 text-emerald-400"></i> Chiang Mai
-                            </div>
-                        </div>
-                        <div class="p-5 flex-1 flex flex-col gap-4">
-                            <div class="flex justify-between items-start gap-4">
-                                <h3 class="text-xl font-bold text-white leading-tight">Kiatphontip Muay Thai</h3>
-                                <div
-                                    class="flex items-center gap-1.5 px-2 py-1 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-yellow-400 text-xs font-bold">
-                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i> 4.8
-                                </div>
-                            </div>
-                            <p class="text-zinc-400 text-sm leading-relaxed line-clamp-2">Community-driven box with
-                                drop-in
-                                classes.</p>
-                            <div class="mt-auto flex flex-wrap gap-2">
-                                <span
-                                    class="px-2.5 py-1.5 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-xs text-zinc-300 flex items-center gap-1.5 group-hover:bg-zinc-800 transition-colors">
-                                    <i data-lucide="layers" class="w-3.5 h-3.5 text-blue-400"></i> CrossFit
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide !w-[300px] md:!w-[400px] h-auto gym-card group cursor-pointer">
-                    <div
-                        class="bg-zinc-900/50 backdrop-blur-sm rounded-3xl overflow-hidden border border-zinc-800 hover:border-zinc-500/50 transition-all duration-300 h-full flex flex-col hover:shadow-2xl hover:shadow-black/50">
-                        <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden shrink-0">
-                            <!-- Image -->
-                            <img src="https://cdn.shopify.com/s/files/1/0564/3957/0639/files/Frame_1000004937.jpg?v=1768677712"
-                                class="w-full h-full object-cover relative z-10" alt="Yoga">
-                            <!-- Video -->
-                            <video loop muted playsinline
-                                class="absolute inset-0 w-full h-full object-cover z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                                src="https://cdn.shopify.com/videos/c/o/v/87ebce8eb39446949a227dc8580860fd.mp4"></video>
-
-                            <!-- Gradient Overlay -->
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-zinc-900/80 via-transparent to-transparent z-10 pointer-events-none">
-                            </div>
-
-                            <div
-                                class="absolute top-4 right-4 bg-black/40 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full text-xs font-medium text-white z-20 flex items-center gap-1.5 shadow-lg">
-                                <i data-lucide="map-pin" class="w-3 h-3 text-emerald-400"></i> Koh Samui
-                            </div>
-                        </div>
-                        <div class="p-5 flex-1 flex flex-col gap-4">
-                            <div class="flex justify-between items-start gap-4">
-                                <h3 class="text-xl font-bold text-white leading-tight">Sor.Dechapant Muay Thai</h3>
-                                <div
-                                    class="flex items-center gap-1.5 px-2 py-1 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-yellow-400 text-xs font-bold">
-                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i> 4.9
-                                </div>
-                            </div>
-                            <p class="text-zinc-400 text-sm leading-relaxed line-clamp-2">Breathtaking views and expert
-                                instructors.</p>
-                            <div class="mt-auto flex flex-wrap gap-2">
-                                <span
-                                    class="px-2.5 py-1.5 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-xs text-zinc-300 flex items-center gap-1.5 group-hover:bg-zinc-800 transition-colors">
-                                    <i data-lucide="sun" class="w-3.5 h-3.5 text-orange-400"></i> Yoga
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Set 2 (Duplicate) -->
-                <div class="swiper-slide !w-[300px] md:!w-[400px] h-auto gym-card group cursor-pointer">
-                    <div
-                        class="bg-zinc-900/50 backdrop-blur-sm rounded-3xl overflow-hidden border border-zinc-800 hover:border-zinc-500/50 transition-all duration-300 h-full flex flex-col hover:shadow-2xl hover:shadow-black/50">
-                        <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden shrink-0">
-                            <!-- Image -->
-                            <img src="https://cdn.shopify.com/s/files/1/0564/3957/0639/files/Frame_1000004929_ed3172d4-2474-4c70-a87e-16e9bb91f90a.jpg?v=1768677712"
-                                class="w-full h-full object-cover relative z-10" alt="Gold's Gym">
-                            <!-- Video -->
-                            <video loop muted playsinline
-                                class="absolute inset-0 w-full h-full object-cover z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                                src="https://cdn.shopify.com/videos/c/o/v/87ebce8eb39446949a227dc8580860fd.mp4"></video>
-
-                            <!-- Gradient Overlay -->
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-zinc-900/80 via-transparent to-transparent z-10 pointer-events-none">
-                            </div>
-
-                            <div
-                                class="absolute top-4 right-4 bg-black/40 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full text-xs font-medium text-white z-20 flex items-center gap-1.5 shadow-lg">
-                                <i data-lucide="map-pin" class="w-3 h-3 text-emerald-400"></i> Bangkok
-                            </div>
-                        </div>
-                        <div class="p-5 flex-1 flex flex-col gap-4">
-                            <div class="flex justify-between items-start gap-4">
-                                <h3 class="text-xl font-bold text-white leading-tight">Kiatsongkrit Gym</h3>
-                                <div
-                                    class="flex items-center gap-1.5 px-2 py-1 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-yellow-400 text-xs font-bold">
-                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i> 4.9
-                                </div>
-                            </div>
-                            <p class="text-zinc-400 text-sm leading-relaxed line-clamp-2">Premium equipment, sauna, and
-                                personal
-                                training.</p>
-                            <div class="mt-auto flex flex-wrap gap-2">
-                                <span
-                                    class="px-2.5 py-1.5 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-xs text-zinc-300 flex items-center gap-1.5 group-hover:bg-zinc-800 transition-colors">
-                                    <i data-lucide="dumbbell" class="w-3.5 h-3.5 text-blue-400"></i> Weightlifting
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide !w-[300px] md:!w-[400px] h-auto gym-card group cursor-pointer">
-                    <div
-                        class="bg-zinc-900/50 backdrop-blur-sm rounded-3xl overflow-hidden border border-zinc-800 hover:border-zinc-500/50 transition-all duration-300 h-full flex flex-col hover:shadow-2xl hover:shadow-black/50">
-                        <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden shrink-0">
-                            <!-- Image -->
-                            <img src="https://cdn.shopify.com/s/files/1/0564/3957/0639/files/Frame_1000004936.jpg?v=1768677712"
-                                class="w-full h-full object-cover relative z-10" alt="Pinsinchai Muay Thai Gym">
-                            <!-- Video -->
-                            <video loop muted playsinline
-                                class="absolute inset-0 w-full h-full object-cover z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                                src="https://cdn.shopify.com/videos/c/o/v/87ebce8eb39446949a227dc8580860fd.mp4"></video>
-
-                            <!-- Gradient Overlay -->
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-zinc-900/80 via-transparent to-transparent z-10 pointer-events-none">
-                            </div>
-
-                            <div
-                                class="absolute top-4 right-4 bg-black/40 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full text-xs font-medium text-white z-20 flex items-center gap-1.5 shadow-lg">
-                                <i data-lucide="map-pin" class="w-3 h-3 text-emerald-400"></i> Bangkok
-                            </div>
-                        </div>
-                        <div class="p-5 flex-1 flex flex-col gap-4">
-                            <div class="flex justify-between items-start gap-4">
-                                <h3 class="text-xl font-bold text-white leading-tight">Pinsinchai Muay Thai Gym</h3>
-                                <div
-                                    class="flex items-center gap-1.5 px-2 py-1 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-yellow-400 text-xs font-bold">
-                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i> 5.0
-                                </div>
-                            </div>
-                            <p class="text-zinc-400 text-sm leading-relaxed line-clamp-2">World-class training camp
-                                for
-                                Muay Thai lovers.</p>
-                            <div class="mt-auto flex flex-wrap gap-2">
-                                <span
-                                    class="px-2.5 py-1.5 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-xs text-zinc-300 flex items-center gap-1.5 group-hover:bg-zinc-800 transition-colors">
-                                    <i data-lucide="crosshair" class="w-3.5 h-3.5 text-blue-400"></i> Muay Thai
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide !w-[300px] md:!w-[400px] h-auto gym-card group cursor-pointer">
-                    <div
-                        class="bg-zinc-900/50 backdrop-blur-sm rounded-3xl overflow-hidden border border-zinc-800 hover:border-zinc-500/50 transition-all duration-300 h-full flex flex-col hover:shadow-2xl hover:shadow-black/50">
-                        <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden shrink-0">
-                            <!-- Image -->
-                            <img src="https://cdn.shopify.com/s/files/1/0564/3957/0639/files/Frame_1000004933.jpg?v=1768651942"
-                                class="w-full h-full object-cover relative z-10" alt="CrossFit">
-                            <!-- Video -->
-                            <video loop muted playsinline
-                                class="absolute inset-0 w-full h-full object-cover z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                                src="https://cdn.shopify.com/videos/c/o/v/87ebce8eb39446949a227dc8580860fd.mp4"></video>
-
-                            <!-- Gradient Overlay -->
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-zinc-900/80 via-transparent to-transparent z-10 pointer-events-none">
-                            </div>
-
-                            <div
-                                class="absolute top-4 right-4 bg-black/40 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full text-xs font-medium text-white z-20 flex items-center gap-1.5 shadow-lg">
-                                <i data-lucide="map-pin" class="w-3 h-3 text-emerald-400"></i> Chiang Mai
-                            </div>
-                        </div>
-                        <div class="p-5 flex-1 flex flex-col gap-4">
-                            <div class="flex justify-between items-start gap-4">
-                                <h3 class="text-xl font-bold text-white leading-tight">Kiatphontip Muay Thai</h3>
-                                <div
-                                    class="flex items-center gap-1.5 px-2 py-1 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-yellow-400 text-xs font-bold">
-                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i> 4.8
-                                </div>
-                            </div>
-                            <p class="text-zinc-400 text-sm leading-relaxed line-clamp-2">Community-driven box with
-                                drop-in
-                                classes.</p>
-                            <div class="mt-auto flex flex-wrap gap-2">
-                                <span
-                                    class="px-2.5 py-1.5 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-xs text-zinc-300 flex items-center gap-1.5 group-hover:bg-zinc-800 transition-colors">
-                                    <i data-lucide="layers" class="w-3.5 h-3.5 text-blue-400"></i> CrossFit
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide !w-[300px] md:!w-[400px] h-auto gym-card group cursor-pointer">
-                    <div
-                        class="bg-zinc-900/50 backdrop-blur-sm rounded-3xl overflow-hidden border border-zinc-800 hover:border-zinc-500/50 transition-all duration-300 h-full flex flex-col hover:shadow-2xl hover:shadow-black/50">
-                        <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden shrink-0">
-                            <!-- Image -->
-                            <img src="https://cdn.shopify.com/s/files/1/0564/3957/0639/files/Frame_1000004937.jpg?v=1768677712"
-                                class="w-full h-full object-cover relative z-10" alt="Yoga">
-                            <!-- Video -->
-                            <video loop muted playsinline
-                                class="absolute inset-0 w-full h-full object-cover z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                                src="https://cdn.shopify.com/videos/c/o/v/87ebce8eb39446949a227dc8580860fd.mp4"></video>
-
-                            <!-- Gradient Overlay -->
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-zinc-900/80 via-transparent to-transparent z-10 pointer-events-none">
-                            </div>
-
-                            <div
-                                class="absolute top-4 right-4 bg-black/40 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full text-xs font-medium text-white z-20 flex items-center gap-1.5 shadow-lg">
-                                <i data-lucide="map-pin" class="w-3 h-3 text-emerald-400"></i> Koh Samui
-                            </div>
-                        </div>
-                        <div class="p-5 flex-1 flex flex-col gap-4">
-                            <div class="flex justify-between items-start gap-4">
-                                <h3 class="text-xl font-bold text-white leading-tight">Sor.Dechapant Muay Thai</h3>
-                                <div
-                                    class="flex items-center gap-1.5 px-2 py-1 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-yellow-400 text-xs font-bold">
-                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i> 4.9
-                                </div>
-                            </div>
-                            <p class="text-zinc-400 text-sm leading-relaxed line-clamp-2">Breathtaking views and expert
-                                instructors.</p>
-                            <div class="mt-auto flex flex-wrap gap-2">
-                                <span
-                                    class="px-2.5 py-1.5 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-xs text-zinc-300 flex items-center gap-1.5 group-hover:bg-zinc-800 transition-colors">
-                                    <i data-lucide="sun" class="w-3.5 h-3.5 text-orange-400"></i> Yoga
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Set 3 (Duplicate) -->
-                <div class="swiper-slide !w-[300px] md:!w-[400px] h-auto gym-card group cursor-pointer">
-                    <div
-                        class="bg-zinc-900/50 backdrop-blur-sm rounded-3xl overflow-hidden border border-zinc-800 hover:border-zinc-500/50 transition-all duration-300 h-full flex flex-col hover:shadow-2xl hover:shadow-black/50">
-                        <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden shrink-0">
-                            <!-- Image -->
-                            <img src="https://cdn.shopify.com/s/files/1/0564/3957/0639/files/Frame_1000004929_ed3172d4-2474-4c70-a87e-16e9bb91f90a.jpg?v=1768677712"
-                                class="w-full h-full object-cover relative z-10" alt="Gold's Gym">
-                            <!-- Video -->
-                            <video loop muted playsinline
-                                class="absolute inset-0 w-full h-full object-cover z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                                src="https://cdn.shopify.com/videos/c/o/v/87ebce8eb39446949a227dc8580860fd.mp4"></video>
-
-                            <!-- Gradient Overlay -->
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-zinc-900/80 via-transparent to-transparent z-10 pointer-events-none">
-                            </div>
-
-                            <div
-                                class="absolute top-4 right-4 bg-black/40 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full text-xs font-medium text-white z-20 flex items-center gap-1.5 shadow-lg">
-                                <i data-lucide="map-pin" class="w-3 h-3 text-emerald-400"></i> Bangkok
-                            </div>
-                        </div>
-                        <div class="p-5 flex-1 flex flex-col gap-4">
-                            <div class="flex justify-between items-start gap-4">
-                                <h3 class="text-xl font-bold text-white leading-tight">Kiatsongkrit Gym</h3>
-                                <div
-                                    class="flex items-center gap-1.5 px-2 py-1 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-yellow-400 text-xs font-bold">
-                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i> 4.9
-                                </div>
-                            </div>
-                            <p class="text-zinc-400 text-sm leading-relaxed line-clamp-2">Premium equipment, sauna, and
-                                personal
-                                training.</p>
-                            <div class="mt-auto flex flex-wrap gap-2">
-                                <span
-                                    class="px-2.5 py-1.5 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-xs text-zinc-300 flex items-center gap-1.5 group-hover:bg-zinc-800 transition-colors">
-                                    <i data-lucide="dumbbell" class="w-3.5 h-3.5 text-blue-400"></i> Weightlifting
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide !w-[300px] md:!w-[400px] h-auto gym-card group cursor-pointer">
-                    <div
-                        class="bg-zinc-900/50 backdrop-blur-sm rounded-3xl overflow-hidden border border-zinc-800 hover:border-zinc-500/50 transition-all duration-300 h-full flex flex-col hover:shadow-2xl hover:shadow-black/50">
-                        <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden shrink-0">
-                            <!-- Image -->
-                            <img src="https://cdn.shopify.com/s/files/1/0564/3957/0639/files/Frame_1000004936.jpg?v=1768677712"
-                                class="w-full h-full object-cover relative z-10" alt="Pinsinchai Muay Thai Gym">
-                            <!-- Video -->
-                            <video loop muted playsinline
-                                class="absolute inset-0 w-full h-full object-cover z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                                src="https://cdn.shopify.com/videos/c/o/v/87ebce8eb39446949a227dc8580860fd.mp4"></video>
-
-                            <!-- Gradient Overlay -->
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-zinc-900/80 via-transparent to-transparent z-10 pointer-events-none">
-                            </div>
-
-                            <div
-                                class="absolute top-4 right-4 bg-black/40 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full text-xs font-medium text-white z-20 flex items-center gap-1.5 shadow-lg">
-                                <i data-lucide="map-pin" class="w-3 h-3 text-emerald-400"></i> Bangkok
-                            </div>
-                        </div>
-                        <div class="p-5 flex-1 flex flex-col gap-4">
-                            <div class="flex justify-between items-start gap-4">
-                                <h3 class="text-xl font-bold text-white leading-tight">Pinsinchai Muay Thai Gym</h3>
-                                <div
-                                    class="flex items-center gap-1.5 px-2 py-1 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-yellow-400 text-xs font-bold">
-                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i> 5.0
-                                </div>
-                            </div>
-                            <p class="text-zinc-400 text-sm leading-relaxed line-clamp-2">World-class training camp
-                                for
-                                Muay Thai lovers.</p>
-                            <div class="mt-auto flex flex-wrap gap-2">
-                                <span
-                                    class="px-2.5 py-1.5 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-xs text-zinc-300 flex items-center gap-1.5 group-hover:bg-zinc-800 transition-colors">
-                                    <i data-lucide="crosshair" class="w-3.5 h-3.5 text-blue-400"></i> Muay Thai
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide !w-[300px] md:!w-[400px] h-auto gym-card group cursor-pointer">
-                    <div
-                        class="bg-zinc-900/50 backdrop-blur-sm rounded-3xl overflow-hidden border border-zinc-800 hover:border-zinc-500/50 transition-all duration-300 h-full flex flex-col hover:shadow-2xl hover:shadow-black/50">
-                        <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden shrink-0">
-                            <!-- Image -->
-                            <img src="https://cdn.shopify.com/s/files/1/0564/3957/0639/files/Frame_1000004933.jpg?v=1768651942"
-                                class="w-full h-full object-cover relative z-10" alt="CrossFit">
-                            <!-- Video -->
-                            <video loop muted playsinline
-                                class="absolute inset-0 w-full h-full object-cover z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                                src="https://cdn.shopify.com/videos/c/o/v/87ebce8eb39446949a227dc8580860fd.mp4"></video>
-
-                            <!-- Gradient Overlay -->
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-zinc-900/80 via-transparent to-transparent z-10 pointer-events-none">
-                            </div>
-
-                            <div
-                                class="absolute top-4 right-4 bg-black/40 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full text-xs font-medium text-white z-20 flex items-center gap-1.5 shadow-lg">
-                                <i data-lucide="map-pin" class="w-3 h-3 text-emerald-400"></i> Chiang Mai
-                            </div>
-                        </div>
-                        <div class="p-5 flex-1 flex flex-col gap-4">
-                            <div class="flex justify-between items-start gap-4">
-                                <h3 class="text-xl font-bold text-white leading-tight">Kiatphontip Muay Thai</h3>
-                                <div
-                                    class="flex items-center gap-1.5 px-2 py-1 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-yellow-400 text-xs font-bold">
-                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i> 4.8
-                                </div>
-                            </div>
-                            <p class="text-zinc-400 text-sm leading-relaxed line-clamp-2">Community-driven box with
-                                drop-in
-                                classes.</p>
-                            <div class="mt-auto flex flex-wrap gap-2">
-                                <span
-                                    class="px-2.5 py-1.5 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-xs text-zinc-300 flex items-center gap-1.5 group-hover:bg-zinc-800 transition-colors">
-                                    <i data-lucide="layers" class="w-3.5 h-3.5 text-blue-400"></i> CrossFit
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide !w-[300px] md:!w-[400px] h-auto gym-card group cursor-pointer">
-                    <div
-                        class="bg-zinc-900/50 backdrop-blur-sm rounded-3xl overflow-hidden border border-zinc-800 hover:border-zinc-500/50 transition-all duration-300 h-full flex flex-col hover:shadow-2xl hover:shadow-black/50">
-                        <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden shrink-0">
-                            <!-- Image -->
-                            <img src="https://cdn.shopify.com/s/files/1/0564/3957/0639/files/Frame_1000004937.jpg?v=1768677712"
-                                class="w-full h-full object-cover relative z-10" alt="Yoga">
-                            <!-- Video -->
-                            <video loop muted playsinline
-                                class="absolute inset-0 w-full h-full object-cover z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                                src="https://cdn.shopify.com/videos/c/o/v/87ebce8eb39446949a227dc8580860fd.mp4"></video>
-
-                            <!-- Gradient Overlay -->
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-zinc-900/80 via-transparent to-transparent z-10 pointer-events-none">
-                            </div>
-
-                            <div
-                                class="absolute top-4 right-4 bg-black/40 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full text-xs font-medium text-white z-20 flex items-center gap-1.5 shadow-lg">
-                                <i data-lucide="map-pin" class="w-3 h-3 text-emerald-400"></i> Koh Samui
-                            </div>
-                        </div>
-                        <div class="p-5 flex-1 flex flex-col gap-4">
-                            <div class="flex justify-between items-start gap-4">
-                                <h3 class="text-xl font-bold text-white leading-tight">Sor.Dechapant Muay Thai
-                                </h3>
-                                <div
-                                    class="flex items-center gap-1.5 px-2 py-1 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-yellow-400 text-xs font-bold">
-                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i> 4.9
-                                </div>
-                            </div>
-                            <p class="text-zinc-400 text-sm leading-relaxed line-clamp-2">Breathtaking views and
-                                expert
-                                instructors.</p>
-                            <div class="mt-auto flex flex-wrap gap-2">
-                                <span
-                                    class="px-2.5 py-1.5 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-xs text-zinc-300 flex items-center gap-1.5 group-hover:bg-zinc-800 transition-colors">
-                                    <i data-lucide="sun" class="w-3.5 h-3.5 text-orange-400"></i> Yoga
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Gym 6: Sitsarawatseur (Added for AI Demo) -->
-                <div class="swiper-slide !w-[300px] md:!w-[400px] h-auto gym-card group cursor-pointer"
-                    data-modal-type="split">
-                    <div
-                        class="bg-zinc-950 rounded-3xl overflow-hidden border border-zinc-800 hover:border-zinc-600 transition-all h-full flex flex-col relative group-hover:transform group-hover:scale-[1.02] duration-500">
-
-                        <!-- Video Background -->
-                        <div class="relative h-[250px] w-full overflow-hidden">
-                            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all z-10">
-                            </div>
-                            <!-- Reusing a video for demo purposes -->
-                            <video src="https://cdn.shopify.com/videos/c/o/v/a0e5f5f429184562b88574167e45989e.mp4"
-                                class="w-full h-full object-cover transform scale-105 group-hover:scale-110 transition-transform duration-700"
-                                muted loop playsinline></video>
-
-                            <div
-                                class="absolute top-4 right-4 z-20 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full flex items-center gap-1.5 border border-white/10">
-                                <i data-lucide="map-pin" class="w-3 h-3 text-white"></i>
-                                <span class="text-xs font-bold text-white tracking-wide uppercase">Bangkok</span>
-                            </div>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="p-6 flex flex-col flex-1 relative bg-zinc-950">
-                            <div class="flex justify-between items-start mb-3">
-                                <div>
-                                    <h3 class="text-xl font-bold text-white leading-tight mb-1">Sitsarawatseur</h3>
-                                    <div class="flex items-center gap-1 text-yellow-500 text-xs font-bold">
-                                        <i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                                        <span>4.9</span>
-                                        <span class="text-zinc-600 font-normal ml-1">(Verified)</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <p class="text-zinc-400 text-sm leading-relaxed line-clamp-2 mb-6">
-                                Traditional Muay Khao style gym. Known for intense clinch work and authentic stadium
-                                fighter training.
-                            </p>
-
-                            <!-- Tags -->
-                            <div class="flex flex-wrap gap-2 mt-auto">
-                                <span
-                                    class="px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-[10px] uppercase tracking-wider text-zinc-400 font-bold">Traditional</span>
-                                <span
-                                    class="px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-[10px] uppercase tracking-wider text-zinc-400 font-bold">Clinch</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Unlock More Card -->
-                <div class="swiper-slide !w-[300px] md:!w-[400px] h-auto gym-card group cursor-pointer"
-                    onclick="document.getElementById('beta-modal').classList.remove('hidden'); document.getElementById('beta-modal').classList.add('flex');">
-                    <div
-                        class="bg-zinc-950 rounded-3xl overflow-hidden border border-zinc-800 hover:border-blue-500/50 transition-all h-full flex flex-col items-center justify-center text-center p-8 relative group-hover:bg-zinc-900/50">
-
-                        <!-- Glow Effect -->
-                        <div
-                            class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        </div>
-
-                        <div
-                            class="w-16 h-16 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300 relative z-10">
-                            <i data-lucide="lock"
-                                class="w-8 h-8 text-zinc-500 group-hover:text-blue-400 transition-colors"></i>
-                        </div>
-
-                        <h3 class="text-2xl font-bold text-white mb-3 relative z-10">Want to see more?</h3>
-                        <p class="text-zinc-400 text-sm mb-8 leading-relaxed max-w-[250px] relative z-10">
-                            Join the Founder's Beta to unlock 100+ verified gyms across Thailand.
-                        </p>
-
-                        <button
-                            class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-6 rounded-full text-sm transition-all shadow-lg shadow-blue-600/20 group-hover:shadow-blue-600/40 transform group-hover:-translate-y-1 relative z-10">
-                            Unlock Full Access
-                        </button>
-                    </div>
-                </div>
 
             </div>
         </div>
@@ -1395,7 +817,10 @@
                             </span>
                         </div>
                         <div>
-                            <h3 class="text-2xl font-bold text-white mb-2">The 2026 Fighter’s Season Pass</h3>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-2">$29 Founding Member Pass</h3>
+
                             <p class="text-blue-200/60 text-sm leading-relaxed">Everything you need for the ultimate
                                 Thailand training trip.</p>
                         </div>
@@ -1407,7 +832,7 @@
                             </li>
                             <li class="flex items-start gap-3 text-sm text-white font-medium">
                                 <i data-lucide="infinity" class="w-5 h-5 text-blue-400 shrink-0"></i>
-                                <span>100 AI Scout Credits: Deep-dive into gym data with 100 premium AI messages—more
+                                <span>150 AI Scout Credits: Deep-dive into gym data with 150 premium AI messages—more
                                     than enough for a 3-month trip.</span>
                             </li>
                             <li class="flex items-start gap-3 text-sm text-white font-medium">
@@ -1908,13 +1333,140 @@
             });
         };
 
-        // Load Gym Data on Start
+        // Load Gym Data and Generate Cards Dynamically
         document.addEventListener('DOMContentLoaded', async () => {
             try {
                 const res = await fetch('/api/gyms');
                 const data = await res.json();
                 window.gymData = data.gyms || [];
                 console.log("✅ Gym Data Loaded:", window.gymData.length);
+
+                // Generate Cards Dynamically
+                const swiperWrapper = document.querySelector('.swiper-wrapper');
+                if (swiperWrapper && window.gymData.length > 0) {
+                    // COMPLETELY CLEAR all existing cards
+                    swiperWrapper.innerHTML = '';
+                    console.log("🗑️ Cleared all existing cards");
+
+                    // Generate cards from API data (triple for smooth infinite scroll)
+                    for (let i = 0; i < 3; i++) {
+                        window.gymData.forEach(gym => {
+                            const card = document.createElement('div');
+                            card.className = 'swiper-slide !w-[300px] md:!w-[400px] h-auto gym-card group cursor-pointer';
+
+                            // Determine badge/tag from the gym data
+                            const tags = gym['Training Styles'] || gym['Skill Level Welcome'] || [];
+                            const firstTag = Array.isArray(tags) ? tags[0] : 'Muay Thai';
+
+                            // Video support - use correct Airtable field name
+                            const videoUrl = gym['Primary Video'] || '';
+                            let videoElement = '';
+                            if (videoUrl) {
+                                // Use regular video element (works for both direct videos and can use YouTube embed URLs)
+                                videoElement = `<video loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-10 opacity-0 transition-opacity duration-300 pointer-events-none" src="${videoUrl}"></video>`;
+                            }
+
+                            card.innerHTML = `
+                                <div class="bg-zinc-900/50 backdrop-blur-sm rounded-3xl overflow-hidden border border-zinc-800 hover:border-zinc-500/50 transition-all duration-300 h-full flex flex-col hover:shadow-2xl hover:shadow-black/50">
+                                    <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden shrink-0">
+                                        <img src="${gym['Primary Image URL'] || 'https://cdn.shopify.com/s/files/1/0564/3957/0639/files/Frame_1000004929_ed3172d4-2474-4c70-a87e-16e9bb91f90a.jpg?v=1768677712'}" 
+                                             class="w-full h-full object-cover relative z-10" alt="${gym.name}">
+                                        ${videoElement}
+                                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-900/80 via-transparent to-transparent z-10 pointer-events-none"></div>
+                                        <div class="absolute top-4 right-4 bg-black/40 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full text-xs font-medium text-white z-20 flex items-center gap-1.5 shadow-lg">
+                                            <i data-lucide="map-pin" class="w-3 h-3 text-emerald-400"></i> ${gym.location || 'Thailand'}
+                                        </div>
+                                    </div>
+                                    <div class="p-5 flex-1 flex flex-col gap-4">
+                                        <div class="flex justify-between items-start gap-4">
+                                            <h3 class="text-xl font-bold text-white leading-tight">${gym.name}</h3>
+                                            <div class="flex items-center gap-1.5 px-2 py-1 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-yellow-400 text-xs font-bold">
+                                                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i> ${gym.rating || 4.8}
+                                            </div>
+                                        </div>
+                                        <p class="text-zinc-400 text-sm leading-relaxed line-clamp-2">${gym.description || 'Authentic Muay Thai training experience in Thailand.'}</p>
+                                        <div class="mt-auto flex flex-wrap gap-2">
+                                            <span class="px-2.5 py-1.5 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-xs text-zinc-300 flex items-center gap-1.5 group-hover:bg-zinc-800 transition-colors">
+                                                <i data-lucide="dumbbell" class="w-3.5 h-3.5 text-blue-400"></i> ${firstTag}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            swiperWrapper.appendChild(card);
+                        });
+                    }
+
+                    // Generate cards from API data (triple for smooth infinite scroll)
+                    for (let i = 0; i < 3; i++) {
+                        window.gymData.forEach(gym => {
+                            const card = document.createElement('div');
+                            card.className = 'swiper-slide !w-[300px] md:!w-[400px] h-auto gym-card group cursor-pointer';
+
+                            // Determine badge/tag from the gym data
+                            const tags = gym['Training Styles'] || gym['Skill Level Welcome'] || [];
+                            const firstTag = Array.isArray(tags) ? tags[0] : 'Muay Thai';
+
+                            card.innerHTML = `
+                                <div class="bg-zinc-900/50 backdrop-blur-sm rounded-3xl overflow-hidden border border-zinc-800 hover:border-zinc-500/50 transition-all duration-300 h-full flex flex-col hover:shadow-2xl hover:shadow-black/50">
+                                    <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden shrink-0">
+                                        <img src="${gym['Primary Image URL'] || 'https://cdn.shopify.com/s/files/1/0564/3957/0639/files/Frame_1000004929_ed3172d4-2474-4c70-a87e-16e9bb91f90a.jpg?v=1768677712'}" 
+                                             class="w-full h-full object-cover relative z-10" alt="${gym.name}">
+                                        <video loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" 
+                                               src="${gym['Primary Video URL'] || ''}"></video>
+                                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-900/80 via-transparent to-transparent z-10 pointer-events-none"></div>
+                                        <div class="absolute top-4 right-4 bg-black/40 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full text-xs font-medium text-white z-20 flex items-center gap-1.5 shadow-lg">
+                                            <i data-lucide="map-pin" class="w-3 h-3 text-emerald-400"></i> ${gym.location || 'Thailand'}
+                                        </div>
+                                    </div>
+                                    <div class="p-5 flex-1 flex flex-col gap-4">
+                                        <div class="flex justify-between items-start gap-4">
+                                            <h3 class="text-xl font-bold text-white leading-tight">${gym.name}</h3>
+                                            <div class="flex items-center gap-1.5 px-2 py-1 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-yellow-400 text-xs font-bold">
+                                                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i> ${gym.rating || 4.8}
+                                            </div>
+                                        </div>
+                                        <p class="text-zinc-400 text-sm leading-relaxed line-clamp-2">${gym.description || 'Authentic Muay Thai training experience in Thailand.'}</p>
+                                        <div class="mt-auto flex flex-wrap gap-2">
+                                            <span class="px-2.5 py-1.5 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-xs text-zinc-300 flex items-center gap-1.5 group-hover:bg-zinc-800 transition-colors">
+                                                <i data-lucide="dumbbell" class="w-3.5 h-3.5 text-blue-400"></i> ${firstTag}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            swiperWrapper.appendChild(card);
+                        });
+                    }
+
+                    // Hide loading indicator
+                    const loadingIndicator = document.getElementById('gym-loading');
+                    if (loadingIndicator) loadingIndicator.style.display = 'none';
+
+                    // Reinitialize Lucide icons
+                    lucide.createIcons();
+
+                    // Destroy and reinitialize Swiper
+                    if (window.mySwiper) window.mySwiper.destroy(true, true);
+                    window.mySwiper = new Swiper('.mySwiper', {
+                        slidesPerView: 'auto',
+                        spaceBetween: 24,
+                        loop: true,
+                        loopedSlides: 8,
+                        speed: 6000,
+                        autoplay: {
+                            delay: 0,
+                            disableOnInteraction: false,
+                            pauseOnMouseEnter: true
+                        },
+                        freeMode: true,
+                        freeModeMomentum: false,
+                        grabCursor: true,
+                        allowTouchMove: true
+                    });
+
+                    console.log("✅ Dynamic Cards Generated & Swiper Reinitialized");
+                }
             } catch (err) {
                 console.error("Failed to load gym data:", err);
             }
@@ -3118,24 +2670,28 @@
             </div>
 
             <div class="bg-zinc-950 rounded-2xl p-6 border border-zinc-800 mb-8">
-                <h4 class="text-lg font-bold text-white mb-4">Join the Founding 500: Pay $0 today</h4>
+                <h4 class="text-lg font-bold text-white mb-4">$29 Founding Member Pass</h4>
                 <ul class="space-y-3">
                     <li class="flex flex-col gap-1">
                         <div class="flex items-start gap-3">
                             <i data-lucide="check" class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5"></i>
-                            <span class="text-zinc-300 text-sm">Get notified when we launch with early access to 200+
-                                verified gyms.</span>
+                            <span class="text-zinc-300 text-sm">Full access to 200+ verified gyms (unblurred maps &
+                                pricing).</span>
                         </div>
                     </li>
                     <li class="flex items-start gap-3">
                         <i data-lucide="check" class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5"></i>
-                        <span class="text-zinc-300 text-sm">Lock in 40% discount - pay just $29 at launch
-                            (normally $19).</span>
+                        <span class="text-zinc-300 text-sm">150 AI Scout Credits for deep-dive questions.</span>
                     </li>
                     <li class="flex items-start gap-3">
                         <i data-lucide="check" class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5"></i>
-                        <span class="text-zinc-300 text-sm">Unlimited AI searches and vote on which cities we scout
-                            next.</span>
+                        <span class="text-zinc-300 text-sm">Lock in 40% discount - pay just $29 at launch (normally
+                            $49).</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="check" class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5"></i>
+                        <span class="text-zinc-300 text-sm">Vote on which city we scout next (Pai, Krabi, or
+                            Issan).</span>
                     </li>
                 </ul>
             </div>

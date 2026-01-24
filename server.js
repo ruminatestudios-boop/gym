@@ -118,6 +118,24 @@ app.get('/api/gyms', async (req, res) => {
                     generatedDesc += trainerExp;
                 }
 
+                // 4. Calculate Average Rating from Star Fields
+                const ratingFields = [
+                    'Overall Rating',
+                    'Cleanliness Rating',
+                    'Trainer Quality Rating',
+                    'Value for Money Rating',
+                    'Beginner Friendliness',
+                    'Tourist-Friendly Score'
+                ];
+
+                const ratings = ratingFields
+                    .map(field => f[field])
+                    .filter(val => val !== undefined && val !== null && typeof val === 'number');
+
+                const calculatedRating = ratings.length > 0
+                    ? (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1)
+                    : 4.8; // Fallback if no ratings exist
+
                 return {
                     id: r.id,
                     name: f['Gym Name'],
@@ -126,7 +144,7 @@ app.get('/api/gyms', async (req, res) => {
                     description: generatedDesc,
                     training: trainingText,
                     accommodation: accomText,
-                    rating: 4.8,
+                    rating: parseFloat(calculatedRating),
                     ...f
                 };
             });
