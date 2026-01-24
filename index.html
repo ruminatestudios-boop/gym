@@ -479,22 +479,25 @@
             </div>
         </div>
 
+        <!-- Loading Indicator (shown while fetching data) -->
+        <div id="gym-loading" class="flex items-center justify-center py-20 w-full">
+            <div class="flex flex-col items-center gap-6">
+                <div class="relative w-16 h-16">
+                    <div class="absolute inset-0 border-4 border-zinc-800 rounded-full"></div>
+                    <div
+                        class="absolute inset-0 border-4 border-transparent border-t-blue-500 rounded-full animate-spin">
+                    </div>
+                </div>
+                <div class="text-center">
+                    <p class="text-white text-base font-semibold mb-1">Loading Verified Gyms</p>
+                    <p class="text-zinc-400 text-sm">Fetching data from our database...</p>
+                </div>
+            </div>
+        </div>
+
         <!-- Swiper Container -->
         <div class="swiper mySwiper w-full px-6">
             <div class="swiper-wrapper">
-
-                <!-- Loading Indicator (shown while fetching data) -->
-                <div id="gym-loading" class="absolute inset-0 flex items-center justify-center min-h-[400px]">
-                    <div class="flex flex-col items-center gap-4">
-                        <div class="relative w-16 h-16">
-                            <div class="absolute inset-0 border-4 border-zinc-800 rounded-full"></div>
-                            <div
-                                class="absolute inset-0 border-4 border-transparent border-t-blue-500 rounded-full animate-spin">
-                            </div>
-                        </div>
-                        <p class="text-zinc-400 text-sm font-medium">Loading verified gyms...</p>
-                    </div>
-                </div>
 
                 <!-- Gym cards will be dynamically generated from API -->
 
@@ -529,66 +532,8 @@
             // 1. Play/Pause on Hover - REMOVED (Conflicted with Best Bits Logic below)
             // Logic moved to gymContainer event delegation at bottom of file.
 
-            // 2. Click to Open Modal (Fixes "modal effect" for duplicates)
-            // Existing modal logic relies on .gym-card click listeners. 
-            // Swiper creates clones that won't have those listeners if we added them before init.
-            // We'll rely on delegation here, but we need to integrate with the existing modal defined below.
-            // The existing modal script is at the bottom of the body. We should just let this event bubble?
-            // Actually, I'll add a specific delegate here to trigger the modal, matching the logic below.
-
-            swiperWrapper.addEventListener('click', (e) => {
-                const card = e.target.closest('.gym-card');
-                if (card) {
-                    const videoSrc = card.querySelector('video').src;
-
-                    // CHECK FOR FULL SCREEN OVERRIDE
-                    if (card.dataset.modalType === 'full') {
-                        const modalFull = document.getElementById('video-modal-full');
-                        const videoFull = document.getElementById('modal-video-full');
-
-                        if (modalFull && videoFull) {
-                            videoFull.src = videoSrc;
-                            modalFull.classList.remove('hidden');
-                            modalFull.classList.add('flex');
-                            videoFull.play();
-                        }
-                        return; // Stop here, do not open split modal
-                    }
-
-                    // Extract Info for Split Modal
-                    const title = card.querySelector('h3').textContent;
-                    const rating = card.querySelector('.text-yellow-500 span').textContent;
-                    const desc = card.querySelector('p').textContent; // Extracted description
-                    const location = card.querySelector('.absolute.top-4').textContent.trim();
-                    const tags = Array.from(card.querySelectorAll('.p-6 .flex.gap-2 span')).map(s => s.textContent);
-
-                    const modalVideo = document.getElementById('modal-video');
-                    const videoModal = document.getElementById('video-modal');
-
-                    if (videoSrc && modalVideo && videoModal) {
-                        modalVideo.src = videoSrc;
-
-                        // Populate Info
-                        document.getElementById('modal-title').textContent = title;
-                        document.getElementById('modal-rating').textContent = rating;
-                        document.getElementById('modal-desc').textContent = desc; // Populate description
-                        document.getElementById('modal-location').innerHTML = `<i data-lucide="map-pin" class="w-3 h-3"></i> <span>${location}</span>`;
-
-
-
-
-                        // Re-init lucide icons for new content
-                        if (window.lucide) lucide.createIcons();
-
-                        videoModal.classList.remove('hidden');
-                        videoModal.classList.add('flex');
-                        modalVideo.play();
-
-                        // Update Crowd Tracker
-                        if (window.refreshLiveTracker) window.refreshLiveTracker();
-                    }
-                }
-            });
+            // 2. Click to Open Modal logic is handled by gymContainer delegation below.
+            // keeping this clean to avoid conflicts.
         </script>
     </section>
 
@@ -827,23 +772,19 @@
                         <ul class="space-y-4 w-full mt-2">
                             <li class="flex items-start gap-3 text-sm text-white font-medium">
                                 <i data-lucide="check-circle-2" class="w-5 h-5 text-blue-400 shrink-0"></i>
-                                <span>Full Black Book Access: Unlock unblurred maps and hidden local pricing for 200+
-                                    gyms.</span>
+                                <span>200+ gyms with unblurred maps and local pricing</span>
                             </li>
                             <li class="flex items-start gap-3 text-sm text-white font-medium">
                                 <i data-lucide="infinity" class="w-5 h-5 text-blue-400 shrink-0"></i>
-                                <span>150 AI Scout Credits: Deep-dive into gym data with 150 premium AI messages—more
-                                    than enough for a 3-month trip.</span>
+                                <span>150 AI Scout credits — enough for a 3-month trip</span>
                             </li>
                             <li class="flex items-start gap-3 text-sm text-white font-medium">
                                 <i data-lucide="message-circle" class="w-5 h-5 text-blue-400 shrink-0"></i>
-                                <span>Verified Contacts: Skip the "Farang Tax" with direct WhatsApp and Line IDs for gym
-                                    owners.</span>
+                                <span>Direct WhatsApp/Line IDs to skip the "Farang Tax"</span>
                             </li>
                             <li class="flex items-start gap-3 text-sm text-white font-medium">
                                 <i data-lucide="calendar-check" class="w-5 h-5 text-blue-400 shrink-0"></i>
-                                <span>Valid for 12 Months: Covers your entire 2026 training season and any return
-                                    trips.</span>
+                                <span>12-month access — covers your entire 2026 season</span>
                             </li>
                         </ul>
                         <div class="mt-auto w-full pt-6">
@@ -1354,12 +1295,40 @@
                             const card = document.createElement('div');
                             card.className = 'swiper-slide !w-[300px] md:!w-[400px] h-auto gym-card group cursor-pointer';
 
-                            // Determine badge/tag from the gym data
-                            const tags = gym['Training Styles'] || gym['Skill Level Welcome'] || [];
-                            const firstTag = Array.isArray(tags) ? tags[0] : 'Muay Thai';
+                            // Get training styles as array
+                            const trainingStyles = gym['Training Styles'] || [];
+                            const stylesArray = Array.isArray(trainingStyles) ? trainingStyles : [];
+
+                            // Color mapping for different styles
+                            const getStyleColor = (style) => {
+                                const styleLower = style.toLowerCase();
+                                if (styleLower.includes('muay thai')) return 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400';
+                                if (styleLower.includes('mma')) return 'bg-blue-500/10 border-blue-500/20 text-blue-400';
+                                if (styleLower.includes('boxing')) return 'bg-pink-500/10 border-pink-500/20 text-pink-400';
+                                if (styleLower.includes('fitness')) return 'bg-cyan-500/10 border-cyan-500/20 text-cyan-400';
+                                return 'bg-zinc-800/50 border-zinc-700/50 text-zinc-300';
+                            };
+
+                            // Image support - Airtable field name is 'Primary Photo'
+                            let imageUrl = '';
+                            const imageField = gym['Primary Photo'] || gym['Primary Image'] || gym['Primary Image URL'] || gym['Image'];
+                            if (imageField) {
+                                // If it's an array (Airtable attachment), extract URL from first item
+                                if (Array.isArray(imageField) && imageField.length > 0) {
+                                    imageUrl = imageField[0].url || imageField[0].thumbnails?.large?.url || '';
+                                } else if (typeof imageField === 'object' && imageField.url) {
+                                    imageUrl = imageField.url;
+                                } else if (typeof imageField === 'string') {
+                                    imageUrl = imageField;
+                                }
+                            }
+                            // Fallback image
+                            if (!imageUrl) {
+                                imageUrl = 'https://cdn.shopify.com/s/files/1/0564/3957/0639/files/Frame_1000004929_ed3172d4-2474-4c70-a87e-16e9bb91f90a.jpg?v=1768677712';
+                            }
 
                             // Video support - use correct Airtable field name
-                            const videoUrl = gym['Primary Video'] || '';
+                            const videoUrl = gym['Primary Video'] || gym['Primary Video URL'] || '';
                             let videoElement = '';
                             if (videoUrl) {
                                 // Use regular video element (works for both direct videos and can use YouTube embed URLs)
@@ -1369,7 +1338,7 @@
                             card.innerHTML = `
                                 <div class="bg-zinc-900/50 backdrop-blur-sm rounded-3xl overflow-hidden border border-zinc-800 hover:border-zinc-500/50 transition-all duration-300 h-full flex flex-col hover:shadow-2xl hover:shadow-black/50">
                                     <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden shrink-0">
-                                        <img src="${gym['Primary Image URL'] || 'https://cdn.shopify.com/s/files/1/0564/3957/0639/files/Frame_1000004929_ed3172d4-2474-4c70-a87e-16e9bb91f90a.jpg?v=1768677712'}" 
+                                        <img src="${imageUrl}" 
                                              class="w-full h-full object-cover relative z-10" alt="${gym.name}">
                                         ${videoElement}
                                         <div class="absolute inset-0 bg-gradient-to-t from-zinc-900/80 via-transparent to-transparent z-10 pointer-events-none"></div>
@@ -1386,9 +1355,11 @@
                                         </div>
                                         <p class="text-zinc-400 text-sm leading-relaxed line-clamp-2">${gym.description || 'Authentic Muay Thai training experience in Thailand.'}</p>
                                         <div class="mt-auto flex flex-wrap gap-2">
-                                            <span class="px-2.5 py-1.5 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-xs text-zinc-300 flex items-center gap-1.5 group-hover:bg-zinc-800 transition-colors">
-                                                <i data-lucide="dumbbell" class="w-3.5 h-3.5 text-blue-400"></i> ${firstTag}
-                                            </span>
+                                            ${stylesArray.slice(0, 3).map(style => `
+                                                <span class="px-2.5 py-1 rounded-lg ${getStyleColor(style)} border text-xs font-medium transition-colors">
+                                                    ${style}
+                                                </span>
+                                            `).join('')}
                                         </div>
                                     </div>
                                 </div>
@@ -1407,13 +1378,34 @@
                             const tags = gym['Training Styles'] || gym['Skill Level Welcome'] || [];
                             const firstTag = Array.isArray(tags) ? tags[0] : 'Muay Thai';
 
+                            // Image support - Airtable field name is 'Primary Photo'
+                            let imageUrl = '';
+                            const imageField = gym['Primary Photo'] || gym['Primary Image'] || gym['Primary Image URL'] || gym['Image'];
+                            if (imageField) {
+                                // If it's an array (Airtable attachment), extract URL from first item
+                                if (Array.isArray(imageField) && imageField.length > 0) {
+                                    imageUrl = imageField[0].url || imageField[0].thumbnails?.large?.url || '';
+                                } else if (typeof imageField === 'object' && imageField.url) {
+                                    imageUrl = imageField.url;
+                                } else if (typeof imageField === 'string') {
+                                    imageUrl = imageField;
+                                }
+                            }
+                            // Fallback image
+                            if (!imageUrl) {
+                                imageUrl = 'https://cdn.shopify.com/s/files/1/0564/3957/0639/files/Frame_1000004929_ed3172d4-2474-4c70-a87e-16e9bb91f90a.jpg?v=1768677712';
+                            }
+
+                            // Video support
+                            const videoUrl = gym['Primary Video'] || gym['Primary Video URL'] || '';
+
                             card.innerHTML = `
                                 <div class="bg-zinc-900/50 backdrop-blur-sm rounded-3xl overflow-hidden border border-zinc-800 hover:border-zinc-500/50 transition-all duration-300 h-full flex flex-col hover:shadow-2xl hover:shadow-black/50">
                                     <div class="aspect-[4/3] bg-zinc-800 relative overflow-hidden shrink-0">
-                                        <img src="${gym['Primary Image URL'] || 'https://cdn.shopify.com/s/files/1/0564/3957/0639/files/Frame_1000004929_ed3172d4-2474-4c70-a87e-16e9bb91f90a.jpg?v=1768677712'}" 
+                                        <img src="${imageUrl}" 
                                              class="w-full h-full object-cover relative z-10" alt="${gym.name}">
                                         <video loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" 
-                                               src="${gym['Primary Video URL'] || ''}"></video>
+                                               src="${videoUrl}"></video>
                                         <div class="absolute inset-0 bg-gradient-to-t from-zinc-900/80 via-transparent to-transparent z-10 pointer-events-none"></div>
                                         <div class="absolute top-4 right-4 bg-black/40 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full text-xs font-medium text-white z-20 flex items-center gap-1.5 shadow-lg">
                                             <i data-lucide="map-pin" class="w-3 h-3 text-emerald-400"></i> ${gym.location || 'Thailand'}
@@ -1439,9 +1431,11 @@
                         });
                     }
 
-                    // Hide loading indicator
+                    // Hide loading indicator after minimum display time
                     const loadingIndicator = document.getElementById('gym-loading');
-                    if (loadingIndicator) loadingIndicator.style.display = 'none';
+                    if (loadingIndicator) {
+                        loadingIndicator.style.display = 'none';
+                    }
 
                     // Reinitialize Lucide icons
                     lucide.createIcons();
@@ -2346,7 +2340,8 @@
 
                             // UNIFIED LOGIC: Delegate to the robust function
                             if (window.openVideoModalByName && title) {
-                                window.openVideoModalByName(title);
+                                const currentTime = card.querySelector('video')?.currentTime || 0;
+                                window.openVideoModalByName(title, currentTime, videoSrc);
                             } else {
                                 console.error("openVideoModalByName missing or no title found");
                                 // Simple Fallback
@@ -2466,7 +2461,7 @@
         };
 
         // NEW: Open Video Modal directly from Chat Name
-        window.openVideoModalByName = (gymName) => {
+        window.openVideoModalByName = (gymName, startTime = 0, overrideSrc = null) => {
             console.log("SCOUT: Opening modal for", gymName);
             // 1. Normalize
             const normalize = (str) => str.toLowerCase().replace(/muay|thai|gym|camp|\s|\.|-/g, '');
@@ -2474,17 +2469,21 @@
             const gymProps = window.gymData ? window.gymData.find(g => normalize(g.name) === key || normalize(g.name).includes(key) || key.includes(normalize(g.name))) : null;
 
             // 2. Try to find Media from DOM Cards (Hybrid approach since images/videos are static)
-            let videoSrc = '';
+            let videoSrc = overrideSrc || ''; // Use override if provided
             let locationText = 'Thailand';
             let ratingText = '5.0';
             let titleText = gymName;
+
+            // Only scan DOM if we don't have a source yet, OR if we need to grab metadata (location/rating)
+            // Even if we have overrideSrc, we might want to scan for the other textual metadata if it's not in gymProps.
+            // But let's assume if we clicked, we passed the source, and we still want to find metadata.
 
             const cards = document.querySelectorAll('.gym-card');
             cards.forEach(card => {
                 const title = card.querySelector('h3')?.innerText || '';
                 const nTitle = normalize(title);
                 if (nTitle === key || nTitle.includes(key) || key.includes(nTitle)) {
-                    videoSrc = card.querySelector('video')?.src;
+                    if (!videoSrc) videoSrc = card.querySelector('video')?.src; // Only fill if empty
                     locationText = card.querySelector('.absolute.top-4.right-4')?.textContent.trim() || locationText;
                     ratingText = card.querySelector('.text-yellow-400')?.innerText.trim() || ratingText;
                     titleText = title; // Use exact card title
@@ -2511,7 +2510,11 @@
             const detailTags = document.getElementById('detail-tags');
 
             if (modal && modalVideo) {
-                if (videoSrc) modalVideo.src = videoSrc;
+                // Prevent reload if source is same
+                if (videoSrc && modalVideo.getAttribute('src') !== videoSrc) {
+                    modalVideo.src = videoSrc;
+                }
+
                 if (modalTitle) modalTitle.innerText = titleText;
                 if (modalLocation) modalLocation.innerHTML = `<i data-lucide="map-pin" class="w-3 h-3"></i> ${locationText}`;
                 if (modalRating) modalRating.innerText = ratingText;
@@ -2643,7 +2646,22 @@
                 // Show Modal
                 modal.classList.remove('hidden');
                 modal.classList.add('flex');
-                if (videoSrc) modalVideo.play().catch(() => { });
+
+                // Helper to play
+                const playVideo = () => {
+                    if (startTime && !isNaN(startTime)) {
+                        modalVideo.currentTime = startTime;
+                    }
+                    modalVideo.muted = false;
+                    modalVideo.play().catch(e => console.error("Play error:", e));
+                };
+
+                if (modalVideo.readyState >= 1) {
+                    playVideo();
+                } else {
+                    modalVideo.addEventListener('loadedmetadata', playVideo, { once: true });
+                }
+
                 if (window.lucide) lucide.createIcons();
                 if (window.resetModalState) window.resetModalState();
                 if (window.switchTab) window.switchTab('overview');
