@@ -5,7 +5,7 @@ const Airtable = require('airtable');
 require('dotenv').config();
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
@@ -290,6 +290,35 @@ app.post('/api/create-checkout-session', async (req, res) => {
     } catch (e) {
         console.error("Stripe Error:", e);
         res.status(500).json({ error: e.message });
+    }
+});
+
+// Endpoint: Add to Waitlist (Save to Airtable)
+app.post('/api/waitlist', async (req, res) => {
+    try {
+        const { name, email } = req.body;
+
+        if (!name || !email) {
+            return res.status(400).json({ error: 'Name and email are required' });
+        }
+
+        // Add to Airtable Waitlist table
+        const waitlistTable = airtableBase('Waitlist');
+        const record = await waitlistTable.create([
+            {
+                fields: {
+                    'Name': name,
+                    'Email': email,
+                    'Date': new Date().toISOString().split('T')[0] // YYYY-MM-DD format
+                }
+            }
+        ]);
+
+        console.log(`✅ Added to waitlist: ${name} (${email})`);
+        res.json({ success: true, message: 'Added to waitlist!' });
+    } catch (error) {
+        console.error('❌ Waitlist error:', error);
+        res.status(500).json({ error: 'Failed to add to waitlist' });
     }
 });
 

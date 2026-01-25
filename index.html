@@ -15,7 +15,8 @@
     <!-- Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,400;1,700&display=swap"
         rel="stylesheet">
 
     <!-- Swiper CSS -->
@@ -105,6 +106,10 @@
             background-color: #050505;
             color: #ffffff;
             -webkit-font-smoothing: antialiased;
+        }
+
+        .italic {
+            font-family: 'Playfair Display', serif !important;
         }
 
         .glass-nav {
@@ -1315,9 +1320,9 @@
                             // Color mapping for different styles
                             const getStyleColor = (style) => {
                                 const styleLower = style.toLowerCase();
-                                if (styleLower.includes('muay thai')) return 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400';
+                                if (styleLower.includes('muay thai')) return 'bg-sky-500/10 border-sky-500/20 text-sky-400';
                                 if (styleLower.includes('mma')) return 'bg-blue-500/10 border-blue-500/20 text-blue-400';
-                                if (styleLower.includes('boxing')) return 'bg-pink-500/10 border-pink-500/20 text-pink-400';
+                                if (styleLower.includes('boxing')) return 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400';
                                 if (styleLower.includes('fitness')) return 'bg-cyan-500/10 border-cyan-500/20 text-cyan-400';
                                 return 'bg-zinc-800/50 border-zinc-700/50 text-zinc-300';
                             };
@@ -1406,9 +1411,9 @@
                             // Color mapping for different styles
                             const getStyleColor = (style) => {
                                 const styleLower = style.toLowerCase();
-                                if (styleLower.includes('muay thai')) return 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400';
+                                if (styleLower.includes('muay thai')) return 'bg-sky-500/10 border-sky-500/20 text-sky-400';
                                 if (styleLower.includes('mma')) return 'bg-blue-500/10 border-blue-500/20 text-blue-400';
-                                if (styleLower.includes('boxing')) return 'bg-pink-500/10 border-pink-500/20 text-pink-400';
+                                if (styleLower.includes('boxing')) return 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400';
                                 if (styleLower.includes('fitness')) return 'bg-cyan-500/10 border-cyan-500/20 text-cyan-400';
                                 return 'bg-zinc-800/50 border-zinc-700/50 text-zinc-300';
                             };
