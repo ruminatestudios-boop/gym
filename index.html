@@ -106,6 +106,19 @@
     </script>
 
     <style>
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
         body {
             background-color: #050505;
             color: #ffffff;
@@ -127,19 +140,6 @@
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
-
-        /* Hide scrollbar for Chrome, Safari and Opera */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* Hide scrollbar for IE, Edge and Firefox */
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            /* IE and Edge */
-            scrollbar-width: none;
-            /* Firefox */
         }
 
         /* Shimmer Effect */
@@ -246,7 +246,7 @@
                         class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
                 </span>
-                100+ Hand-Verified Muay Thai Gyms
+                200+ Hand-Verified Muay Thai Gyms
             </div>
 
             <h1 class="text-5xl md:text-7xl font-serif italic leading-[1.1] tracking-[-0.07em] mb-8 animate-fade-in-up"
@@ -1050,13 +1050,13 @@
                 <div class="shrink-0 border-b border-zinc-800 bg-zinc-950 z-10 pt-6">
                     <!-- Back Button -->
                     <button id="btn-info-back"
-                        class="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors px-6 pb-4 group w-full">
+                        class="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors px-5 pb-4 group w-full">
                         <i data-lucide="arrow-left" class="w-5 h-5 group-hover:-translate-x-1 transition-transform"></i>
                         <span class="text-base font-medium">Back to Summary</span>
                     </button>
 
                     <!-- TAB NAVIGATION -->
-                    <div class="flex items-center px-6 gap-8 mt-2 overflow-x-auto no-scrollbar">
+                    <div class="flex items-center px-5 gap-8 mt-2 overflow-x-auto no-scrollbar">
                         <button onclick="switchTab('overview')" id="tab-btn-overview"
                             class="pb-4 text-xs md:text-sm font-bold uppercase tracking-widest text-white border-b-2 border-white transition-colors whitespace-nowrap">Overview</button>
                         <button onclick="switchTab('training')" id="tab-btn-training"
@@ -1073,10 +1073,10 @@
                 </div>
 
                 <!-- CONTENT AREA (Scrollable) -->
-                <div id="modal-detailed-content" class="flex-1 overflow-y-auto p-6 md:p-8 space-y-8 pb-20">
+                <div id="modal-detailed-content" class="flex-1 overflow-y-auto no-scrollbar pb-20">
 
                     <!-- TAB 1: OVERVIEW -->
-                    <div id="tab-content-overview" class="space-y-8 animate-fade-in-up">
+                    <div id="tab-content-overview" class="space-y-8 animate-fade-in-up p-5">
                         <div class="space-y-4">
                             <div class="flex justify-between items-start">
                                 <h3 class="text-3xl font-serif italic text-white" id="detail-title">About the Gym</h3>
@@ -1093,8 +1093,8 @@
                             <div class="grid grid-cols-2 gap-4 py-4 border-y border-zinc-900">
                                 <div>
                                     <span
-                                        class="text-[10px] text-zinc-500 uppercase tracking-wider font-bold block mb-1">Email</span>
-                                    <span id="detail-email" class="text-zinc-200 text-sm font-medium">--</span>
+                                        class="text-[10px] text-zinc-500 uppercase tracking-wider font-bold block mb-1">Price</span>
+                                    <span id="detail-price" class="text-zinc-200 text-sm font-medium">--</span>
                                 </div>
                                 <div>
                                     <span
@@ -1133,7 +1133,7 @@
                 </div>
 
                 <!-- TAB 2: TRAINING -->
-                <div id="tab-content-training" class="space-y-8 hidden animate-fade-in-up">
+                <div id="tab-content-training" class="space-y-8 hidden animate-fade-in-up p-5">
 
                     <!-- Training Stats -->
                     <div class="grid grid-cols-3 gap-4 p-4 bg-zinc-900/30 rounded-2xl border border-zinc-800">
@@ -1170,7 +1170,7 @@
                 </div>
 
                 <!-- TAB 3: FACILITIES -->
-                <div id="tab-content-facilities" class="space-y-8 hidden animate-fade-in-up">
+                <div id="tab-content-facilities" class="space-y-8 hidden animate-fade-in-up p-5">
 
                     <!-- Amenities Grid -->
                     <div class="space-y-4">
@@ -1221,12 +1221,13 @@
                 </div>
 
                 <!-- TAB 4: PHOTOS -->
-                <div id="tab-content-photos" class="space-y-8 hidden animate-fade-in-up">
-                    <div id="detail-photos-grid" class="grid grid-cols-3 gap-0.5 md:gap-1">
-                        <!-- Dynamic Photos -->
+                <div id="tab-content-photos" class="space-y-4 hidden animate-fade-in-up px-5 pt-0 pb-10">
+                    <div class="p-4 bg-zinc-900/30 rounded-2xl border border-zinc-800">
+                        <div id="detail-photos-grid" class="grid grid-cols-3 gap-2 md:gap-3 rounded-xl overflow-hidden">
+                            <!-- Dynamic Photos -->
+                        </div>
                     </div>
-                    <p class="text-[10px] text-zinc-600 text-center uppercase tracking-widest mb-8">Verified by
-                        Fightlore
+                    <p class="text-[10px] text-zinc-600 text-center uppercase tracking-widest">Verified by Fightlore
                         Scout</p>
                 </div>
 
@@ -1316,10 +1317,6 @@
                 const data = await res.json();
                 window.gymData = data.gyms || [];
                 console.log("✅ Gym Data Loaded:", window.gymData.length);
-                if (window.gymData.length > 0) {
-                    console.log("🔎 SAMPLE DATA (First Item Keys):", Object.keys(window.gymData[0]));
-                    console.log("🔎 SAMPLE DATA (First Item Full):", window.gymData[0]);
-                }
 
                 // Generate Cards Dynamically
                 const swiperWrapper = document.querySelector('.swiper-wrapper');
@@ -1776,7 +1773,7 @@
                     pivot = "If you want that island holiday vibe, check out PK. Saenchai in Samui instead.";
                 }
 
-                return `Sawadee Krap! I'm currently scouting Thailand and haven't personally vetted ${unverifiedLoc} yet. <br><br>I refuse to give you unverified data—I only recommend spots I have hand-verified to ensure the pricing and quality are real.<br><br>${pivot}<br><br>I am adding 5 new gyms every week. Click the 'Unlock 100+ More' button below to join the waitlist and vote for which city I should scout next!`;
+                return `Sawadee Krap! I'm currently scouting Thailand and haven't personally vetted ${unverifiedLoc} yet. <br><br>I refuse to give you unverified data—I only recommend spots I have hand-verified to ensure the pricing and quality are real.<br><br>${pivot}<br><br>I am adding 5 new gyms every week. Click the 'Unlock 200+ More' button below to join the waitlist and vote for which city I should scout next!`;
             }
 
             // 4. Default / Booking Intent
@@ -2631,8 +2628,6 @@
 
                 // Rich Data Population
                 if (gymProps) {
-                    console.log("SCOUT DEBUG FIELDS:", Object.keys(gymProps));
-                    console.log("SCOUT DEBUG FULL OBJ:", JSON.stringify(gymProps));
                     // 1. Overview Tab
                     if (modalDesc) modalDesc.innerText = gymProps['Summary'] || gymProps.description;
                     if (detailTitle) detailTitle.innerText = `About ${gymProps.name}`;
@@ -2676,7 +2671,6 @@
 
                     // New Fields
                     setText('detail-phone', gymProps['Phone'] || gymProps['Phone Number'] || gymProps['Contact'] || gymProps['Tel']);
-                    setText('detail-email', gymProps['E-mail'] || gymProps['e-mail'] || gymProps['Email'] || gymProps['Email Address'] || gymProps['email'] || gymProps['Contact Email'] || gymProps['Mail']);
                     setText('detail-address-full', gymProps['Address'] || gymProps['Full Address'] || gymProps['Location']);
 
                     // Tags
@@ -2734,14 +2728,20 @@
                     // 4. Photos Tab
                     const detailPhotos = document.getElementById('detail-photos-grid');
                     if (detailPhotos && gymProps['Photos'] && Array.isArray(gymProps['Photos'])) {
-                        detailPhotos.innerHTML = gymProps['Photos'].map(photo => `
+                        // Ensure we have 9 images by repeating if necessary
+                        let photos = [...gymProps['Photos']];
+                        while (photos.length > 0 && photos.length < 9) {
+                            photos = photos.concat(gymProps['Photos']);
+                        }
+
+                        detailPhotos.innerHTML = photos.slice(0, 9).map(photo => `
                             <button onclick="window.openLightbox('${photo.url}')" class="relative aspect-square overflow-hidden bg-zinc-900 group block w-full">
                                 <img src="${photo.thumbnails?.large?.url || photo.url}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
                                 <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors"></div>
                             </button>
                         `).join('');
                     } else if (detailPhotos) {
-                        detailPhotos.innerHTML = '<div class="col-span-full h-full flex flex-col items-center justify-center text-zinc-500 min-h-[60vh]"><i data-lucide="image-off" class="w-8 h-8 mb-2 opacity-50"></i><p class="text-sm">No photos available yet</p></div>';
+                        detailPhotos.innerHTML = '<div class="col-span-full py-12 flex flex-col items-center justify-center text-zinc-500"><i data-lucide="image-off" class="w-8 h-8 mb-2 opacity-50"></i><p class="text-sm">No photos available yet</p></div>';
                     }
 
                     // Toggle Visibility of Phone/Email containers
