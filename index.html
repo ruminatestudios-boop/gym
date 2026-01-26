@@ -187,7 +187,7 @@
                     <a href="#gyms" class="hover:text-white transition-colors">Verified Gyms</a>
                     <button onclick="openFoundingModal()"
                         class="hover:text-amber-400 text-amber-300 transition-colors font-semibold flex items-center gap-1">
-                        Unlock 200+ Gyms <i data-lucide="lock" class="w-3 h-3"></i>
+                        Unlock the Season Pass <i data-lucide="lock" class="w-3 h-3"></i>
                     </button>
                     <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
                 </div>
@@ -248,16 +248,16 @@
 
             <h1 class="text-5xl md:text-7xl font-serif italic leading-[1.1] tracking-[-0.07em] mb-8 animate-fade-in-up"
                 style="animation-delay: 0.2s;">
-                Find Your Perfect <br>
+                AI-Powered Muay thai<br>
                 <span
                     class="animate-shimmer bg-[linear-gradient(110deg,#60a5fa,40%,#ffffff,50%,#60a5fa)] bg-[length:250%_100%] bg-clip-text text-transparent not-italic font-sans font-bold"
-                    style="-webkit-background-clip: text; -webkit-text-fill-color: transparent;">Muay
-                    Thai Gym</span>
+                    style="-webkit-background-clip: text; -webkit-text-fill-color: transparent;">Gym Finder </span>
             </h1>
 
-            <p class="text-xl text-white mb-10 max-w-2xl mx-auto leading-relaxed animate-fade-in-up"
+            <p class="text-xl text-white mb-10 max-w-4xl mx-auto leading-relaxed animate-fade-in-up"
                 style="animation-delay: 0.3s;">
-                Describe your ideal training experience. Our AI delivers personalized gym matches in under a minute.
+                Try 7 FREE AI searches to find your perfect gym. Join the waitlist today (no payment needed). <br>
+                When we launch, unlock 200+ verified gyms for just $29.
             </p>
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up"
@@ -265,7 +265,7 @@
                 <button onclick="openFoundingModal()"
                     class="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-semibold text-lg transition-all transform hover:scale-105 shadow-lg shadow-blue-900/20 flex items-center justify-center gap-2">
                     <i data-lucide="sparkles" class="w-5 h-5"></i>
-                    Join Waitlist
+                    Join Waitlist — Pay $0 Now
                 </button>
 
             </div>
@@ -657,21 +657,6 @@
                 </details>
 
                 <!-- Item 6 -->
-                <details
-                    class="group bg-black border border-zinc-800 rounded-xl overflow-hidden transition-all duration-300 open:pb-4">
-                    <summary
-                        class="flex items-center justify-between p-6 cursor-pointer list-none text-lg font-medium hover:text-blue-400 transition-colors">
-                        <span>What if I don't find a gym I like?</span>
-                        <span class="transition-transform group-open:rotate-180">
-                            <i data-lucide="chevron-down" class="w-5 h-5"></i>
-                        </span>
-                    </summary>
-                    <div class="px-6 text-zinc-400 leading-relaxed">
-                        With 200+ gyms and growing, you'll find something perfect. But if not, we're adding new gyms
-                        weekly based on member requests!
-                    </div>
-                </details>
-
                 <!-- Item 7 -->
                 <details
                     class="group bg-black border border-zinc-800 rounded-xl overflow-hidden transition-all duration-300 open:pb-4">
@@ -690,7 +675,7 @@
 
             </div>
             <p class="text-center text-zinc-500 mt-12">Have questions? We'd love to help - <a
-                    href="mailto:fightloreplus@gmail.com" class="text-blue-500 hover:underline">Email us.</a></p>
+                    href="mailto:infofightlore@gmail.com" class="text-blue-500 hover:underline">Email us</a></p>
         </div>
     </section>
 
@@ -715,7 +700,7 @@
                         class="relative h-full bg-[#0b0b0c] border border-white/10 rounded-xl p-8 flex flex-col items-start gap-6 hover:border-zinc-700 transition-colors">
                         <div
                             class="inline-block px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-[10px] font-bold uppercase tracking-widest text-zinc-400">
-                            Step 01</div>
+                            FREE TRIAL</div>
                         <div>
                             <h3 class="text-2xl font-bold text-white mb-2">Try the AI Scout Free</h3>
                             <p class="text-zinc-400 text-sm leading-relaxed">Chat with our AI to find gyms that match
@@ -767,7 +752,7 @@
                         <div class="flex items-center justify-between w-full">
                             <div
                                 class="inline-block px-3 py-1 rounded-full bg-blue-900/30 border border-blue-500/30 text-[10px] font-bold uppercase tracking-widest text-blue-400">
-                                Step 02</div>
+                                FULL ACCESS</div>
                             <span class="text-xs font-bold text-emerald-400 flex items-center gap-1">
                                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                                 Recommended
@@ -939,6 +924,26 @@
             <div id="modal-video-column"
                 class="w-full bg-black relative h-[60%] group transition-all duration-500 ease-in-out">
                 <video id="modal-video" class="w-full h-full object-cover" controls autoplay playsinline></video>
+
+                <!-- Unlock Overlay -->
+                <div id="video-unlock-overlay"
+                    class="absolute inset-0 bg-black/60 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center opacity-0 pointer-events-none transition-all duration-500 z-30">
+                    <div
+                        class="bg-blue-600/10 w-16 h-16 rounded-full flex items-center justify-center mb-4 border border-blue-500/30">
+                        <i data-lucide="lock" class="w-8 h-8 text-blue-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Watch the Full Verified Tour</h3>
+                    <p class="text-zinc-400 text-sm mb-6 max-w-xs">Unlock 200+ full-length verified gym tours with the
+                        Season Pass.</p>
+                    <button onclick="openFoundingModal()"
+                        class="px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-bold text-sm transition-all shadow-lg shadow-blue-600/20">
+                        Unlock Full Access
+                    </button>
+                    <button onclick="hideUnlockOverlay()"
+                        class="mt-4 text-xs text-zinc-500 hover:text-white transition-colors">
+                        Continue Preview
+                    </button>
+                </div>
             </div>
 
             <!-- INFO COLUMN (Bottom) -->
@@ -1089,9 +1094,9 @@
                                 <div>
                                     <span
                                         class="text-[10px] text-zinc-500 uppercase tracking-wider font-bold mb-1 flex items-center gap-1.5">
-                                        <i data-lucide="tag" class="w-3 h-3 text-yellow-500"></i> Price
+                                        <i data-lucide="mail" class="w-3 h-3 text-yellow-500"></i> Email
                                     </span>
-                                    <span id="detail-price" class="text-zinc-200 text-sm font-medium">--</span>
+                                    <span id="detail-email-display" class="text-zinc-200 text-sm font-medium">--</span>
                                 </div>
                                 <div>
                                     <span
@@ -2520,6 +2525,39 @@
             checkPaymentSuccess();
         });
 
+        // Video Preview Limit Logic
+        const PREVIEW_LIMIT = 10; // 10 seconds preview
+        let hasShownUnlock = false;
+
+        function hideUnlockOverlay() {
+            const overlay = document.getElementById('video-unlock-overlay');
+            if (overlay) {
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        function showUnlockOverlay() {
+            const overlay = document.getElementById('video-unlock-overlay');
+            const video = document.getElementById('modal-video');
+            if (overlay && video) {
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+                video.pause();
+                hasShownUnlock = true;
+            }
+        }
+
+        // Attach listener for preview limit
+        document.addEventListener('DOMContentLoaded', () => {
+            const modalVideo = document.getElementById('modal-video');
+            if (modalVideo) {
+                modalVideo.addEventListener('timeupdate', () => {
+                    if (modalVideo.currentTime >= PREVIEW_LIMIT && !hasShownUnlock) {
+                        showUnlockOverlay();
+                    }
+                });
+            }
+        });
+
         // Global Helper for Chat Pills
         window.openBookingFor = (gymName) => {
             // Find the gym card in the DOM
@@ -2599,6 +2637,10 @@
             const detailTags = document.getElementById('detail-tags');
 
             if (modal && modalVideo) {
+                // Reset Unlock Overlay State
+                hasShownUnlock = false;
+                hideUnlockOverlay();
+
                 // Prevent reload if source is same
                 if (videoSrc && modalVideo.getAttribute('src') !== videoSrc) {
                     modalVideo.src = videoSrc;
@@ -2628,7 +2670,12 @@
                         if (el) el.innerText = val || '--';
                     };
 
-                    setText('detail-price', gymProps['Prices']);
+                    // Debugging: Log full gym object to see available fields
+                    console.log("Gym Details Loaded:", gymProps);
+
+                    // Try multiple variations for Email field
+                    const emailVal = gymProps['Email'] || gymProps['Email Address'] || gymProps['Contact Email'] || gymProps['e-mail'] || gymProps['Contact'];
+                    setText('detail-email-display', emailVal);
                     // Try 'Opening Hours' first, then 'Days Open' (handle variations)
                     setText('detail-open', gymProps['Opening Hours'] || gymProps['Days Open']);
 
@@ -2919,7 +2966,7 @@
                 <h3 class="text-xl text-white font-bold mb-2 mt-4">5. Security</h3>
                 <p>We take reasonable measures to help protect information about you from loss, theft, misuse and unauthorized access.</p>
                 <h3 class="text-xl text-white font-bold mb-2 mt-4">6. Contact Us</h3>
-                <p>If you have any questions about this Privacy Policy, please contact us at fightloreplus@gmail.com.</p>
+                <p>If you have any questions about this Privacy Policy, please contact us at infofightlore@gmail.com.</p>
             `;
 
             const termsOfServiceText = `
@@ -3087,7 +3134,7 @@
     <div id="founding-modal"
         class="fixed inset-0 z-[120] hidden items-center justify-center bg-black/90 backdrop-blur-md p-4">
         <div
-            class="w-full max-w-lg bg-zinc-950 border border-blue-500 rounded-2xl shadow-[0_0_50px_-10px_rgba(59,130,246,0.3)] relative overflow-hidden flex flex-col p-8">
+            class="w-full max-w-2xl bg-zinc-950 border border-blue-500 rounded-2xl shadow-[0_0_50px_-10px_rgba(59,130,246,0.3)] relative overflow-hidden flex flex-col p-8">
 
             <!-- Close Button -->
             <button onclick="closeFoundingModal()"
@@ -3100,8 +3147,8 @@
             <div id="founding-content">
                 <h2 class="text-3xl font-bold text-white mb-4 leading-tight">The 2026 Fighter’s Season Pass</h2>
                 <p class="text-zinc-400 text-base leading-relaxed mb-10">
-                    Everything you need for the ultimate Thailand training trip. Join the waitlist for $29 (regularly
-                    $49) to secure your spot.
+                    Avoid tourist pricing. Get direct access to local rates, unblurred maps, and verified contacts for
+                    200+ gyms.
                 </p>
 
                 <!-- Feature List -->
@@ -3111,19 +3158,13 @@
                             class="w-6 h-6 rounded-full border-2 border-blue-500 flex items-center justify-center shrink-0">
                             <i data-lucide="check" class="w-4 h-4 text-blue-400"></i>
                         </div>
-                        <span class="text-white text-lg font-medium">200+ Verified Gyms (Black Book Access)</span>
+                        <span class="text-white text-lg font-medium">Unblurred Maps & Locations</span>
                     </div>
                     <div class="flex items-center gap-3">
                         <div class="w-6 h-6 flex items-center justify-center shrink-0">
                             <i data-lucide="message-square" class="w-6 h-6 text-blue-400"></i>
                         </div>
-                        <span class="text-white text-lg font-medium">100 AI Scout Credits</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <div class="w-6 h-6 flex items-center justify-center shrink-0">
-                            <i data-lucide="calendar" class="w-6 h-6 text-blue-400"></i>
-                        </div>
-                        <span class="text-white text-lg font-medium">Valid for 12 Months</span>
+                        <span class="text-white text-lg font-medium">Verified Local Pricing (No Tourist Tax)</span>
                     </div>
                     <div class="flex items-center gap-3">
                         <div class="w-6 h-6 flex items-center justify-center shrink-0">
@@ -3144,7 +3185,7 @@
                     </div>
                     <button type="submit" id="founding-submit-btn"
                         class="w-full bg-white hover:bg-zinc-200 text-black font-bold text-lg py-4 rounded-xl transition-all shadow-lg shadow-white/10 flex items-center justify-center gap-2">
-                        <span>Join Waitlist ($29)</span>
+                        <span>Join My Waitlist</span>
                     </button>
                     <p class="text-center text-zinc-500 text-xs uppercase tracking-widest font-medium">Pay when we
                         launch</p>

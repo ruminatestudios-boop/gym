@@ -13,10 +13,24 @@ app.use(express.json());
 app.use(express.static('.')); // Serve frontend files from root
 
 // Initialize Clients
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
+const getRequiredEnv = (name) => {
+    const val = process.env[name];
+    if (!val) {
+        console.error(`❌ MISSING ENV VAR: ${name}`);
+        return null;
+    }
+    return val;
+};
 
-const airtableBase = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(process.env.AIRTABLE_BASE_ID);
+const GOOGLE_API_KEY = getRequiredEnv('GOOGLE_API_KEY');
+const AIRTABLE_API_KEY = getRequiredEnv('AIRTABLE_API_KEY');
+const AIRTABLE_BASE_ID = getRequiredEnv('AIRTABLE_BASE_ID');
 const tableName = process.env.AIRTABLE_TABLE_NAME || 'Gyms';
+
+const genAI = GOOGLE_API_KEY ? new GoogleGenerativeAI(GOOGLE_API_KEY) : null;
+const airtableBase = (AIRTABLE_API_KEY && AIRTABLE_BASE_ID) 
+    ? new Airtable({ apiKey: AIRTABLE_API_KEY }).base(AIRTABLE_BASE_ID) 
+    : null;
 
 // Gym Data Cache
 let cachedGyms = null;
@@ -182,23 +196,28 @@ app.post('/api/chat', async (req, res) => {
         console.log("---------------------------------------------------\n");
 
         // 2. Call Google Gemini
+        if (!genAI) {
+            throw new Error("Gemini API not initialized");
+        }
+
         const model = genAI.getGenerativeModel({
             model: "gemini-2.0-flash",
-            systemInstruction: `Role: You are the Fightlore Scout. Help users find gyms in Thailand.
+            systemInstruction: `Role: You are the Fightlore Scout. Help users find Muay Thai gyms in Thailand.
 
 CONTEXT:
 Verified Gyms List:
-${dynamicKnowledge}
+\${dynamicKnowledge}
 
 RULES:
-1. CONCISE: Be short. No fluff. Max 2-3 sentences.
-2. NO GREETINGS: Do NOT say "Sawadee Krap" or "Hello". Jump straight to the answer.
-3. FORMAT: If you suggest a gym, must WRAP the name in triple pipes like this: |||Sitsarawatseur|||.
-   Example: "Sitsarawatseur is a great traditional option. |||Sitsarawatseur|||"
+1. CONCISE: Be short and helpful. Max 3 sentences.
+2. NO GREETINGS: Do NOT say "Sawadee Krap", "Hello", or "I'd be happy to help". Jump straight to the answer.
+3. RECOMMENDATIONS: Use the provided context to recommend gyms. 
+4. GYM WRAPPER: If you suggest a gym name, you MUST wrap it in triple pipes like this: |||Sitsarawatseur|||. This is critical for the UI to link the gym card.
+5. NO MATCH: If no gym matches the user's criteria, suggest the closest one or tell them to check back as we add new gyms weekly.
+6. PRICING: If the prices field contains an ID or "Contact us", tell the user to contact the gym directly for the 2026 rates.
 
-RESPONSE:
-- Direct answer.
-- If ID found in price, say "Contact us".`
+FORMAT EXAMPLE:
+"|||Sitsarawatseur||| is a great traditional option in Bangkok. It's budget-friendly and open to all skill levels."`
         });
 
         const result = await model.generateContent(message);
@@ -220,6 +239,10 @@ app.post('/api/waitlist', async (req, res) => {
         return res.status(400).json({ error: 'Email is required' });
     }
 
+    if (!airtableBase) {
+        return res.status(503).json({ error: 'Airtable connection not configured' });
+    }
+
     try {
         await airtableBase('Waitlist').create([
             {
@@ -230,9 +253,10 @@ app.post('/api/waitlist', async (req, res) => {
                 }
             }
         ]);
+        console.log(`✅ Added to waitlist: \${name || 'Anonymous'} (\${email})`);
         res.json({ success: true, message: "Added to Waitlist" });
     } catch (error) {
-        console.error('Airtable Error:', error);
+        console.error('❌ Waitlist error:', error);
         res.status(500).json({ error: 'Failed to join waitlist' });
     }
 });
@@ -293,33 +317,15 @@ app.post('/api/create-checkout-session', async (req, res) => {
     }
 });
 
-// Endpoint: Add to Waitlist (Save to Airtable)
-app.post('/api/waitlist', async (req, res) => {
-    try {
-        const { name, email } = req.body;
-
-        if (!name || !email) {
-            return res.status(400).json({ error: 'Name and email are required' });
+// Health Check
+app.get('/api/health', (req, res) => {
+    res.json({
+        status: 'ok',
+        config: {
+            google: !!GOOGLE_API_KEY,
+            airtable: !!AIRTABLE_API_KEY && !!AIRTABLE_BASE_ID
         }
-
-        // Add to Airtable Waitlist table
-        const waitlistTable = airtableBase('Waitlist');
-        const record = await waitlistTable.create([
-            {
-                fields: {
-                    'Name': name,
-                    'Email': email,
-                    'Date': new Date().toISOString().split('T')[0] // YYYY-MM-DD format
-                }
-            }
-        ]);
-
-        console.log(`✅ Added to waitlist: ${name} (${email})`);
-        res.json({ success: true, message: 'Added to waitlist!' });
-    } catch (error) {
-        console.error('❌ Waitlist error:', error);
-        res.status(500).json({ error: 'Failed to add to waitlist' });
-    }
+    });
 });
 
 app.listen(port, async () => {
