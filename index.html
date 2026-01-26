@@ -1060,11 +1060,13 @@
                         <button onclick="switchTab('overview')" id="tab-btn-overview"
                             class="pb-4 text-xs md:text-sm font-bold uppercase tracking-widest text-white border-b-2 border-white transition-colors whitespace-nowrap">Overview</button>
                         <button onclick="switchTab('training')" id="tab-btn-training"
-                            class="pb-4 text-xs md:text-sm font-bold uppercase tracking-widest text-zinc-500 hover:text-zinc-300 border-b-2 border-transparent transition-colors whitespace-nowrap">Training</button>
-                        <button onclick="switchTab('facilities')" id="tab-btn-facilities"
-                            class="pb-4 text-xs md:text-sm font-bold uppercase tracking-widest text-zinc-500 hover:text-zinc-300 border-b-2 border-transparent transition-colors whitespace-nowrap">Facilities</button>
+                            class="pb-3 text-xs md:text-sm font-bold tracking-wider text-zinc-500 border-b-2 border-transparent transition-all hover:text-white">
+                            TRAINING
+                        </button>
                         <button onclick="switchTab('photos')" id="tab-btn-photos"
-                            class="pb-4 text-xs md:text-sm font-bold uppercase tracking-widest text-zinc-500 hover:text-zinc-300 border-b-2 border-transparent transition-colors whitespace-nowrap">Photos</button>
+                            class="pb-3 text-xs md:text-sm font-bold tracking-wider text-zinc-500 border-b-2 border-transparent transition-all hover:text-white">
+                            PHOTOS
+                        </button>
                         <button disabled
                             class="pb-4 text-xs md:text-sm font-bold uppercase tracking-widest text-zinc-700 cursor-not-allowed border-b-2 border-transparent flex items-center gap-1.5 whitespace-nowrap">
                             Reviews <i data-lucide="lock" class="w-3 h-3"></i>
@@ -1073,7 +1075,7 @@
                 </div>
 
                 <!-- CONTENT AREA (Scrollable) -->
-                <div id="modal-detailed-content" class="flex-1 overflow-y-auto no-scrollbar pb-20">
+                <div id="modal-detailed-content" class="flex-1 overflow-y-auto no-scrollbar pb-0">
 
                     <!-- TAB 1: OVERVIEW -->
                     <div id="tab-content-overview" class="space-y-8 animate-fade-in-up p-5">
@@ -1093,33 +1095,45 @@
                             <div class="grid grid-cols-2 gap-4 py-4 border-y border-zinc-900">
                                 <div>
                                     <span
-                                        class="text-[10px] text-zinc-500 uppercase tracking-wider font-bold block mb-1">Price</span>
+                                        class="text-[10px] text-zinc-500 uppercase tracking-wider font-bold mb-1 flex items-center gap-1.5">
+                                        <i data-lucide="tag" class="w-3 h-3 text-yellow-500"></i> Price
+                                    </span>
                                     <span id="detail-price" class="text-zinc-200 text-sm font-medium">--</span>
                                 </div>
                                 <div>
                                     <span
-                                        class="text-[10px] text-zinc-500 uppercase tracking-wider font-bold block mb-1">Open</span>
+                                        class="text-[10px] text-zinc-500 uppercase tracking-wider font-bold mb-1 flex items-center gap-1.5">
+                                        <i data-lucide="clock" class="w-3 h-3 text-blue-500"></i> Open
+                                    </span>
                                     <span id="detail-open" class="text-zinc-200 text-sm font-medium">--</span>
                                 </div>
                                 <div>
                                     <span
-                                        class="text-[10px] text-zinc-500 uppercase tracking-wider font-bold block mb-1">Language</span>
+                                        class="text-[10px] text-zinc-500 uppercase tracking-wider font-bold mb-1 flex items-center gap-1.5">
+                                        <i data-lucide="languages" class="w-3 h-3 text-emerald-500"></i> Language
+                                    </span>
                                     <span id="detail-language" class="text-zinc-200 text-sm font-medium">--</span>
                                 </div>
                                 <div>
                                     <span
-                                        class="text-[10px] text-zinc-500 uppercase tracking-wider font-bold block mb-1">Location</span>
+                                        class="text-[10px] text-zinc-500 uppercase tracking-wider font-bold mb-1 flex items-center gap-1.5">
+                                        <i data-lucide="map-pin" class="w-3 h-3 text-rose-500"></i> Location
+                                    </span>
                                     <span id="detail-address-short"
                                         class="text-zinc-200 text-sm font-medium truncate">--</span>
                                 </div>
                                 <div>
                                     <span
-                                        class="text-[10px] text-zinc-500 uppercase tracking-wider font-bold block mb-1">Phone</span>
+                                        class="text-[10px] text-zinc-500 uppercase tracking-wider font-bold mb-1 flex items-center gap-1.5">
+                                        <i data-lucide="phone" class="w-3 h-3 text-purple-500"></i> Phone
+                                    </span>
                                     <span id="detail-phone" class="text-zinc-200 text-sm font-medium block">--</span>
                                 </div>
                                 <div>
                                     <span
-                                        class="text-[10px] text-zinc-500 uppercase tracking-wider font-bold block mb-1">Address</span>
+                                        class="text-[10px] text-zinc-500 uppercase tracking-wider font-bold mb-1 flex items-center gap-1.5">
+                                        <i data-lucide="map" class="w-3 h-3 text-orange-500"></i> Address
+                                    </span>
                                     <span id="detail-address-full"
                                         class="text-zinc-200 text-sm font-medium block leading-snug">--</span>
                                 </div>
@@ -1132,72 +1146,51 @@
                     </div>
                 </div>
 
-                <!-- TAB 2: TRAINING -->
-                <div id="tab-content-training" class="space-y-8 hidden animate-fade-in-up p-5">
+                <!-- TAB 2: TRAINING (Logistics) - Clean List Design -->
+                <div id="tab-content-training" class="space-y-6 hidden animate-fade-in-up p-5">
 
-                    <!-- Training Stats -->
-                    <div class="grid grid-cols-3 gap-4 p-4 bg-zinc-900/30 rounded-2xl border border-zinc-800">
-                        <div class="text-center">
-                            <i data-lucide="users" class="w-5 h-5 text-blue-500 mx-auto mb-2"></i>
-                            <span class="block text-xl font-bold text-white leading-none"
-                                id="detail-trainer-count">--</span>
-                            <span class="text-[10px] text-zinc-500 uppercase tracking-wider">Trainers</span>
-                        </div>
-                        <div class="text-center border-l border-zinc-800">
-                            <i data-lucide="ruler" class="w-5 h-5 text-emerald-500 mx-auto mb-2"></i>
-                            <span class="block text-xl font-bold text-white leading-none" id="detail-area">--</span>
-                            <span class="text-[10px] text-zinc-500 uppercase tracking-wider">Meters</span>
-                        </div>
-                        <div class="text-center border-l border-zinc-800">
-                            <i data-lucide="clock" class="w-5 h-5 text-purple-500 mx-auto mb-2"></i>
-                            <span class="block text-xl font-bold text-white leading-none" id="detail-duration">--</span>
-                            <span class="text-[10px] text-zinc-500 uppercase tracking-wider">Mins</span>
-                        </div>
+                    <!-- Nearby Amenities -->
+                    <div class="border-b border-zinc-800/50 pb-4 last:border-0 last:pb-0">
+                        <h5
+                            class="text-zinc-500 text-[10px] font-bold uppercase tracking-wider mb-1.5 flex items-center gap-2">
+                            <i data-lucide="map-pin" class="w-3 h-3 text-emerald-500"></i> Nearby Amenities
+                        </h5>
+                        <p id="detail-logistics-amenities" class="text-zinc-200 text-sm leading-relaxed px-1">--</p>
                     </div>
 
-                    <div class="space-y-4">
-                        <h4 class="text-sm font-bold text-zinc-500 uppercase tracking-wider">Training Programs</h4>
-                        <div class="grid grid-cols-1 gap-3" id="detail-programs">
-                            <!-- Dynamic Program Cards -->
-                        </div>
-                    </div>
-                    <div class="space-y-4">
-                        <h4 class="text-sm font-bold text-zinc-500 uppercase tracking-wider">Trainer Experience</h4>
-                        <p class="text-zinc-400 text-base leading-relaxed" id="detail-trainers">
-                            <!-- Dynamic Trainer Info -->
-                        </p>
-                    </div>
-                </div>
-
-                <!-- TAB 3: FACILITIES -->
-                <div id="tab-content-facilities" class="space-y-8 hidden animate-fade-in-up p-5">
-
-                    <!-- Amenities Grid -->
-                    <div class="space-y-4">
-                        <h4 class="text-sm font-bold text-zinc-500 uppercase tracking-wider">Amenities</h4>
-                        <div id="detail-amenities" class="grid grid-cols-2 gap-4">
-                            <!-- Dynamic Amenities -->
-                        </div>
+                    <!-- Class Duration -->
+                    <div class="border-b border-zinc-800/50 pb-4 last:border-0 last:pb-0">
+                        <h5
+                            class="text-zinc-500 text-[10px] font-bold uppercase tracking-wider mb-1.5 flex items-center gap-2">
+                            <i data-lucide="clock" class="w-3 h-3 text-blue-500"></i> Class Duration
+                        </h5>
+                        <p id="detail-logistics-duration" class="text-zinc-200 text-sm px-1">--</p>
                     </div>
 
-                    <div class="space-y-4">
-                        <h4 class="text-sm font-bold text-zinc-500 uppercase tracking-wider">Accommodation</h4>
-                        <p class="text-zinc-400 text-base leading-relaxed" id="detail-accom">
-                            <!-- Dynamic Accom Info -->
-                        </p>
+                    <!-- Prices -->
+                    <div class="border-b border-zinc-800/50 pb-4 last:border-0 last:pb-0">
+                        <h5
+                            class="text-zinc-500 text-[10px] font-bold uppercase tracking-wider mb-1.5 flex items-center gap-2">
+                            <i data-lucide="tag" class="w-3 h-3 text-yellow-500"></i> Prices
+                        </h5>
+                        <p id="detail-logistics-price" class="text-zinc-200 text-sm px-1">--</p>
                     </div>
 
-                    <!-- Amenities Nearby -->
-                    <div class="space-y-4">
-                        <h4 class="text-sm font-bold text-zinc-500 uppercase tracking-wider">Nearby</h4>
-                        <p class="text-zinc-400 text-sm italic" id="detail-nearby">
-                            <!-- Dynamic Nearby Info -->
-                        </p>
+                    <!-- Accommodation -->
+                    <div class="border-b border-zinc-800/50 pb-4 last:border-0 last:pb-0">
+                        <h5
+                            class="text-zinc-500 text-[10px] font-bold uppercase tracking-wider mb-1.5 flex items-center gap-2">
+                            <i data-lucide="bed" class="w-3 h-3 text-purple-500"></i> Accommodation
+                        </h5>
+                        <p id="detail-logistics-accom" class="text-zinc-200 text-sm leading-relaxed px-1">--</p>
                     </div>
 
-                    <!-- Contact Actions -->
-                    <div class="space-y-4 pt-4 border-t border-zinc-900">
-                        <h4 class="text-sm font-bold text-zinc-500 uppercase tracking-wider">Contact & Location</h4>
+
+
+                    <!-- Contact & Location (Moved here) -->
+                    <div class="pt-4 mt-6 border-t border-zinc-800">
+                        <h4 class="text-sm font-bold text-zinc-500 uppercase tracking-wider mb-4">Contact & Location
+                        </h4>
                         <div class="grid grid-cols-2 gap-3">
                             <a id="btn-link-maps" href="#" target="_blank"
                                 class="p-3 bg-zinc-900 hover:bg-zinc-800 rounded-xl flex items-center justify-center gap-2 text-zinc-300 transition-colors">
@@ -1221,14 +1214,10 @@
                 </div>
 
                 <!-- TAB 4: PHOTOS -->
-                <div id="tab-content-photos" class="space-y-4 hidden animate-fade-in-up px-5 pt-0 pb-10">
-                    <div class="p-4 bg-zinc-900/30 rounded-2xl border border-zinc-800">
-                        <div id="detail-photos-grid" class="grid grid-cols-3 gap-2 md:gap-3 rounded-xl overflow-hidden">
-                            <!-- Dynamic Photos -->
-                        </div>
+                <div id="tab-content-photos" class="space-y-4 hidden animate-fade-in-up p-0">
+                    <div id="detail-photos-grid" class="grid grid-cols-3 gap-0.5 overflow-hidden">
+                        <!-- Dynamic Photos -->
                     </div>
-                    <p class="text-[10px] text-zinc-600 text-center uppercase tracking-widest">Verified by Fightlore
-                        Scout</p>
                 </div>
 
             </div>
@@ -1293,7 +1282,7 @@
         // Tab Switcher Logic
         window.switchTab = (tabId) => {
             // 1. Reset Buttons
-            ['overview', 'training', 'facilities', 'photos'].forEach(t => {
+            ['overview', 'training', 'photos'].forEach(t => {
                 const btn = document.getElementById(`tab-btn-${t}`);
                 const content = document.getElementById(`tab-content-${t}`);
                 if (btn && content) {
@@ -2682,36 +2671,33 @@
                         detailTags.innerHTML = '';
                     }
 
-                    // 2. Training Tab
-                    setText('detail-trainer-count', gymProps['Number of Trainers']);
-                    setText('detail-area', gymProps['Training Area']);
-                    setText('detail-duration', gymProps['Class Duration']);
+                    // 2. Training Tab (Redesigned as Key Logistics)
+                    setText('detail-logistics-amenities', gymProps['Nearby Amenities'] || "Centrally located.");
+                    // Append 'Minutes' if value exists
+                    const durationVal = gymProps['Class Duration'] ? `${gymProps['Class Duration']} Minutes` : '--';
+                    setText('detail-logistics-duration', durationVal);
 
-                    if (detailPrograms) {
-                        let programs = [];
-                        if (gymProps.training && gymProps.training.includes(',')) {
-                            programs = gymProps.training.split(',').map(p => p.trim());
-                        } else if (gymProps.training) {
-                            programs = [gymProps.training];
-                        }
-
-                        let programsHtml = '';
-                        programs.forEach(prog => {
-                            programsHtml += `
-                                <div class="p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl flex items-center justify-between transition-colors hover:bg-zinc-900">
-                                    <span class="text-sm text-zinc-300 font-medium">${prog}</span>
-                                    <span class="text-xs text-emerald-500 font-bold bg-emerald-500/10 px-2 py-1 rounded-full border border-emerald-500/20">Daily</span>
-                                </div>
-                             `;
-                        });
-                        detailPrograms.innerHTML = programsHtml;
+                    // Handle Price Record IDs (Airtable Linked Records)
+                    let priceVal = gymProps['Prices'];
+                    if (Array.isArray(priceVal)) priceVal = priceVal[0]; // Take first if array
+                    // Check if it looks like a Record ID (starts with rec...)
+                    if (typeof priceVal === 'string' && priceVal.startsWith('rec')) {
+                        priceVal = "Contact for Pricing";
                     }
+                    setText('detail-logistics-price', priceVal);
 
-                    const detailTrainers = document.getElementById('detail-trainers');
-                    if (detailTrainers) {
-                        detailTrainers.innerText = gymProps['Trainer Experience Level']
-                            ? `Our trainers are experienced ${gymProps['Trainer Experience Level']} professionals.`
-                            : "Certified Muay Thai trainers available for all sessions.";
+                    setText('detail-logistics-accom', gymProps.accommodation || gymProps['Accommodation']);
+
+                    // Handle Notes Visibility
+                    const notesVal = gymProps['Notes'] || gymProps['Summary'] || "";
+                    const notesContainer = document.getElementById('container-logistics-notes');
+                    const notesText = document.getElementById('detail-logistics-notes');
+
+                    if (notesVal) {
+                        if (notesContainer) notesContainer.classList.remove('hidden');
+                        if (notesText) notesText.innerText = notesVal;
+                    } else {
+                        if (notesContainer) notesContainer.classList.add('hidden');
                     }
 
                     // 3. Facilities Tab
