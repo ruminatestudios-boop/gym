@@ -28,8 +28,8 @@ const AIRTABLE_BASE_ID = getRequiredEnv('AIRTABLE_BASE_ID');
 const tableName = process.env.AIRTABLE_TABLE_NAME || 'Gyms';
 
 const genAI = GOOGLE_API_KEY ? new GoogleGenerativeAI(GOOGLE_API_KEY) : null;
-const airtableBase = (AIRTABLE_API_KEY && AIRTABLE_BASE_ID) 
-    ? new Airtable({ apiKey: AIRTABLE_API_KEY }).base(AIRTABLE_BASE_ID) 
+const airtableBase = (AIRTABLE_API_KEY && AIRTABLE_BASE_ID)
+    ? new Airtable({ apiKey: AIRTABLE_API_KEY }).base(AIRTABLE_BASE_ID)
     : null;
 
 // Gym Data Cache
@@ -92,12 +92,9 @@ app.get('/api/gyms', async (req, res) => {
         const data = await response.json();
 
         if (data.records) {
-            // Return cleaned map for frontend usage
-            // Return cleaned map for frontend usage
             const gyms = data.records.map(r => {
                 const f = r.fields;
 
-                // 1. Generate Description from Tags
                 let generatedDesc = f['Description'] || f['Notes'];
                 if (!generatedDesc) {
                     const vibe = f['Gym Atmosphere'] ? f['Gym Atmosphere'].join(', ') : 'Authentic';
@@ -106,33 +103,27 @@ app.get('/api/gyms', async (req, res) => {
                     generatedDesc = `${f['Gym Name']} offers a ${vibe} atmosphere in ${f['City/Region']}. Perfect for ${levels}. ${owner}`;
                 }
 
-                // 2. Generate Accommodation Text
                 let accomText = f['Accommodation'] || "Contact for accommodation details.";
                 if (f['On-site Accommodation'] === 'Yes') {
                     const amenities = [];
                     if (f['Kitchen Access'] === 'Yes') amenities.push("Kitchen Access");
                     if (f['Air Conditioning'] === 'Yes') amenities.push("Air Conditioning");
                     else if (f['Fans'] === 'Yes') amenities.push("Fan Rooms");
-
                     accomText = `On-site accommodation available. ${amenities.length ? 'Includes: ' + amenities.join(', ') + '.' : ''}`;
                 } else if (f['On-site Accommodation'] === 'No') {
                     accomText = "No on-site rooms, but many hotels nearby.";
                 }
 
-                // 3. Generate Training Text (Keep as CSV for frontend list pill generation)
                 let trainingText = f['Training Programs'] || f['Training Style'];
                 if (!trainingText) {
-                    // Just return the skills list so it maps to "Beginner", "Advanced" pills
                     trainingText = f['Skill Level Welcome'] ? f['Skill Level Welcome'].join(', ') : 'All Levels, Muay Thai';
                 }
 
-                // Append Trainer Info to Description if needed
                 const trainerExp = f['Trainer Experience Level'] ? ` Trainers are ${f['Trainer Experience Level'].toLowerCase()}.` : '';
                 if (!generatedDesc.includes('Trainer')) {
                     generatedDesc += trainerExp;
                 }
 
-                // 4. Calculate Average Rating from Star Fields
                 const ratingFields = [
                     'Overall Rating',
                     'Cleanliness Rating',
@@ -148,7 +139,7 @@ app.get('/api/gyms', async (req, res) => {
 
                 const calculatedRating = ratings.length > 0
                     ? (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1)
-                    : 4.8; // Fallback if no ratings exist
+                    : 4.8;
 
                 return {
                     id: r.id,
@@ -170,6 +161,63 @@ app.get('/api/gyms', async (req, res) => {
         console.error("❌ API ERROR:", error);
         res.status(500).json({ error: "Failed to fetch gyms" });
     }
+});
+
+// Endpoint: Dynamic Gym Traffic Status
+app.get('/api/gym-status', (req, res) => {
+    // Get current time in Bangkok (UTC+7)
+    const now = new Date();
+    const bkkTime = new Date(now.getTime() + (7 * 60 * 60 * 1000));
+    const day = bkkTime.getUTCDay(); // 0-6 (Sun-Sat)
+    const hour = bkkTime.getUTCHours(); // 0-23
+
+    let level = "Low Traffic";
+    let color = "emerald";
+
+    // Most gyms are closed on Sundays
+    if (day === 0) {
+        level = "Closed Today";
+        color = "zinc";
+    } else {
+        // Morning Peak: 7am - 9am
+        if (hour >= 7 && hour < 10) {
+            level = "Busy (Morning Session)";
+            color = "red";
+        }
+        // Afternoon Peak: 4pm - 7pm
+        else if (hour >= 16 && hour < 19) {
+            level = "Live: Busy";
+            color = "red";
+        }
+        // Moderate: 9am - 11am, 3pm - 4pm, 7pm - 8pm
+        else if ((hour >= 10 && hour < 12) || (hour >= 15 && hour < 16) || (hour >= 19 && hour < 20)) {
+            level = "Live: Moderate";
+            color = "yellow";
+        }
+        // Night: Closed after 8pm
+        else if (hour >= 20 || hour < 7) {
+            level = "Closed Now";
+            color = "zinc";
+        }
+        // Otherwise Low
+        else {
+            level = "Live: Low Traffic";
+            color = "emerald";
+        }
+    }
+
+    res.json({
+        time: bkkTime.toISOString(),
+        hour: hour,
+        status: level,
+        color: color,
+        statuses: [
+            { text: "Live: Low Traffic", color: "text-emerald-400", dot: "bg-emerald-500", ping: "bg-emerald-400" },
+            { text: "Live: Moderate", color: "text-yellow-400", dot: "bg-yellow-500", ping: "bg-yellow-400" },
+            { text: "Live: Busy", color: "text-red-400", dot: "bg-red-500", ping: "bg-red-400" },
+            { text: "Closed Now", color: "text-zinc-500", dot: "bg-zinc-600", ping: "bg-zinc-500" }
+        ]
+    });
 });
 
 // Chat Endpoint
