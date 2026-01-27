@@ -84,15 +84,49 @@ const hasApiKeys = () => {
     return process.env.GOOGLE_API_KEY && process.env.AIRTABLE_API_KEY && process.env.AIRTABLE_BASE_ID;
 };
 
+// Helper: Generic Airtable Fetch (Non-paginated for simplicity, max 100 records)
+async function fetchAirtableTable(tableName) {
+    const url = `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/${tableName}`;
+    try {
+        const response = await fetch(url, { headers: { Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}` } });
+        const data = await response.json();
+        if (!response.ok) throw new Error(`Airtable API Error: ${response.statusText}`);
+        return data.records || [];
+    } catch (error) {
+        console.error(`❌ Failed to fetch table '${tableName}':`, error);
+        return [];
+    }
+}
+
 // Endpoint: Get All Gyms (Structured Data for Frontend)
 app.get('/api/gyms', async (req, res) => {
     try {
-        const url = `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/${process.env.AIRTABLE_TABLE_NAME}`;
-        const response = await fetch(url, { headers: { Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}` } });
-        const data = await response.json();
+        const [gymRecords, priceRecords] = await Promise.all([
+            fetchAirtableTable(process.env.AIRTABLE_TABLE_NAME || 'Gyms'),
+            fetchAirtableTable('Prices')
+        ]);
 
-        if (data.records) {
-            const gyms = data.records.map(r => {
+        // Create Price Lookup Map: Record ID -> { Name, Price }
+        const priceMap = {};
+        priceRecords.forEach(r => {
+            const f = r.fields;
+            // Assuming columns are "Name" and "Prices (THB)" based on screenshot
+            // Use fallback keys if needed
+            const name = f['Name'] || f['Item'] || 'Drop-in';
+            const cost = f['Prices (THB)'] || f['Price'] || f['Cost'];
+            if (cost) {
+                // Format: "1 Time: 350" (add THB in frontend or here?)
+                // Let's format it nicely here: "1 Time: 350 THB"
+                // Format number with commas?
+                const formattedCost = typeof cost === 'number'
+                    ? cost.toLocaleString()
+                    : cost;
+                priceMap[r.id] = `${name}: ${formattedCost} THB`;
+            }
+        });
+
+        if (gymRecords) {
+            const gyms = gymRecords.map(r => {
                 const f = r.fields;
 
                 let generatedDesc = f['Description'] || f['Notes'];
@@ -141,16 +175,27 @@ app.get('/api/gyms', async (req, res) => {
                     ? (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1)
                     : 4.8;
 
+                // Enroll Prices
+                let resolvedPrices = [];
+                const priceField = f['Prices']; // This is usually an array of IDs
+                if (Array.isArray(priceField)) {
+                    resolvedPrices = priceField.map(id => priceMap[id]).filter(Boolean);
+                } else if (typeof priceField === 'string' && !priceField.startsWith('rec')) {
+                    // It's a hardcoded string
+                    resolvedPrices = [priceField];
+                }
+
                 return {
+                    ...f, // Spread raw fields first
                     id: r.id,
                     name: f['Gym Name'],
                     location: f['City/Region'],
-                    price: f['Prices'],
+                    price: resolvedPrices.length > 0 ? resolvedPrices : null,
+                    Prices: resolvedPrices.length > 0 ? resolvedPrices : null, // Override raw IDs with resolved content
                     description: generatedDesc,
                     training: trainingText,
                     accommodation: accomText,
-                    rating: parseFloat(calculatedRating),
-                    ...f
+                    rating: parseFloat(calculatedRating)
                 };
             });
             res.json({ gyms });
@@ -277,6 +322,47 @@ FORMAT EXAMPLE:
         console.error('Error processing chat request:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
+
+});
+
+// Endpoint: Record Booking (Save to Airtable before paying)
+app.post('/api/record-booking', async (req, res) => {
+    const { name, email, gymName, date, time, trainingType, notes } = req.body;
+
+    if (!name || !email) {
+        return res.status(400).json({ error: 'Name and Email are required' });
+    }
+
+    if (!airtableBase) {
+        return res.status(503).json({ error: 'Airtable connection not configured' });
+    }
+
+    try {
+        // Attempt to save to 'Bookings' table
+        // NOTE: User must create this table in Airtable base!
+        await airtableBase('Bookings').create([
+            {
+                "fields": {
+                    "Name": name,
+                    "Email": email,
+                    "Gym Name": gymName,
+                    "Date": date,
+                    "Time": time,
+                    "Type": trainingType,
+                    "Notes": notes || '',
+                    "Status": "Pending Payment",
+                    "Created At": new Date().toISOString()
+                }
+            }
+        ]);
+        console.log(`✅ Booking recorded for: ${name} (${gymName})`);
+        res.json({ success: true });
+    } catch (error) {
+        console.error('❌ Booking Record Error:', error);
+        // Fallback: If 'Bookings' table doesn't exist, try 'Waitlist' with notes?
+        // For now, just error out so we know to fix Airtable
+        res.status(500).json({ error: 'Failed to record booking. Ensure "Bookings" table exists in Airtable.' });
+    }
 });
 
 // Waitlist Endpoint
@@ -340,6 +426,17 @@ app.post('/api/create-checkout-session', async (req, res) => {
                 unit_amount: 14700, // $147.00
             }
         };
+    } else if (priceType === 'booking-deposit') {
+        productData = {
+            price_data: {
+                currency: 'usd',
+                product_data: {
+                    name: 'Gym Booking Deposit',
+                    description: 'Secure your session. Includes concierge coordination.',
+                },
+                unit_amount: 1500, // $15.00
+            }
+        };
     } else {
         return res.status(400).json({ error: 'Invalid price type' });
     }
@@ -354,7 +451,8 @@ app.post('/api/create-checkout-session', async (req, res) => {
                 },
             ],
             mode: 'payment',
-            success_url: `${clientUrl}/index.html?success=true`,
+            metadata: req.body.metadata || {}, // Pass booking details to Stripe
+            success_url: `${clientUrl}/index.html?payment_success=booking`,
             cancel_url: `${clientUrl}/index.html?canceled=true`,
         });
 

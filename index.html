@@ -1026,7 +1026,8 @@
                                 </div>
                                 <div class="flex items-center gap-1 relative z-10">
                                     <i data-lucide="handshake" class="w-4 h-4"></i>
-                                    <span class="text-[10px] uppercase tracking-wider font-bold">Book</span>
+                                    <span class="text-[10px] uppercase tracking-wider font-bold">Book with Real
+                                        Agent</span>
                                 </div>
                                 <span class="text-[9px] text-zinc-600 font-bold relative z-10">$15 Instant</span>
                             </button>
@@ -1154,7 +1155,7 @@
                             class="text-zinc-500 text-[10px] font-bold uppercase tracking-wider mb-1.5 flex items-center gap-2">
                             <i data-lucide="map-pin" class="w-3 h-3 text-emerald-500"></i> Nearby Amenities
                         </h5>
-                        <div id="detail-logistics-amenities" class="flex flex-wrap gap-2 px-1">--</div>
+                        <div id="detail-logistics-amenities" class="flex flex-wrap gap-2">--</div>
                     </div>
 
                     <!-- Class Duration -->
@@ -1163,7 +1164,7 @@
                             class="text-zinc-500 text-[10px] font-bold uppercase tracking-wider mb-1.5 flex items-center gap-2">
                             <i data-lucide="clock" class="w-3 h-3 text-blue-500"></i> Class Duration
                         </h5>
-                        <p id="detail-logistics-duration" class="text-zinc-200 text-sm px-1">--</p>
+                        <p id="detail-logistics-duration" class="text-zinc-200 text-sm pt-1.5">--</p>
                     </div>
 
                     <!-- Prices -->
@@ -1172,7 +1173,7 @@
                             class="text-zinc-500 text-[10px] font-bold uppercase tracking-wider mb-1.5 flex items-center gap-2">
                             <i data-lucide="tag" class="w-3 h-3 text-yellow-500"></i> Prices
                         </h5>
-                        <div id="detail-logistics-price" class="flex flex-wrap gap-2 px-1">--</div>
+                        <div id="detail-logistics-price" class="flex flex-wrap gap-2">--</div>
                     </div>
 
                     <!-- Accommodation -->
@@ -1181,7 +1182,7 @@
                             class="text-zinc-500 text-[10px] font-bold uppercase tracking-wider mb-1.5 flex items-center gap-2">
                             <i data-lucide="bed" class="w-3 h-3 text-purple-500"></i> Accommodation
                         </h5>
-                        <p id="detail-logistics-accom" class="text-zinc-200 text-sm leading-relaxed px-1">--</p>
+                        <p id="detail-logistics-accom" class="text-zinc-200 text-sm leading-relaxed pt-1.5">--</p>
                     </div>
 
 
@@ -2936,78 +2937,171 @@
     <!-- Booking Modal -->
     <!-- Booking Modal -->
     <div id="booking-modal" style="display: none;"
-        class="fixed inset-0 z-[70] items-center justify-center bg-black/95 backdrop-blur-md p-4 animate-fade-in">
-        <div class="bg-zinc-900 border border-zinc-700/50 w-full max-w-lg rounded-3xl p-8 relative shadow-2xl">
+        class="fixed inset-0 z-[70] items-center justify-center bg-black/95 backdrop-blur-md p-4 animate-fade-in overflow-y-auto">
+        <div
+            class="bg-zinc-900 border border-zinc-700/50 w-full max-w-3xl rounded-3xl relative shadow-2xl my-8 flex flex-col md:flex-row overflow-hidden">
             <button id="close-booking-modal" onclick="document.getElementById('booking-modal').style.display='none';"
-                class="absolute top-4 right-4 text-zinc-500 hover:text-white transition-colors">
+                class="absolute top-4 right-4 z-10 text-zinc-500 hover:text-white transition-colors">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
 
-            <div class="text-center mb-6">
+            <!-- Left Side: Header & Info -->
+            <div
+                class="w-full md:w-1/3 bg-zinc-950/50 p-8 flex flex-col justify-center items-center text-center border-b md:border-b-0 md:border-r border-zinc-800">
                 <div
-                    class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-emerald-600/20 text-emerald-500 mb-4">
-                    <i data-lucide="calendar-check" class="w-7 h-7"></i>
+                    class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-600/20 text-emerald-500 mb-6">
+                    <i data-lucide="calendar-check" class="w-8 h-8"></i>
                 </div>
                 <h3 class="text-2xl font-bold text-white mb-2">Book Your Session</h3>
-                <p class="text-zinc-400">Secure your spot with our verified partner.</p>
+                <p class="text-sm text-zinc-400 leading-relaxed">Secure your spot with our verified partner. We'll
+                    handle the coordination for you.</p>
+
+                <div class="mt-8 flex items-center gap-2 text-xs text-zinc-500">
+                    <i data-lucide="shield-check" class="w-4 h-4 text-emerald-500"></i>
+                    <span>Verified Gym Partner</span>
+                </div>
             </div>
 
-            <form id="booking-form" class="space-y-4">
-                <div>
-                    <label class="block text-zinc-400 text-xs font-bold uppercase tracking-wider mb-2">Gym
-                        Name</label>
-                    <input type="text" id="booking-gym-name" readonly
-                        class="w-full bg-zinc-950 text-zinc-300 border border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 cursor-not-allowed">
-                </div>
-
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-zinc-400 text-xs font-bold uppercase tracking-wider mb-2">Date</label>
-                        <input type="date" required
-                            class="w-full bg-zinc-950 text-white border border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 appearance-none">
+            <!-- Right Side: Form -->
+            <div class="w-full md:w-2/3 p-6 md:p-8">
+                <form id="booking-form" class="space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label
+                                class="block text-zinc-400 text-xs font-bold uppercase tracking-wider mb-2">Name</label>
+                            <input type="text" id="booking-name" required placeholder="Your Full Name"
+                                class="w-full bg-zinc-950 text-white border border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <div>
+                            <label
+                                class="block text-zinc-400 text-xs font-bold uppercase tracking-wider mb-2">Email</label>
+                            <input type="email" id="booking-email" required placeholder="name@example.com"
+                                class="w-full bg-zinc-950 text-white border border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500">
+                        </div>
                     </div>
+
                     <div>
-                        <label class="block text-zinc-400 text-xs font-bold uppercase tracking-wider mb-2">Time</label>
-                        <input type="time" required
-                            class="w-full bg-zinc-950 text-white border border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 appearance-none">
+                        <label class="block text-zinc-400 text-xs font-bold uppercase tracking-wider mb-2">Gym
+                            Name</label>
+                        <input type="text" id="booking-gym-name" readonly
+                            class="w-full bg-zinc-950 text-zinc-300 border border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 cursor-not-allowed">
                     </div>
-                </div>
 
-                <div>
-                    <label class="block text-zinc-400 text-xs font-bold uppercase tracking-wider mb-2">Training
-                        Type</label>
-                    <select required
-                        class="w-full bg-zinc-950 text-white border border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 appearance-none">
-                        <option value="Drop-in">Drop-in Session</option>
-                        <option value="Private">Private 1-on-1</option>
-                        <option value="Weekly">Weekly Pass</option>
-                        <option value="Monthly">Monthly Package</option>
-                    </select>
-                </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label
+                                class="block text-zinc-400 text-xs font-bold uppercase tracking-wider mb-2">Date</label>
+                            <input type="date" required
+                                class="w-full bg-zinc-950 text-white border border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 appearance-none">
+                        </div>
+                        <div>
+                            <label
+                                class="block text-zinc-400 text-xs font-bold uppercase tracking-wider mb-2">Time</label>
+                            <input type="time" required
+                                class="w-full bg-zinc-950 text-white border border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 appearance-none">
+                        </div>
+                    </div>
 
-                <button type="submit"
-                    class="w-full py-4 mt-4 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-lg transition-all shadow-lg shadow-emerald-900/40 hover:scale-[1.02] flex items-center justify-center gap-2">
-                    <span>Proceed to Payment</span>
-                    <span class="bg-black/20 px-2 py-0.5 rounded text-sm">$15.00</span>
-                </button>
+                    <div>
+                        <label class="block text-zinc-400 text-xs font-bold uppercase tracking-wider mb-2">Training
+                            Type</label>
+                        <select required
+                            class="w-full bg-zinc-950 text-white border border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 appearance-none">
+                            <option value="Drop-in">Drop-in Session</option>
+                            <option value="Private">Private 1-on-1</option>
+                            <option value="Weekly">Weekly Pass</option>
+                            <option value="Monthly">Monthly Package</option>
+                        </select>
+                    </div>
 
-                <p class="text-center text-xs text-zinc-500 mt-2">
-                    <i data-lucide="lock" class="w-3 h-3 inline mr-1"></i> Secure SSL Payment
-                </p>
-            </form>
+                    <div>
+                        <label class="block text-zinc-400 text-xs font-bold uppercase tracking-wider mb-2">Special
+                            Requests
+                            / Notes</label>
+                        <textarea id="booking-notes" rows="3"
+                            placeholder="Tell us about your level or specific goals..."
+                            class="w-full bg-zinc-950 text-white border border-zinc-800 rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 appearance-none resize-none"></textarea>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full py-4 mt-4 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-lg transition-all shadow-lg shadow-emerald-900/40 hover:scale-[1.02] flex items-center justify-center gap-2">
+                        <span>Proceed to Payment</span>
+                        <span class="bg-black/20 px-2 py-0.5 rounded text-sm">$15.00</span>
+                    </button>
+
+                    <p class="text-center text-xs text-zinc-500 mt-2">
+                        <i data-lucide="lock" class="w-3 h-3 inline mr-1"></i> Secure SSL Payment
+                    </p>
+                    <p class="text-center text-xs text-zinc-400 mt-2 px-8">
+                        *Booking is subject to availability and cannot be guaranteed. Our agent will confirm exact times
+                        with the gym.
+                    </p>
+                </form>
+            </div>
         </div>
-    </div>
-    <!-- Privacy & Terms Logic -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const privacyLink = document.getElementById('link-privacy');
-            const termsLink = document.getElementById('link-terms');
-            const textModal = document.getElementById('text-modal');
-            const modalTitle = document.getElementById('text-modal-title');
-            const modalContent = document.getElementById('text-modal-content');
-            const closeBtn = document.getElementById('close-text-modal-btn');
 
-            const privacyPolicyText = `
+        <script>
+            document.getElementById('booking-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = e.target.querySelector('button[type="submit"]');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="animate-spin" data-lucide="loader-2"></i> Processing...';
+                btn.disabled = true;
+                lucide.createIcons();
+
+                const name = document.getElementById('booking-name').value;
+                const email = document.getElementById('booking-email').value;
+                const gymName = document.getElementById('booking-gym-name').value;
+                const date = e.target.querySelector('input[type="date"]').value;
+                const time = e.target.querySelector('input[type="time"]').value;
+                const type = e.target.querySelector('select').value;
+                const notes = document.getElementById('booking-notes').value;
+
+                try {
+                    // 1. Record the booking intent to Airtable (so Agent knows details)
+                    const response = await fetch('/api/record-booking', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            name,
+                            email,
+                            gymName,
+                            date,
+                            time,
+                            trainingType: type,
+                            notes
+                        })
+                    });
+
+                    if (response.ok) {
+                        // 2. Redirect to the Static Stripe Payment Link
+                        window.location.href = "https://buy.stripe.com/28E00k5E8c0B7gc8G23ks00";
+                    } else {
+                        const err = await response.json();
+                        console.warn("Booking record failed:", err);
+                        alert('Error: ' + (err.error || 'Could not save booking details. Please checks Logs.'));
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                    }
+                } catch (error) {
+                    console.error('Booking Error:', error);
+                    alert('Something went wrong. Please try again.');
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }
+            });
+        </script>
+        <!-- Privacy & Terms Logic -->
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const privacyLink = document.getElementById('link-privacy');
+                const termsLink = document.getElementById('link-terms');
+                const textModal = document.getElementById('text-modal');
+                const modalTitle = document.getElementById('text-modal-title');
+                const modalContent = document.getElementById('text-modal-content');
+                const closeBtn = document.getElementById('close-text-modal-btn');
+
+                const privacyPolicyText = `
                 <h3 class="text-xl text-white font-bold mb-2">1. Introduction</h3>
                 <p>Welcome to Fightlore+. We value your privacy and are committed to protecting your personal data.</p>
                 <h3 class="text-xl text-white font-bold mb-2 mt-4">2. Data Collection</h3>
@@ -3022,7 +3116,7 @@
                 <p>If you have any questions about this Privacy Policy, please contact us at infofightlore@gmail.com.</p>
             `;
 
-            const termsOfServiceText = `
+                const termsOfServiceText = `
                 <h3 class="text-xl text-white font-bold mb-2">1. Acceptance of Terms</h3>
                 <p>By accessing or using our services, you agree to be bound by these Terms of Service.</p>
                 <h3 class="text-xl text-white font-bold mb-2 mt-4">2. Description of Service</h3>
@@ -3037,331 +3131,332 @@
                 <p>We reserve the right to modify these terms at any time. We will provide notice of any significant changes.</p>
             `;
 
-            function openTextModal(title, content) {
-                if (textModal && modalTitle && modalContent) {
-                    modalTitle.textContent = title;
-                    modalContent.innerHTML = content;
-                    textModal.classList.remove('hidden');
-                    textModal.classList.add('flex');
-                    document.body.classList.add('overflow-hidden');
-                }
-            }
-
-            function closeTextModal() {
-                if (textModal) {
-                    textModal.classList.add('hidden');
-                    textModal.classList.remove('flex');
-                    document.body.classList.remove('overflow-hidden');
-                }
-            }
-
-            if (privacyLink) {
-                privacyLink.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    openTextModal('Privacy Policy', privacyPolicyText);
-                });
-            }
-
-            if (termsLink) {
-                termsLink.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    openTextModal('Terms of Service', termsOfServiceText);
-                });
-            }
-
-            if (closeBtn) {
-                closeBtn.addEventListener('click', closeTextModal);
-            }
-
-            if (textModal) {
-                textModal.addEventListener('click', (e) => {
-                    if (e.target === textModal) {
-                        closeTextModal();
+                function openTextModal(title, content) {
+                    if (textModal && modalTitle && modalContent) {
+                        modalTitle.textContent = title;
+                        modalContent.innerHTML = content;
+                        textModal.classList.remove('hidden');
+                        textModal.classList.add('flex');
+                        document.body.classList.add('overflow-hidden');
                     }
-                });
-            }
-        });
-    </script>
-    <!-- Waitlist Modal (Global Overlay) -->
-    <div id="waitlist-card"
-        class="hidden fixed inset-0 z-[100] items-center justify-center bg-black/80 backdrop-blur-md animate-fade-in">
-        <div
-            class="relative w-full max-w-md p-6 mx-4 bg-[#050505] border border-zinc-800 rounded-3xl shadow-2xl animate-scale-up">
+                }
 
-            <div class="flex flex-col items-center text-center gap-4 mb-8">
-                <div
-                    class="w-14 h-14 rounded-full bg-blue-500/10 flex items-center justify-center border border-blue-500/20 mb-2 shadow-lg shadow-blue-500/10">
-                    <i data-lucide="map" class="w-7 h-7 text-blue-400"></i>
-                </div>
-                <div>
-                    <h4 class="text-white font-bold text-2xl tracking-tight mb-2">You've reached the edge of the
-                        map.</h4>
-                    <p class="text-zinc-400 text-sm leading-relaxed max-w-[320px] mx-auto">
-                        Drop your email to join the <span class="text-white font-medium">Founding 500</span>. You'll
-                        get an invite to the full Black Book at <span class="text-white font-medium">50% off
-                            ($29)</span> when we go live. No credit card needed today.
-                    </p>
-                </div>
-            </div>
+                function closeTextModal() {
+                    if (textModal) {
+                        textModal.classList.add('hidden');
+                        textModal.classList.remove('flex');
+                        document.body.classList.remove('overflow-hidden');
+                    }
+                }
 
-            <form class="space-y-4" id="waitlist-form">
-                <div class="space-y-3">
-                    <div class="relative group">
-                        <i
-                            class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500 group-focus-within:text-blue-400 transition-colors"></i>
-                        <input type="text" id="waitlist-name" placeholder="Enter your full name"
-                            class="w-full bg-zinc-900 border border-zinc-800 text-white text-base pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all placeholder-zinc-600">
+                if (privacyLink) {
+                    privacyLink.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        openTextModal('Privacy Policy', privacyPolicyText);
+                    });
+                }
+
+                if (termsLink) {
+                    termsLink.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        openTextModal('Terms of Service', termsOfServiceText);
+                    });
+                }
+
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', closeTextModal);
+                }
+
+                if (textModal) {
+                    textModal.addEventListener('click', (e) => {
+                        if (e.target === textModal) {
+                            closeTextModal();
+                        }
+                    });
+                }
+            });
+        </script>
+        <!-- Waitlist Modal (Global Overlay) -->
+        <div id="waitlist-card"
+            class="hidden fixed inset-0 z-[100] items-center justify-center bg-black/80 backdrop-blur-md animate-fade-in">
+            <div
+                class="relative w-full max-w-md p-6 mx-4 bg-[#050505] border border-zinc-800 rounded-3xl shadow-2xl animate-scale-up">
+
+                <div class="flex flex-col items-center text-center gap-4 mb-8">
+                    <div
+                        class="w-14 h-14 rounded-full bg-blue-500/10 flex items-center justify-center border border-blue-500/20 mb-2 shadow-lg shadow-blue-500/10">
+                        <i data-lucide="map" class="w-7 h-7 text-blue-400"></i>
                     </div>
-                    <div class="relative group">
-                        <i
-                            class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500 group-focus-within:text-blue-400 transition-colors"></i>
-                        <input type="email" id="waitlist-email" required placeholder="Enter your email"
-                            class="w-full bg-zinc-900 border border-zinc-800 text-white text-base pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all placeholder-zinc-600">
+                    <div>
+                        <h4 class="text-white font-bold text-2xl tracking-tight mb-2">You've reached the edge of the
+                            map.</h4>
+                        <p class="text-zinc-400 text-sm leading-relaxed max-w-[320px] mx-auto">
+                            Drop your email to join the <span class="text-white font-medium">Founding 500</span>. You'll
+                            get an invite to the full Black Book at <span class="text-white font-medium">50% off
+                                ($29)</span> when we go live. No credit card needed today.
+                        </p>
                     </div>
                 </div>
 
-                <button type="submit" id="waitlist-btn"
-                    class="w-full bg-white hover:bg-zinc-200 text-black font-bold text-lg py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-white/5 transform active:scale-[0.99] mt-2">
-                    <span>Join the Black Book</span>
-                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                </button>
-            </form>
+                <form class="space-y-4" id="waitlist-form">
+                    <div class="space-y-3">
+                        <div class="relative group">
+                            <i
+                                class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500 group-focus-within:text-blue-400 transition-colors"></i>
+                            <input type="text" id="waitlist-name" placeholder="Enter your full name"
+                                class="w-full bg-zinc-900 border border-zinc-800 text-white text-base pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all placeholder-zinc-600">
+                        </div>
+                        <div class="relative group">
+                            <i
+                                class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500 group-focus-within:text-blue-400 transition-colors"></i>
+                            <input type="email" id="waitlist-email" required placeholder="Enter your email"
+                                class="w-full bg-zinc-900 border border-zinc-800 text-white text-base pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all placeholder-zinc-600">
+                        </div>
+                    </div>
 
-            <p id="waitlist-success"
-                class="hidden text-emerald-400 text-sm font-bold mt-4 text-center bg-emerald-500/10 py-2 rounded-lg border border-emerald-500/20">
-                <i data-lucide="check-circle" class="w-4 h-4 inline mr-1"></i> Access Granted. Welcome to the inner
-                circle.
-            </p>
+                    <button type="submit" id="waitlist-btn"
+                        class="w-full bg-white hover:bg-zinc-200 text-black font-bold text-lg py-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-white/5 transform active:scale-[0.99] mt-2">
+                        <span>Join the Black Book</span>
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </button>
+                </form>
 
-            <div class="text-center mt-6 pt-6 border-t border-zinc-900">
-                <p class="text-[11px] text-zinc-600 tracking-wide uppercase font-medium">Limited spots available for
-                    beta access</p>
+                <p id="waitlist-success"
+                    class="hidden text-emerald-400 text-sm font-bold mt-4 text-center bg-emerald-500/10 py-2 rounded-lg border border-emerald-500/20">
+                    <i data-lucide="check-circle" class="w-4 h-4 inline mr-1"></i> Access Granted. Welcome to the inner
+                    circle.
+                </p>
+
+                <div class="text-center mt-6 pt-6 border-t border-zinc-900">
+                    <p class="text-[11px] text-zinc-600 tracking-wide uppercase font-medium">Limited spots available for
+                        beta access</p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <script>
-        document.getElementById('waitlist-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = document.getElementById('waitlist-name').value;
-            const email = document.getElementById('waitlist-email').value;
-            const btn = document.getElementById('waitlist-btn');
+        <script>
+            document.getElementById('waitlist-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const name = document.getElementById('waitlist-name').value;
+                const email = document.getElementById('waitlist-email').value;
+                const btn = document.getElementById('waitlist-btn');
 
-            const originalText = btn.innerHTML;
-            btn.innerHTML = `<i data-lucide="loader" class="w-5 h-5 animate-spin"></i> Securing Spot...`;
-            btn.disabled = true;
-            btn.classList.add('opacity-80', 'cursor-not-allowed');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = `<i data-lucide="loader" class="w-5 h-5 animate-spin"></i> Securing Spot...`;
+                btn.disabled = true;
+                btn.classList.add('opacity-80', 'cursor-not-allowed');
 
-            try {
-                const res = await fetch('/api/waitlist', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, name })
-                });
+                try {
+                    const res = await fetch('/api/waitlist', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, name })
+                    });
 
-                if (res.ok) {
-                    btn.innerHTML = `<i data-lucide="check" class="w-5 h-5"></i> Saved`;
-                    btn.classList.replace('bg-white', 'bg-emerald-500');
-                    btn.classList.replace('text-black', 'text-white');
-                    btn.classList.replace('hover:bg-zinc-200', 'hover:bg-emerald-600');
+                    if (res.ok) {
+                        btn.innerHTML = `<i data-lucide="check" class="w-5 h-5"></i> Saved`;
+                        btn.classList.replace('bg-white', 'bg-emerald-500');
+                        btn.classList.replace('text-black', 'text-white');
+                        btn.classList.replace('hover:bg-zinc-200', 'hover:bg-emerald-600');
 
-                    document.getElementById('waitlist-success').classList.remove('hidden');
+                        document.getElementById('waitlist-success').classList.remove('hidden');
 
-                    // Create confetti effect or nice feedback
-                    if (lucide) lucide.createIcons();
-                } else {
-                    alert('Something went wrong. Please try again.');
+                        // Create confetti effect or nice feedback
+                        if (lucide) lucide.createIcons();
+                    } else {
+                        alert('Something went wrong. Please try again.');
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                        btn.classList.remove('opacity-80', 'cursor-not-allowed');
+                    }
+                } catch (error) {
+                    console.error(error);
                     btn.innerHTML = originalText;
                     btn.disabled = false;
                     btn.classList.remove('opacity-80', 'cursor-not-allowed');
                 }
-            } catch (error) {
-                console.error(error);
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-                btn.classList.remove('opacity-80', 'cursor-not-allowed');
-            }
-        });
-    </script>
-    <!-- Founding 500 Waitlist Modal -->
-    <div id="founding-modal"
-        class="fixed inset-0 z-[120] hidden items-center justify-center bg-black/90 backdrop-blur-md p-4">
-        <div
-            class="w-full max-w-2xl bg-zinc-950 border border-blue-500 rounded-2xl shadow-[0_0_50px_-10px_rgba(59,130,246,0.3)] relative overflow-hidden flex flex-col p-8">
+            });
+        </script>
+        <!-- Founding 500 Waitlist Modal -->
+        <div id="founding-modal"
+            class="fixed inset-0 z-[120] hidden items-center justify-center bg-black/90 backdrop-blur-md p-4">
+            <div
+                class="w-full max-w-2xl bg-zinc-950 border border-blue-500 rounded-2xl shadow-[0_0_50px_-10px_rgba(59,130,246,0.3)] relative overflow-hidden flex flex-col p-8">
 
-            <!-- Close Button -->
-            <button onclick="closeFoundingModal()"
-                class="absolute top-4 right-4 text-zinc-500 hover:text-white transition-colors z-20">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
+                <!-- Close Button -->
+                <button onclick="closeFoundingModal()"
+                    class="absolute top-4 right-4 text-zinc-500 hover:text-white transition-colors z-20">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
 
 
-            <!-- Content -->
-            <div id="founding-content">
-                <h2 class="text-3xl font-bold text-white mb-4 leading-tight">The 2026 Fighter’s Season Pass</h2>
-                <p class="text-zinc-400 text-base leading-relaxed mb-10">
-                    Avoid tourist pricing. Get direct access to local rates, unblurred maps, and verified contacts for
-                    200+ gyms.
-                </p>
+                <!-- Content -->
+                <div id="founding-content">
+                    <h2 class="text-3xl font-bold text-white mb-4 leading-tight">The 2026 Fighter’s Season Pass</h2>
+                    <p class="text-zinc-400 text-base leading-relaxed mb-10">
+                        Avoid tourist pricing. Get direct access to local rates, unblurred maps, and verified contacts
+                        for
+                        200+ gyms.
+                    </p>
 
-                <!-- Feature List -->
-                <div class="space-y-5 mb-10">
-                    <div class="flex items-center gap-3">
-                        <div
-                            class="w-6 h-6 rounded-full border-2 border-blue-500 flex items-center justify-center shrink-0">
-                            <i data-lucide="check" class="w-4 h-4 text-blue-400"></i>
+                    <!-- Feature List -->
+                    <div class="space-y-5 mb-10">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-6 h-6 rounded-full border-2 border-blue-500 flex items-center justify-center shrink-0">
+                                <i data-lucide="check" class="w-4 h-4 text-blue-400"></i>
+                            </div>
+                            <span class="text-white text-lg font-medium">Unblurred Maps & Locations</span>
                         </div>
-                        <span class="text-white text-lg font-medium">Unblurred Maps & Locations</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <div class="w-6 h-6 flex items-center justify-center shrink-0">
-                            <i data-lucide="message-square" class="w-6 h-6 text-blue-400"></i>
+                        <div class="flex items-center gap-3">
+                            <div class="w-6 h-6 flex items-center justify-center shrink-0">
+                                <i data-lucide="message-square" class="w-6 h-6 text-blue-400"></i>
+                            </div>
+                            <span class="text-white text-lg font-medium">Verified Local Pricing (No Tourist Tax)</span>
                         </div>
-                        <span class="text-white text-lg font-medium">Verified Local Pricing (No Tourist Tax)</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <div class="w-6 h-6 flex items-center justify-center shrink-0">
-                            <i data-lucide="phone" class="w-6 h-6 text-blue-400"></i>
+                        <div class="flex items-center gap-3">
+                            <div class="w-6 h-6 flex items-center justify-center shrink-0">
+                                <i data-lucide="phone" class="w-6 h-6 text-blue-400"></i>
+                            </div>
+                            <span class="text-white text-lg font-medium">Direct Owner Contacts</span>
                         </div>
-                        <span class="text-white text-lg font-medium">Direct Owner Contacts</span>
                     </div>
+
+                    <form id="founding-form" class="space-y-4">
+                        <div>
+                            <input type="text" id="founding-name" required placeholder="Enter your name"
+                                class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3.5 text-white placeholder-zinc-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
+                        </div>
+                        <div>
+                            <input type="email" id="founding-email" required placeholder="Enter your email"
+                                class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3.5 text-white placeholder-zinc-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
+                        </div>
+                        <button type="submit" id="founding-submit-btn"
+                            class="w-full bg-white hover:bg-zinc-200 text-black font-bold text-lg py-4 rounded-xl transition-all shadow-lg shadow-white/10 flex items-center justify-center gap-2">
+                            <span>Join My Waitlist</span>
+                        </button>
+                        <p class="text-center text-zinc-500 text-xs uppercase tracking-widest font-medium">Pay when we
+                            launch</p>
+                    </form>
                 </div>
 
-                <form id="founding-form" class="space-y-4">
-                    <div>
-                        <input type="text" id="founding-name" required placeholder="Enter your name"
-                            class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3.5 text-white placeholder-zinc-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
+                <!-- Success State (Hidden - using toast instead) -->
+                <div id="founding-success" class="hidden flex-col items-center text-center py-4">
+                    <div
+                        class="w-16 h-16 rounded-full bg-blue-500/10 flex items-center justify-center mb-4 border border-blue-500/20">
+                        <i data-lucide="check" class="w-8 h-8 text-blue-400"></i>
                     </div>
-                    <div>
-                        <input type="email" id="founding-email" required placeholder="Enter your email"
-                            class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3.5 text-white placeholder-zinc-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
-                    </div>
-                    <button type="submit" id="founding-submit-btn"
-                        class="w-full bg-white hover:bg-zinc-200 text-black font-bold text-lg py-4 rounded-xl transition-all shadow-lg shadow-white/10 flex items-center justify-center gap-2">
-                        <span>Join My Waitlist</span>
-                    </button>
-                    <p class="text-center text-zinc-500 text-xs uppercase tracking-widest font-medium">Pay when we
-                        launch</p>
-                </form>
-            </div>
-
-            <!-- Success State (Hidden - using toast instead) -->
-            <div id="founding-success" class="hidden flex-col items-center text-center py-4">
-                <div
-                    class="w-16 h-16 rounded-full bg-blue-500/10 flex items-center justify-center mb-4 border border-blue-500/20">
-                    <i data-lucide="check" class="w-8 h-8 text-blue-400"></i>
+                    <h3 class="text-xl font-bold text-white mb-2">Welcome to the Inner Circle.</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed">
+                        We just sent your confirmation to <span id="confirmed-email" class="text-white"></span>. The
+                        Scout will be in touch soon.
+                    </p>
                 </div>
-                <h3 class="text-xl font-bold text-white mb-2">Welcome to the Inner Circle.</h3>
-                <p class="text-zinc-400 text-sm leading-relaxed">
-                    We just sent your confirmation to <span id="confirmed-email" class="text-white"></span>. The
-                    Scout will be in touch soon.
-                </p>
             </div>
         </div>
-    </div>
 
-    <script>
-        // Modal Logic
-        const foundingModal = document.getElementById('founding-modal');
-        const foundingForm = document.getElementById('founding-form');
-        const foundingEmail = document.getElementById('founding-email');
-        const foundingContent = document.getElementById('founding-content');
-        const foundingSuccess = document.getElementById('founding-success');
-        const confirmedEmailSpan = document.getElementById('confirmed-email');
-        const foundingSubmitBtn = document.getElementById('founding-submit-btn');
+        <script>
+            // Modal Logic
+            const foundingModal = document.getElementById('founding-modal');
+            const foundingForm = document.getElementById('founding-form');
+            const foundingEmail = document.getElementById('founding-email');
+            const foundingContent = document.getElementById('founding-content');
+            const foundingSuccess = document.getElementById('founding-success');
+            const confirmedEmailSpan = document.getElementById('confirmed-email');
+            const foundingSubmitBtn = document.getElementById('founding-submit-btn');
 
-        window.openFoundingModal = function () {
-            if (foundingModal) {
-                foundingModal.classList.remove('hidden');
-                foundingModal.classList.add('flex');
-                document.body.style.overflow = 'hidden';
+            window.openFoundingModal = function () {
+                if (foundingModal) {
+                    foundingModal.classList.remove('hidden');
+                    foundingModal.classList.add('flex');
+                    document.body.style.overflow = 'hidden';
+                }
             }
-        }
 
-        window.closeFoundingModal = function () {
-            if (foundingModal) {
-                foundingModal.classList.add('hidden');
-                foundingModal.classList.remove('flex');
-                document.body.style.overflow = '';
-                // Reset success state after delay to allow re-entry
-                setTimeout(() => {
-                    foundingForm.reset();
-                    foundingContent.classList.remove('hidden');
-                    foundingSuccess.classList.add('hidden');
-                    foundingSuccess.classList.remove('flex');
-                    if (foundingSubmitBtn) {
-                        foundingSubmitBtn.disabled = false;
-                        foundingSubmitBtn.innerHTML = '<span>Get Early Access</span><i data-lucide="arrow-right" class="w-4 h-4"></i>';
-                    }
-                }, 300);
+            window.closeFoundingModal = function () {
+                if (foundingModal) {
+                    foundingModal.classList.add('hidden');
+                    foundingModal.classList.remove('flex');
+                    document.body.style.overflow = '';
+                    // Reset success state after delay to allow re-entry
+                    setTimeout(() => {
+                        foundingForm.reset();
+                        foundingContent.classList.remove('hidden');
+                        foundingSuccess.classList.add('hidden');
+                        foundingSuccess.classList.remove('flex');
+                        if (foundingSubmitBtn) {
+                            foundingSubmitBtn.disabled = false;
+                            foundingSubmitBtn.innerHTML = '<span>Get Early Access</span><i data-lucide="arrow-right" class="w-4 h-4"></i>';
+                        }
+                    }, 300);
+                }
             }
-        }
 
-        // Close on backdrop click
-        if (foundingModal) {
-            foundingModal.addEventListener('click', (e) => {
-                if (e.target === foundingModal) closeFoundingModal();
-            });
-        }
+            // Close on backdrop click
+            if (foundingModal) {
+                foundingModal.addEventListener('click', (e) => {
+                    if (e.target === foundingModal) closeFoundingModal();
+                });
+            }
 
-        // Handle Submit
-        if (foundingForm) {
-            foundingForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const email = foundingEmail.value;
-                const name = document.getElementById('founding-name').value;
-                if (!email || !name) return;
+            // Handle Submit
+            if (foundingForm) {
+                foundingForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const email = foundingEmail.value;
+                    const name = document.getElementById('founding-name').value;
+                    if (!email || !name) return;
 
-                // Loading State
-                const originalBtnContent = foundingSubmitBtn.innerHTML;
-                foundingSubmitBtn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i>';
-                foundingSubmitBtn.disabled = true;
+                    // Loading State
+                    const originalBtnContent = foundingSubmitBtn.innerHTML;
+                    foundingSubmitBtn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i>';
+                    foundingSubmitBtn.disabled = true;
 
-                try {
-                    const response = await fetch('/api/waitlist', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ email: email, name: name })
-                    });
+                    try {
+                        const response = await fetch('/api/waitlist', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ email: email, name: name })
+                        });
 
-                    if (response.ok) {
-                        // Show Toast
-                        const toast = document.getElementById('toast-notification');
-                        const toastMessage = document.getElementById('toast-message');
-                        if (toast && toastMessage) {
-                            toastMessage.textContent = `✓ Welcome to the waitlist, ${name}!`;
-                            toast.classList.remove('hidden', 'translate-y-10', 'opacity-0');
-                            toast.classList.add('flex', 'translate-y-0', 'opacity-100');
+                        if (response.ok) {
+                            // Show Toast
+                            const toast = document.getElementById('toast-notification');
+                            const toastMessage = document.getElementById('toast-message');
+                            if (toast && toastMessage) {
+                                toastMessage.textContent = `✓ Welcome to the waitlist, ${name}!`;
+                                toast.classList.remove('hidden', 'translate-y-10', 'opacity-0');
+                                toast.classList.add('flex', 'translate-y-0', 'opacity-100');
+
+                                setTimeout(() => {
+                                    toast.classList.remove('translate-y-0', 'opacity-100');
+                                    toast.classList.add('translate-y-10', 'opacity-0');
+                                    setTimeout(() => toast.classList.add('hidden'), 300);
+                                }, 3000);
+                            }
+
+                            // Reset form and close modal
+                            foundingForm.reset();
+                            foundingSubmitBtn.innerHTML = originalBtnContent;
+                            foundingSubmitBtn.disabled = false;
 
                             setTimeout(() => {
-                                toast.classList.remove('translate-y-0', 'opacity-100');
-                                toast.classList.add('translate-y-10', 'opacity-0');
-                                setTimeout(() => toast.classList.add('hidden'), 300);
-                            }, 3000);
+                                closeFoundingModal();
+                            }, 1000);
+                        } else {
+                            alert('Something went wrong. Please try again.');
+                            foundingSubmitBtn.innerHTML = originalBtnContent;
+                            foundingSubmitBtn.disabled = false;
                         }
-
-                        // Reset form and close modal
-                        foundingForm.reset();
-                        foundingSubmitBtn.innerHTML = originalBtnContent;
-                        foundingSubmitBtn.disabled = false;
-
-                        setTimeout(() => {
-                            closeFoundingModal();
-                        }, 1000);
-                    } else {
-                        alert('Something went wrong. Please try again.');
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('Network error. Please try again.');
                         foundingSubmitBtn.innerHTML = originalBtnContent;
                         foundingSubmitBtn.disabled = false;
                     }
-                } catch (error) {
-                    console.error('Error:', error);
-                    alert('Network error. Please try again.');
-                    foundingSubmitBtn.innerHTML = originalBtnContent;
-                    foundingSubmitBtn.disabled = false;
-                }
-            });
-        }
-    </script>
+                });
+            }
+        </script>
 </body>
 
 </html>
