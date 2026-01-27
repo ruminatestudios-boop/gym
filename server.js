@@ -378,20 +378,31 @@ app.post('/api/waitlist', async (req, res) => {
     }
 
     try {
+        console.log(`\n--- 📥 Waitlist Submission: ${name} (${email}) ---`);
+
+        // Try to save to "Waitlist" table
         await airtableBase('Waitlist').create([
             {
                 "fields": {
                     "Name": name || '',
-                    "Email": email,
-                    "Date": new Date().toISOString()
+                    "Email": email
+                    // "Date": Removed to avoid schema mismatch/read-only errors
                 }
             }
         ]);
-        console.log(`✅ Added to waitlist: \${name || 'Anonymous'} (\${email})`);
+
+        console.log(`✅ SUCCESS: Added to Airtable "Waitlist" table\n`);
         res.json({ success: true, message: "Added to Waitlist" });
     } catch (error) {
-        console.error('❌ Waitlist error:', error);
-        res.status(500).json({ error: 'Failed to join waitlist' });
+        console.error('❌ Airtable Error:', error.message);
+        console.error('Full Error Object:', JSON.stringify(error, null, 2));
+
+        // Return more specific error if possible
+        const errorMsg = error.message.includes('not found')
+            ? 'Airtable table "Waitlist" not found. Please create it!'
+            : 'Airtable error: ' + error.message;
+
+        res.status(500).json({ error: errorMsg });
     }
 });
 
