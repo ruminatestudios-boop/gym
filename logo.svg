@@ -1,0 +1,25 @@
+<svg width="220" height="40" viewBox="0 0 220 40" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background (Optional, for transparency visibility) -->
+  <!-- <rect width="220" height="40" fill="#050505" /> -->
+  
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&amp;display=swap');
+      .logo-text { font-family: 'Manrope', sans-serif; font-weight: 700; fill: #FFFFFF; font-size: 24px; letter-spacing: -0.5px; }
+      .plus { fill: #3B82F6; font-weight: 800; }
+      .beta-badge { fill: rgba(255, 255, 255, 0.05); stroke: rgba(255, 255, 255, 0.1); stroke-width: 1; }
+      .beta-text { font-family: 'Manrope', sans-serif; font-weight: 800; fill: #60A5FA; font-size: 9px; text-transform: uppercase; }
+      .beta-dot { fill: #3B82F6; }
+    </style>
+  </defs>
+
+  <!-- Text: Fightlore -->
+  <text x="0" y="28" class="logo-text">Fightlore <tspan class="plus">+</tspan></text>
+
+  <!-- Beta Badge -->
+  <g transform="translate(145, 12)">
+    <rect width="45" height="18" rx="9" class="beta-badge" />
+    <circle cx="8" cy="9" r="2.5" class="beta-dot" />
+    <text x="15" y="12" class="beta-text">BETA</text>
+  </g>
+</svg>
