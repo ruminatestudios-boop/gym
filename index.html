@@ -1808,7 +1808,8 @@
 
             // Increment Count
             messageCount++;
-            console.log("Message Count:", messageCount);
+            localStorage.setItem('fightlore_message_count', messageCount);
+            console.log("Message Count (Persisted):", messageCount);
 
             if (suggestionPills) suggestionPills.style.display = 'none';
 
@@ -1907,9 +1908,16 @@
         }
 
         // --- Chat Limit Logic ---
-        let messageCount = 0;
+        let messageCount = parseInt(localStorage.getItem('fightlore_message_count')) || 0;
         const FREE_CHAT_LIMIT = 7;
-        const chatInputContainer = document.getElementById('chat-input-container'); // Need to ID this div in HTML logic below if not exists
+        const chatInputContainer = document.getElementById('chat-input-container');
+
+        // Check limit on load
+        document.addEventListener('DOMContentLoaded', () => {
+            if (messageCount >= FREE_CHAT_LIMIT) {
+                showWaitlistCard();
+            }
+        });
 
         function checkChatLimit() {
             if (messageCount >= FREE_CHAT_LIMIT) {
