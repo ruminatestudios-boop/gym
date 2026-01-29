@@ -398,10 +398,8 @@ app.post('/api/record-booking', async (req, res) => {
                     "Gym Name": gymName,
                     "Date": date,
                     "Time": time,
-                    "Type": trainingType,
-                    "Notes": notes || '',
-                    "Status": "Pending Payment",
-                    "Created At": new Date().toISOString()
+                    "Training Type": trainingType,
+                    "Notes": notes || ''
                 }
             }
         ]);
