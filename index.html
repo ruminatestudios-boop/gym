@@ -382,15 +382,15 @@
                     <div class="flex gap-3 overflow-x-auto pb-1 scrollbar-hide justify-center w-full">
                         <button type="button" onclick="expandChat()"
                             class="whitespace-nowrap px-4 py-2 rounded-lg bg-[#18181b]/80 border border-white/10 text-zinc-300 text-xs font-medium hover:bg-zinc-800 hover:text-white transition-all hover:border-zinc-600 backdrop-blur-sm">
-                            <span class="mr-2">🏆</span> Top gyms in Bangkok
+                            <span class="mr-2">🏆</span> Best gyms in Bangkok?
                         </button>
                         <button type="button" onclick="expandChat()"
                             class="whitespace-nowrap px-4 py-2 rounded-lg bg-[#18181b]/80 border border-white/10 text-zinc-300 text-xs font-medium hover:bg-zinc-800 hover:text-white transition-all hover:border-zinc-600 backdrop-blur-sm">
-                            <span class="mr-2">🛏️</span> Gyms with rooms
+                            <span class="mr-2">📍</span> Where should I train?
                         </button>
                         <button type="button" onclick="expandChat()"
                             class="whitespace-nowrap px-4 py-2 rounded-lg bg-[#18181b]/80 border border-white/10 text-zinc-300 text-xs font-medium hover:bg-zinc-800 hover:text-white transition-all hover:border-zinc-600 backdrop-blur-sm">
-                            <span class="mr-2">💵</span> Under 500฿/day
+                            <span class="mr-2">⭐</span> Show me your top recommendations
                         </button>
                     </div>
                 </div>
@@ -1135,7 +1135,7 @@
                                 <div
                                     class="absolute inset-0 bg-gradient-to-tr from-zinc-200/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
                                 </div>
-                                <div class="flex items-center gap-1 relative z-10">
+                                <div class="flex items-center justify-center gap-1 relative z-10">
                                     <i data-lucide="handshake" class="w-4 h-4"></i>
                                     <span class="text-[10px] uppercase tracking-wider font-bold">Booking Service</span>
                                 </div>
@@ -1714,6 +1714,9 @@
         const chatHistory = document.getElementById('chat-history');
         const suggestionPills = document.getElementById('suggestion-pills');
 
+        // Conversation history for context (keep last 5 messages)
+        let conversationHistory = [];
+
         // System Prompt (For reference/future API use)
         const SYSTEM_PROMPT = `
         Role: You are the Fightlore Scout, a Thailand Muay Thai expert currently on the ground visiting gyms. Your goal is to help users find the perfect training spot using the Fightlore Verified Database.
@@ -1818,7 +1821,10 @@
                 const response = await fetch('/api/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message })
+                    body: JSON.stringify({
+                        message,
+                        conversationHistory: conversationHistory.slice(-5) // Send last 5 messages
+                    })
                 });
 
                 const data = await response.json();
@@ -1829,7 +1835,12 @@
                 } else if (data.useMock) {
                     addMessage("⚠️ Backend is disconnected. " + data.message, 'ai');
                 } else {
-                    addMessage(data.response, 'ai');
+                    const aiResponse = data.response;
+                    addMessage(aiResponse, 'ai');
+
+                    // Add to conversation history
+                    conversationHistory.push({ role: 'user', content: message });
+                    conversationHistory.push({ role: 'assistant', content: aiResponse });
                 }
             } catch (err) {
                 removeMessage(loadingId);
@@ -1840,75 +1851,6 @@
             chatHistory.scrollTop = chatHistory.scrollHeight;
         });
 
-        function processChatLogic(input) {
-            const lowerInput = input.toLowerCase();
-
-            // 1. Check for specific Feature Requests (The Feature Match)
-            if (lowerInput.includes('sauna') || lowerInput.includes('ac')) {
-                const gym = gymDatabase.kiatsongkrit;
-                return `For <b>Sauna & AC</b> in Bangkok, <b>${gym.name}</b> is the spot. <br><br>${gym.note}<br><br>Would you like me to book a session there for you?`;
-            }
-            if (lowerInput.includes('crossfit')) {
-                const gym = gymDatabase.kiatphontip;
-                return `If you want <b>CrossFit</b> mixed with Muay Thai, you need to head to Chiang Mai and check out <b>${gym.name}</b>. <br><br>${gym.note}<br><br>Shall I get you the schedule?`;
-            }
-            if (lowerInput.includes('view') || lowerInput.includes('scenery') || lowerInput.includes('island')) {
-                const gym = gymDatabase.pksaenchai;
-                return `For training with a view, <b>${gym.name}</b> in Koh Samui is unbeatable. <br><br>${gym.note}<br><br>Want to secure a slot?`;
-            }
-            if (lowerInput.includes('authentic') || (lowerInput.includes('bangkok') && lowerInput.includes('traditional'))) {
-                const gym = gymDatabase.pinsinchai;
-                return `For raw, authentic training in Bangkok, <b>${gym.name}</b> is legendary. <br><br>${gym.note}<br><br>Ready to step into the ring there?`;
-            }
-
-            // 2. Check for Location/City filtering
-            // If they ask for a city we HAVE
-            if (lowerInput.includes('bangkok')) {
-                return "Bangkok has two verified spots: <b>Kiatsongkrit</b> (Premium/AC) and <b>Pinsinchai</b> (Authentic/Raw). Which vibe do you prefer?";
-            }
-            if (lowerInput.includes('chiang mai') || lowerInput.includes('chiangmai')) {
-                return "Chiang Mai? <b>Kiatphontip</b> is the verified pick there. Great community and technique.";
-            }
-            if (lowerInput.includes('samui') || lowerInput.includes('koh samui')) {
-                return "Koh Samui is home to <b>PK. Saenchai</b>. Incredible views and verified quality.";
-            }
-
-            // 3. Unverified Locations (Strict Verification Rule + Pivot + CTA)
-            if (lowerInput.includes('pattaya') || lowerInput.includes('phuket') || lowerInput.includes('krabi') || lowerInput.includes('pai')) {
-                const unverifiedLoc = lowerInput.includes('pattaya') ? 'Pattaya' :
-                    lowerInput.includes('phuket') ? 'Phuket' :
-                        lowerInput.includes('krabi') ? 'Krabi' : 'that area';
-
-                // Pivot suggestion based on general vibe?
-                let pivot = "If you want world-class training, I'd suggest starting in Bangkok at Pinsinchai.";
-                if (lowerInput.includes('phuket') || lowerInput.includes('krabi')) {
-                    pivot = "If you want that island holiday vibe, check out PK. Saenchai in Samui instead.";
-                }
-
-                return `Sawadee Krap! I'm currently scouting Thailand and haven't personally vetted ${unverifiedLoc} yet. <br><br>I refuse to give you unverified data—I only recommend spots I have hand-verified to ensure the pricing and quality are real.<br><br>${pivot}<br><br>I am adding 5 new gyms every week. Click the 'Unlock 200+ More' button below to join the waitlist and vote for which city I should scout next!`;
-            }
-
-            // 4. Default / Booking Intent
-            if (lowerInput.includes('book') || lowerInput.includes('yes') || lowerInput.includes('price')) {
-                // Simulate closing
-                setTimeout(() => {
-                    document.getElementById('text-modal').classList.remove('hidden');
-                    document.getElementById('text-modal').classList.add('flex');
-                    document.getElementById('text-modal-title').innerText = "Smart Choice.";
-                    document.getElementById('text-modal-content').innerHTML = `
-                            <p class="text-xl text-white mb-4">You're making a smart move.</p>
-                            <p>To have our Personal Booking Agent handle this reservation (and ensure you get the Foreigner Rates we negotiated), you need the <b>VIP Concierge</b> or <b>Fighter's Passport</b>.</p>
-                            <div class="mt-8 flex gap-4">
-                                <button onclick="document.getElementById('text-modal').classList.add('hidden');" class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-lg font-bold w-full">Access Passport ($47)</button>
-                            </div>
-                        `;
-                }, 800);
-                return "Excellent. I'm pulling up the booking details for the verified rate now...";
-            }
-
-            // 5. Fallback
-            return "I'm the Fightlore Scout. I can help you find verified gyms in Bangkok, Chiang Mai, and Koh Samui. Ask me about <b>Saunas</b>, <b>CrossFit</b>, or <b>Authentic</b> training.";
-        }
 
 
         function addMessage(text, sender) {
@@ -1923,7 +1865,7 @@
                 let pillsHtml = '';
 
                 if (matches) {
-                    displayCode = text.replace(/\|\|\|(.*?)\|\|\|/g, '').trim(); // Remove tags from text
+                    displayCode = text.replace(/\|\|\|(.*?)\|\|\|/g, '<b>$1</b>'); // Bold instead of stripping
                     pillsHtml = `<div class="mt-3 flex flex-wrap gap-2">`;
                     matches.forEach(match => {
                         const gymName = match.replace(/\|\|\|/g, '');
@@ -2798,9 +2740,9 @@
                     // Debugging: Log full gym object to see available fields
                     console.log("Gym Details Loaded:", gymProps);
 
-                    // Try multiple variations for Email field
-                    const emailVal = gymProps['Email'] || gymProps['Email Address'] || gymProps['Contact Email'] || gymProps['e-mail'] || gymProps['Contact'];
-                    setText('detail-email-display', emailVal);
+                    // Restore email only for the Overview section as requested
+                    const emailVal = gymProps['email'] || gymProps['E-Mail'] || gymProps['Email'] || gymProps['Email Address'] || gymProps['Contact Email'] || gymProps['e-mail'] || gymProps['Contact'];
+                    setText('detail-email-display', emailVal || '--');
                     // Try 'Opening Hours' first, then 'Days Open' (handle variations)
                     setText('detail-open', gymProps['Opening Hours'] || gymProps['Days Open']);
 
@@ -2912,7 +2854,7 @@
 
                     // Contact
                     setText('val-phone', gymProps['Phone']);
-                    setText('val-email', gymProps['Email']);
+                    setText('val-email', '--');
 
 
                     // 4. Photos Tab
@@ -2942,8 +2884,8 @@
                         else { boxPhone.classList.add('hidden'); boxPhone.classList.remove('flex'); }
                     }
                     if (boxEmail) {
-                        if (gymProps['Email']) { boxEmail.classList.remove('hidden'); boxEmail.classList.add('flex'); }
-                        else { boxEmail.classList.add('hidden'); boxEmail.classList.remove('flex'); }
+                        boxEmail.classList.add('hidden');
+                        boxEmail.classList.remove('flex');
                     }
 
                     const btnLinkInsta = document.getElementById('btn-link-insta');
@@ -3424,6 +3366,9 @@
                                 body: JSON.stringify({ email: email, name: name })
                             });
 
+                            const data = await response.json().catch(() => ({ error: 'Generic Server Error (Status: ' + response.status + ')' }));
+                            console.log('Waitlist Response:', data);
+
                             if (response.ok) {
                                 if (confirmedEmailSpan) confirmedEmailSpan.textContent = email;
                                 if (foundingForm) foundingForm.classList.add('hidden');
@@ -3434,21 +3379,19 @@
                                     foundingSuccess.classList.add('flex');
                                 }
 
-                                // Reset form
                                 foundingForm.reset();
                                 foundingSubmitBtn.innerHTML = originalBtnContent;
                                 foundingSubmitBtn.disabled = false;
 
                                 if (window.lucide) lucide.createIcons();
                             } else {
-                                const errData = await response.json();
-                                alert(errData.error || 'Something went wrong. Please try again.');
+                                alert(data.error || 'Something went wrong. Please try again.');
                                 foundingSubmitBtn.innerHTML = originalBtnContent;
                                 foundingSubmitBtn.disabled = false;
                             }
                         } catch (error) {
-                            console.error('Error:', error);
-                            alert('Network error. Please try again.');
+                            console.error('Fetch Error:', error);
+                            alert('Network error or server is down. Please check your connection.');
                             foundingSubmitBtn.innerHTML = originalBtnContent;
                             foundingSubmitBtn.disabled = false;
                         }

@@ -32,13 +32,13 @@ const airtableBase = (AIRTABLE_API_KEY && AIRTABLE_BASE_ID)
     ? new Airtable({ apiKey: AIRTABLE_API_KEY }).base(AIRTABLE_BASE_ID)
     : null;
 
+const WAITLIST_TABLE = process.env.AIRTABLE_WAITLIST_TABLE || 'Waitlist';
+
 // Gym Data Cache
 let cachedGyms = null;
 let lastFetchTime = 0;
 const CACHE_DURATION = 1000 * 60 * 60; // 1 hour
 
-// Helper: Fetch Gyms from Airtable (Direct API)
-// Helper: Fetch Gyms from Airtable (Direct API)
 async function getGymKnowledge() {
     const url = `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/${process.env.AIRTABLE_TABLE_NAME}`;
 
@@ -50,32 +50,69 @@ async function getGymKnowledge() {
 
         if (!response.ok) {
             console.error(`❌ API ERROR: ${response.status} ${response.statusText}`);
-            console.error("DETAILS:", JSON.stringify(data, null, 2));
             throw new Error(`Airtable API returned ${response.status}`);
         }
 
         if (data.records) {
-            console.log(`✅ SUCCESS: Loaded ${data.records.length} gyms from Airtable.`);
+            const gymNames = [];
+            const contextStrings = data.records.map((r) => {
+                const f = r.fields;
+                const name = f['Gym Name'] || 'Unknown Gym';
 
-            // DEBUG: Log the first record's fields to see the schema
-            if (data.records.length > 0) {
-                console.log("👀 SCHEMA CHECK (First Record):", JSON.stringify(data.records[0].fields, null, 2));
-            }
+                // Collect gym names for the NO MATCH rule
+                if (name !== 'Unknown Gym') {
+                    gymNames.push(name);
+                }
 
-            return data.records.map((r) => {
+                // Build context string dynamically from ALL fields
+                let context = `Gym: ${name}`;
 
-                let price = r.fields['Prices'];
-                // Clean up if it's an ID or array (common in Airtable linked records)
-                if (Array.isArray(price)) price = "Contact for details";
-                if (typeof price === 'string' && price.startsWith('rec')) price = "Contact for details";
-                if (!price) price = "Contact for details";
+                // Iterate through all fields and add them to context
+                for (const [key, value] of Object.entries(f)) {
+                    // Skip the gym name since we already added it
+                    if (key === 'Gym Name') continue;
 
-                return `Gym: ${r.fields['Gym Name']} | Location: ${r.fields['City/Region']} | Price: ${price}`;
-            }).join('\n');
+                    // Handle different value types
+                    let formattedValue = value;
+
+                    // Arrays (like multi-select fields)
+                    if (Array.isArray(value)) {
+                        // Check if it's an array of objects (linked records)
+                        if (value.length > 0 && typeof value[0] === 'object') {
+                            formattedValue = "Contact for details";
+                        } else {
+                            formattedValue = value.join(', ');
+                        }
+                    }
+                    // Objects (like attachments or linked records)
+                    else if (typeof value === 'object' && value !== null) {
+                        formattedValue = "Contact for details";
+                    }
+                    // Strings that look like record IDs
+                    else if (typeof value === 'string' && value.startsWith('rec')) {
+                        formattedValue = "Contact for details";
+                    }
+
+                    // Add to context if we have a valid value
+                    if (formattedValue && formattedValue !== '') {
+                        context += ` | ${key}: ${formattedValue}`;
+                    }
+                }
+
+                return context;
+            });
+
+            return {
+                context: contextStrings.join('\n---\n'),
+                gymNames: gymNames
+            };
         }
     } catch (error) {
         console.error("❌ FETCH FAILURE:", error.message);
-        return "I'm currently updating my verified gym list. Please check back in a moment!";
+        return {
+            context: "I'm currently updating my verified gym list. Please check back in a moment!",
+            gymNames: []
+        };
     }
 }
 
@@ -190,6 +227,7 @@ app.get('/api/gyms', async (req, res) => {
                     id: r.id,
                     name: f['Gym Name'],
                     location: f['City/Region'],
+                    email: f['E-Mail'] || f['Email'] || f['Email Address'] || null,
                     price: resolvedPrices.length > 0 ? resolvedPrices : null,
                     Prices: resolvedPrices.length > 0 ? resolvedPrices : null, // Override raw IDs with resolved content
                     description: generatedDesc,
@@ -267,7 +305,7 @@ app.get('/api/gym-status', (req, res) => {
 
 // Chat Endpoint
 app.post('/api/chat', async (req, res) => {
-    const { message } = req.body;
+    const { message, conversationHistory = [] } = req.body;
 
     if (!message) {
         return res.status(400).json({ error: 'Message is required' });
@@ -281,14 +319,28 @@ app.post('/api/chat', async (req, res) => {
     }
 
     try {
-        // 1. Get Context
-        const dynamicKnowledge = await getGymKnowledge();
+        // 1. Get Context and Gym Names
+        const gymData = await getGymKnowledge();
+        const { context: dynamicKnowledge, gymNames } = gymData;
 
         console.log("\n--- 🔍 DEBUG: AI Knowledge Base (from Airtable) ---");
         console.log(dynamicKnowledge || "No gyms found or Airtable error.");
         console.log("---------------------------------------------------\n");
 
-        // 2. Call Google Gemini
+        // 2. Generate dynamic gym pills for NO MATCH rule
+        const gymPills = gymNames.map(name => `|||${name}|||`).join(' ');
+
+        // 3. Build conversation context
+        let conversationContext = '';
+        if (conversationHistory.length > 0) {
+            conversationContext = '\n\nPREVIOUS CONVERSATION:\n';
+            conversationHistory.forEach(msg => {
+                const role = msg.role === 'user' ? 'User' : 'Assistant';
+                conversationContext += `${role}: ${msg.content}\n`;
+            });
+        }
+
+        // 4. Call Google Gemini
         if (!genAI) {
             throw new Error("Gemini API not initialized");
         }
@@ -298,19 +350,18 @@ app.post('/api/chat', async (req, res) => {
             systemInstruction: `Role: You are the Fightlore Scout. Help users find Muay Thai gyms in Thailand.
 
 CONTEXT:
-Verified Gyms List:
-\${dynamicKnowledge}
+Verified Gyms List (from our ground scout):
+${dynamicKnowledge}${conversationContext}
 
 RULES:
-1. CONCISE: Be short and helpful. Max 3 sentences.
-2. NO GREETINGS: Do NOT say "Sawadee Krap", "Hello", or "I'd be happy to help". Jump straight to the answer.
-3. RECOMMENDATIONS: Use the provided context to recommend gyms. 
-4. GYM WRAPPER: If you suggest a gym name, you MUST wrap it in triple pipes like this: |||Sitsarawatseur|||. This is critical for the UI to link the gym card.
-5. NO MATCH: If no gym matches the user's criteria, suggest the closest one or tell them to check back as we add new gyms weekly.
-6. PRICING: If the prices field contains an ID or "Contact us", tell the user to contact the gym directly for the 2026 rates.
-
-FORMAT EXAMPLE:
-"|||Sitsarawatseur||| is a great traditional option in Bangkok. It's budget-friendly and open to all skill levels."`
+1. ACCURACY: answer questions ONLY using the provided context (Verified Gyms List). 
+2. NO MATCH: If a user asks for a gym that is NOT in the Verified Gyms List above, you MUST say exactly: "We are looking to add this gym to the list shortly and our full database. In the meantime, discover one of our verified gyms: ${gymPills}"
+3. OFF-TOPIC: If a user asks something completely unrelated to gyms or Muay Thai training (e.g., random words, fighter names, unrelated topics), respond: "I appreciate your question, but I specialize in helping you find the perfect Muay Thai gym in Thailand. Feel free to ask me about gyms, training options, locations, or facilities—I'm here to help!"
+4. RELEVANCE: Use the Summary, Details, and Vibe fields to answer specific questions.
+5. CONCISE: Be short and helpful. Max 3 sentences.
+6. NO GREETINGS: Do NOT say "Sawadee Krap", "Hello", or "I'd be happy to help".
+7. GYM_ID: If you suggest a gym name, you MUST wrap it in triple pipes like this: |||Sitsarawatseur|||. This is critical for the UI.
+8. CONTEXT AWARENESS: If the user asks a follow-up question (e.g., "What are the hours?"), use the previous conversation to understand which gym they're referring to.`
         });
 
         const result = await model.generateContent(message);
@@ -322,7 +373,6 @@ FORMAT EXAMPLE:
         console.error('Error processing chat request:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
-
 });
 
 // Endpoint: Record Booking (Save to Airtable before paying)
@@ -380,29 +430,35 @@ app.post('/api/waitlist', async (req, res) => {
     try {
         console.log(`\n--- 📥 Waitlist Submission: ${name} (${email}) ---`);
 
-        // Try to save to "Waitlist" table
-        await airtableBase('Waitlist').create([
+        // Try to save to configured table
+        await airtableBase(WAITLIST_TABLE).create([
             {
                 "fields": {
                     "Name": name || '',
-                    "Email": email
-                    // "Date": Removed to avoid schema mismatch/read-only errors
+                    "Email": email,
+                    "Date": new Date().toISOString().split('T')[0]
                 }
             }
         ]);
 
-        console.log(`✅ SUCCESS: Added to Airtable "Waitlist" table\n`);
+        console.log(`✅ SUCCESS: Added to Airtable "${WAITLIST_TABLE}" table\n`);
         res.json({ success: true, message: "Added to Waitlist" });
     } catch (error) {
-        console.error('❌ Airtable Error:', error.message);
-        console.error('Full Error Object:', JSON.stringify(error, null, 2));
+        console.error('❌ Waitlist Error:', error.message);
+        console.error('Stack Trace:', error.stack);
 
-        // Return more specific error if possible
-        const errorMsg = error.message.includes('not found')
-            ? 'Airtable table "Waitlist" not found. Please create it!'
-            : 'Airtable error: ' + error.message;
+        // Detailed error for client
+        let errorMsg = error.message;
+        if (error.message?.includes('not found')) {
+            errorMsg = `Airtable table "${WAITLIST_TABLE}" not found. Check your AIRTABLE_WAITLIST_TABLE env var or create the table.`;
+        } else if (error.message?.includes('Unknown field')) {
+            errorMsg = `Airtable Schema Mismatch: ${error.message}. Ensure "Name" and "Email" columns exist.`;
+        }
 
-        res.status(500).json({ error: errorMsg });
+        res.status(500).json({
+            success: false,
+            error: errorMsg || 'Internal Server Error'
+        });
     }
 });
 
