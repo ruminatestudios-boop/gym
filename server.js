@@ -135,9 +135,17 @@ async function fetchAirtableTable(tableName) {
     }
 }
 
-// Endpoint: Get All Gyms (Structured Data for Frontend)
+// Endpoint: Get All Gyms (Structured Data for Frontend with Caching)
 app.get('/api/gyms', async (req, res) => {
+    // Check Cache
+    const now = Date.now();
+    if (cachedGyms && (now - lastFetchTime < CACHE_DURATION)) {
+        console.log("✅ Serving Gyms from Cache");
+        return res.json({ gyms: cachedGyms });
+    }
+
     try {
+        console.log("🔄 Fetching Fresh Gym Data from Airtable...");
         const [gymRecords, priceRecords] = await Promise.all([
             fetchAirtableTable(process.env.AIRTABLE_TABLE_NAME || 'Gyms'),
             fetchAirtableTable('Prices')
@@ -236,6 +244,11 @@ app.get('/api/gyms', async (req, res) => {
                     rating: parseFloat(calculatedRating)
                 };
             });
+
+            // Update Cache
+            cachedGyms = gyms;
+            lastFetchTime = now;
+
             res.json({ gyms });
         } else {
             res.json({ gyms: [] });
